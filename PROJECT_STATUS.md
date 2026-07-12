@@ -17,6 +17,7 @@
 | Unresolved securities | 0 (Crane NXT proxy flagged `medium`; VISN resolved, multiples NM) |
 | Database size | ~11 MB local (Supabase free limit 500 MB — ~2% when migrated) |
 | Known data-quality issues | VISN restructuring distortions; Crane proxy; captive-finance EV flags; sampled FactIQ price history pre-2026-06; GBp units; see `validation_results` |
+| Price engine | Canonical 5y daily history (98.8k sessions, TR/split/raw bases, corporate actions); session-aware returns replacing the defective monthly method (docs/price_data_audit.md) |
 | Current phase | Phase 2 complete (persistent + reliable updates); Phase 3 largely complete (screener/presets/changes/watchlists); Phase 4 (backtesting) roadmap only |
 | Limitations | LTM-only basis (no consensus feed); own-history percentiles on 3–6 annual obs; EU-close read-across uses full-session closes until intraday workflow accumulates snapshots |
 

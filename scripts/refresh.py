@@ -154,6 +154,13 @@ def main():
                 notes.append(f'prices: {ok} ok, {fail} failed')
                 if fail > ok:
                     raise RuntimeError('majority of price fetches failed — aborting')
+            if args.mode in ('daily', 'full_refresh'):
+                r = subprocess.run([PY, os.path.join(ROOT, 'scripts',
+                                    'backfill_history.py')],
+                                   capture_output=True, text=True, cwd=ROOT)
+                if r.returncode != 0:
+                    raise RuntimeError('canonical backfill failed: ' + r.stderr[-300:])
+                notes.append('canonical 5y history rebuilt (TR adjustments current)')
             if args.mode in ('daily', 'full_refresh', 'rebuild_features'):
                 rebuild_features()
                 notes.append('features rebuilt')

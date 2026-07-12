@@ -120,6 +120,29 @@ def load_fundamentals(db):
                      rows, ['key', 'kind'])
 
 
+def load_canonical(db):
+    import pandas as pd
+    hist = os.path.join(ROOT, 'data', 'history')
+    p = os.path.join(hist, 'prices_daily.parquet')
+    if not os.path.exists(p):
+        return 0
+    df = pd.read_parquet(p).astype(object).where(lambda x: pd.notnull(x), None)
+    n = db.upsert('canonical_prices',
+                  ['key', 'session_date', 'close_raw', 'close_split', 'close_tr',
+                   'volume', 'currency', 'exchange_tz', 'source', 'complete'],
+                  [(r.key, r.session_date, r.close_raw, r.close_split, r.close_tr,
+                    int(r.volume) if r.volume is not None else None, r.currency,
+                    r.exchange_tz, r.source, True) for r in df.itertuples()],
+                  ['key', 'session_date', 'source'])
+    a = pd.read_parquet(os.path.join(hist, 'corporate_actions.parquet'))
+    a = a.drop_duplicates(['key', 'action_date', 'kind']).astype(object).where(lambda x: pd.notnull(x), None)
+    n += db.upsert('corporate_actions',
+                   ['key', 'action_date', 'kind', 'value', 'currency'],
+                   [(r.key, r.action_date, r.kind, r.value, r.currency)
+                    for r in a.itertuples()], ['key', 'action_date', 'kind'])
+    return n
+
+
 def load_features(db):
     d = json.load(open(os.path.join(ROOT, 'data', 'computed', 'dashboard_data.json')))
     snap = d['generated']
@@ -208,6 +231,7 @@ def main():
         total += load_quotes(db)
         total += load_fx(db)
         total += load_fundamentals(db)
+        total += load_canonical(db)
     snap, n = load_features(db)
     total += n
     ev = detect_changes(db, snap)

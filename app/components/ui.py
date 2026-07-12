@@ -15,11 +15,16 @@ POS, NEG, WARN, INK2 = '#0a7d38', '#c0392b', '#b07100', '#4e5a5b'
 SERIES = ['#2a78d6', '#1baf7a', '#eda100', '#4a3aa7', '#e34948']
 
 CLASS_COLORS = {
-    'Cheap, improving fundamentals': POS,
-    'Cheap but operationally weak': WARN,
-    'Expensive, weakening momentum': NEG,
-    'Expensive, fundamentals improving': TEAL7,
-    'Fairly valued': INK2,
+    # valuation states
+    'deep discount': POS, 'discount': '#1baf7a', 'fair': INK2,
+    'premium': WARN, 'extreme premium': NEG,
+    # fundamental states
+    'improving': POS, 'stable': INK2, 'deteriorating': NEG,
+    # momentum states
+    'emerging positive inflection': POS, 'established uptrend': '#1baf7a',
+    'fading uptrend': WARN, 'emerging breakdown': NEG,
+    'established downtrend': NEG, 'indeterminate': INK2,
+    'insufficient data': INK2,
 }
 
 

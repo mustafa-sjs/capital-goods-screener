@@ -106,6 +106,29 @@ CREATE TABLE IF NOT EXISTS eu_close_snapshots (
     PRIMARY KEY (key, obs_date, benchmark_time)
 );
 
+CREATE TABLE IF NOT EXISTS canonical_prices (
+    key          TEXT NOT NULL,
+    session_date DATE NOT NULL,
+    close_raw    DOUBLE PRECISION,
+    close_split  DOUBLE PRECISION,
+    close_tr     DOUBLE PRECISION,
+    volume       BIGINT,
+    currency     TEXT,
+    exchange_tz  TEXT,
+    source       TEXT NOT NULL,
+    complete     BOOLEAN DEFAULT TRUE,
+    PRIMARY KEY (key, session_date, source)
+);
+
+CREATE TABLE IF NOT EXISTS corporate_actions (
+    key          TEXT NOT NULL,
+    action_date  DATE NOT NULL,
+    kind         TEXT NOT NULL,
+    value        DOUBLE PRECISION,
+    currency     TEXT,
+    PRIMARY KEY (key, action_date, kind)
+);
+
 -- ========================= raw fundamentals ==========================
 -- Raw payloads as received (FactIQ market-data / SEC XBRL extracts).
 CREATE TABLE IF NOT EXISTS raw_fundamentals (

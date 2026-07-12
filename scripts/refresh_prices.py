@@ -92,8 +92,9 @@ def fetch(symbol, rng='1mo'):
     # session-complete guard: drop today's bar from the *series* if the
     # regular session hasn't ended yet (still used for the live quote)
     reg = (meta.get('currentTradingPeriod') or {}).get('regular') or {}
-    session_open = (meta.get('regularMarketTime') and reg.get('end')
-                    and meta['regularMarketTime'] < reg['end'])
+    import time as _t
+    session_open = (reg.get('start') and reg.get('end')
+                    and reg['start'] <= _t.time() < reg['end'])
     complete = bars[:-1] if (session_open and bars) else bars
     return meta, bars, complete
 

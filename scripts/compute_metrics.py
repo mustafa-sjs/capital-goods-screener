@@ -221,25 +221,30 @@ for k in ALL_KEYS:
     m = load(f'monthly_{k}.json')
     monthlies[k] = sorted(((r['date'], f(r['close'])) for r in rowdicts(m)), reverse=True) if m else []
 
-def px_return(k, days=None, months=None):
-    """Return over ~days (from daily) or ~months (from monthly), nearest-date."""
-    if months is not None:
-        ser = monthlies.get(k) or []
-        if len(ser) < 2: return None
-        cur = ser[0][1]
-        # monthly rows are month-start labels; find row ~months back
-        target = _shift_months(ser[0][0], -months)
-        best = min(ser, key=lambda r: abs(_dnum(r[0]) - _dnum(target)))
-        if best[0] == ser[0][0] or best[1] in (None, 0): return None
-        return cur / best[1] - 1.0
-    ser = dailies.get(k) or []
-    if len(ser) < 2: return None
-    cur = ser[0][1]
-    if days == 1:
-        return cur / ser[1][1] - 1.0 if ser[1][1] else None
-    target = _dnum(ser[0][0]) - days * 1.45  # trading->calendar stretch
-    best = min(ser[1:], key=lambda r: abs(_dnum(r[0]) - target))
-    return cur / best[1] - 1.0 if best[1] else None
+# --- canonical session-aware returns (src/features/returns.py) ----------
+# Displayed price moves use the RAW basis (market convention); relative /
+# momentum comparisons use the TOTAL-RETURN basis (dividends & special
+# distributions are not price crashes). The old monthly-sampled px_return
+# (partial-month anchor, days*1.45 stretch) is retired — see
+# docs/price_data_audit.md for the root-cause report.
+from src.features.returns import load_history as _load_hist, ret as _cret
+_CHIST = _load_hist()
+
+def px_return(k, days=None, months=None, basis='raw'):
+    h = f'{days}D' if days is not None else f'{months}M'
+    if h == '21D' or days == 5: h = '5D' if days == 5 else h
+    r = _cret(k, h, basis, hist=_CHIST)
+    return r['value'] if r['status'] == 'ok' else None
+
+def px_return_tr(k, days=None, months=None):
+    return px_return(k, days, months, basis='tr')
+
+# correlations/betas run on the dense canonical TOTAL-RETURN series (economic
+# co-movement; ~1250 sessions vs the old ~50 sampled rows)
+for _k, _g in _CHIST.items():
+    _tr = _g['close_tr'].where(_g['close_tr'].notna(), _g['close_raw'])
+    dailies[_k] = list(zip(_g['session_date'].tolist()[::-1],
+                           [float(x) for x in _tr.tolist()[::-1]]))
 
 def _dnum(s):
     y, m, d = map(int, s.split('-')); return date(y, m, d).toordinal()
@@ -673,29 +678,49 @@ def peer_move_stats(cov, peers):
                 contrib=contrib)
 
 # ------------------------------------------------------------- classification ---
-def classify(k):
-    m = met.get(k); hs = hist_stats(k)
-    if not m: return 'Data insufficient'
-    disp = group_of.get(k)
-    prem = None
+# Three SEPARATE state dimensions (valuation / fundamentals / price momentum)
+# — never mixed into one ambiguous label. Combined only in screen presets.
+# The old classify() mislabelled fundamental deterioration as "weakening
+# momentum" and computed-but-ignored mom3; both defects are retired.
+from src.features.momentum import momentum_state as _mom_state
+
+def _peer_prem(k):
+    m = met.get(k)
     for sg, groups in SUBGROUPS:
         for d2, cov, peers in groups:
             if k in cov:
                 ps = peer_stats('ev_ebitda', peers)
-                if ps and m.get('ev_ebitda'):
-                    prem = m['ev_ebitda']/ps['median'] - 1
+                if ps and m and m.get('ev_ebitda'):
+                    return m['ev_ebitda'] / ps['median'] - 1
+    return None
+
+def valuation_state(k):
+    prem = _peer_prem(k)
+    if prem is None: return 'insufficient data'
+    if prem <= -0.30: return 'deep discount'
+    if prem <= -0.10: return 'discount'
+    if prem < 0.10:   return 'fair'
+    if prem < 0.30:   return 'premium'
+    return 'extreme premium'
+
+def fundamental_state(k):
     gr = growth.get(k, {})
-    mom3 = px_return(k, months=3)
-    cheap = prem is not None and prem < -0.10
-    rich  = prem is not None and prem > 0.10
-    fund_up = (gr.get('rev_g') or 0) > 0.03 and (gr.get('margin_chg') or 0) >= 0
-    fund_dn = (gr.get('rev_g') or 0) < 0 or (gr.get('margin_chg') or 0) < -0.01
-    if cheap and fund_up: return 'Cheap, improving fundamentals'
-    if cheap and fund_dn: return 'Cheap but operationally weak'
-    if rich and fund_dn:  return 'Expensive, weakening momentum'
-    if rich:              return 'Premium quality'
-    if prem is None:      return 'Mixed / inconclusive'
-    return 'Fairly valued'
+    if gr.get('rev_g') is None and gr.get('margin_chg') is None:
+        return 'insufficient data'
+    if (gr.get('rev_g') or 0) < 0 or (gr.get('margin_chg') or 0) < -0.01:
+        return 'deteriorating'
+    if (gr.get('rev_g') or 0) > 0.03 and (gr.get('margin_chg') or 0) >= 0:
+        return 'improving'
+    return 'stable'
+
+_MOMO = {}
+def momentum_state_of(k):
+    if k not in _MOMO:
+        try:
+            _MOMO[k] = _mom_state(k, _CHIST)[0].replace('_', ' ')
+        except Exception:
+            _MOMO[k] = 'indeterminate'
+    return _MOMO[k]
 
 # ------------------------------------------------------------------ output ---
 def r2(x, n=2): return None if x is None else round(x, n)
@@ -776,14 +801,31 @@ for sg, groups in SUBGROUPS:
                 margin_chg_pp=pctf(g_.get('margin_chg')),
                 fcf_conversion=r2(m.get('fcf_conv')),
                 nd_ebitda=r2(m.get('nd_ebitda')), interest_cover=r2(m.get('int_cover')),
-                rel_1m_pct=pctf((px_return(k,months=1) or 0) - (st.mean([px_return(p,months=1) for p in peers if px_return(p,months=1) is not None]) if any(px_return(p,months=1) is not None for p in peers) else 0),2),
-                rel_3m_pct=pctf((px_return(k,months=3) or 0) - (st.mean([px_return(p,months=3) for p in peers if px_return(p,months=3) is not None]) if any(px_return(p,months=3) is not None for p in peers) else 0),2),
-                rel_12m_pct=pctf((px_return(k,months=12) or 0) - (st.mean([px_return(p,months=12) for p in peers if px_return(p,months=12) is not None]) if any(px_return(p,months=12) is not None for p in peers) else 0),2),
+                rel_1m_pct=pctf((px_return_tr(k,months=1) or 0) - (st.mean([px_return_tr(p,months=1) for p in peers if px_return_tr(p,months=1) is not None]) if any(px_return_tr(p,months=1) is not None for p in peers) else 0),2),
+                rel_3m_pct=pctf((px_return_tr(k,months=3) or 0) - (st.mean([px_return_tr(p,months=3) for p in peers if px_return_tr(p,months=3) is not None]) if any(px_return_tr(p,months=3) is not None for p in peers) else 0),2),
+                rel_12m_pct=pctf((px_return_tr(k,months=12) or 0) - (st.mean([px_return_tr(p,months=12) for p in peers if px_return_tr(p,months=12) is not None]) if any(px_return_tr(p,months=12) is not None for p in peers) else 0),2),
                 drawdown_52w_pct=pctf(v.get('dd52')),
-                classification=classify(k),
+                valuation_state=valuation_state(k),
+                fundamental_state=fundamental_state(k),
+                momentum_state=momentum_state_of(k),
+                classification=f'{valuation_state(k)} · {fundamental_state(k)} fundamentals',
                 data_quality='; '.join(flags.get(k) or []) or 'OK',
             ))
+            from src.features.momentum import full_momentum as _fm
+            try:
+                _momo = _fm(k, peers, _CHIST)
+            except Exception:
+                _momo = dict(momentum_state='indeterminate')
+            _ret_detail = {}
+            for _h in ('1D','5D','21D','63D','126D','252D','1M','3M','6M','12M'):
+                for _b in ('raw','tr'):
+                    _r = _cret(k, _h, _b, hist=_CHIST)
+                    if _r['status'] == 'ok':
+                        _ret_detail[f'{_h}_{_b}'] = dict(
+                            pct=round(_r['value']*100,2), start=_r['start_date'],
+                            end=_r['end_date'], sessions=_r['n_sessions'])
             drill[k] = dict(
+                momentum=_momo, returns_detail=_ret_detail,
                 name=SEC[k]['name'], ticker=SEC[k]['sym'], group=disp, subgroup=sg, peers=peers,
                 fund={kk: f_.get(kk) for kk in ('rev','ebit','ebitda','ni','fcf','cash','debt','minority','sh','basis','asof')},
                 metrics={kk: m.get(kk) for kk in m} if m else {},
@@ -890,4 +932,4 @@ print('scenario rows:', len(rows_scen))
 print('hist rows:', len(rows_hist))
 print('sector median EV/EBITDA (eq/mcap):', r2(sector_med_eq), r2(sector_med_w))
 for r in rows_screener:
-    print(f"{r['key']:6s} {str(r['ev_ebitda_ltm']):>7} x  prem_peers={str(r['prem_disc_vs_peers_pct']):>7}%  histpct={str(r['hist_percentile']):>6}  {r['classification']}")
+    print(f"{r['key']:6s} {str(r['ev_ebitda_ltm']):>7} x  prem={str(r['prem_disc_vs_peers_pct']):>7}%  {r['valuation_state']:>15s} | {r['fundamental_state']:>13s} | {r['momentum_state']}")

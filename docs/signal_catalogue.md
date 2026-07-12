@@ -17,7 +17,9 @@ Median/quartile multiples by year + dispersion; rerating laggards preset.
 Contribution split (earnings vs multiple) on the Scenarios page. Annual
 history is coarse (3–6 obs) — treat percentile extremes with caution.
 
-## C. Valuation × price momentum — NOW (implemented)
+## C. Valuation × price momentum — NOW (implemented, upgraded 2026-07-13)
+EWMA engine on canonical TR series: pairs 10/30, 20/60, 50/200; explicit
+momentum states; 12-1 momentum; peer-relative 21D/63D. Status: descriptive.
 Four-quadrant classification (cheap/rich × improving/weakening) using 1/3/6/
 12M relative returns vs curated baskets + 52w drawdown. Momentum is context,
 never auto-bullish/bearish. Testable once snapshots accumulate.

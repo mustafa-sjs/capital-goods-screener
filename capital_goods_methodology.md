@@ -108,7 +108,14 @@ timestamp in the JSON payload) before EV is formed.
   dense, older rows thinned): returns use nearest-date matching and
   correlations use shared adjacent-session log returns only, with `n_obs`
   reported next to every correlation.
-- 1D/5D returns come from daily closes; 1M/3M/6M/12M from monthly closes.
+- Returns (since 2026-07-13) come from the CANONICAL 5-year daily history
+  (data/history/prices_daily.parquet; exchange-timezone session dates,
+  complete sessions only). Session horizons (1D/5D/21D/63D/126D/252D) count
+  exact trading sessions; calendar horizons (1M/3M/6M/12M) roll back to the
+  last session on or before the same calendar date N months earlier.
+  Displayed price moves are RAW; momentum and relative comparisons are
+  TOTAL-RETURN (dividends/specials reinvested). The previous monthly-series
+  method was materially wrong (docs/price_data_audit.md) and is retired.
 - 30d/90d correlations: Pearson on shared-date log returns within 45/130
   calendar-day windows (minimum 8 shared observations, else blank).
 

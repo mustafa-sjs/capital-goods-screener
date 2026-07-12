@@ -16,11 +16,11 @@ runs = q("""SELECT run_id, mode, started_at, finished_at, status, rows_inserted,
 st.dataframe(pd.DataFrame(runs, columns=['Run', 'Mode', 'Started', 'Finished',
              'Status', 'Rows', 'Failed', 'Notes']), hide_index=True,
              use_container_width=True)
-fails = q("""SELECT run_id, item, message FROM refresh_run_items
-             WHERE status = 'failed' ORDER BY run_id DESC LIMIT 10""")
+fails = q("""SELECT item, count(*), max(run_id), max(message) FROM refresh_run_items
+             WHERE status = 'failed' GROUP BY item ORDER BY 2 DESC LIMIT 10""")
 if fails:
     st.error('Recent failed items:')
-    st.dataframe(pd.DataFrame(fails, columns=['Run', 'Item', 'Message']),
+    st.dataframe(pd.DataFrame(fails, columns=['Item', 'Times', 'Last run', 'Message']),
                  hide_index=True, use_container_width=True)
 
 group_header('Database')

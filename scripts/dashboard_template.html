@@ -207,7 +207,7 @@ const $ = s => document.querySelector(s);
 const fmt = (x,d=2) => (x==null||isNaN(x)) ? 'NM' : Number(x).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const pcls = x => x==null ? 'nm' : (x>0?'pos':(x<0?'neg':''));
 const sgn = x => x==null ? 'NM' : (x>0?'+':'')+fmt(x,x>=100?0:2);
-document.getElementById('hdrmeta').textContent = 'Data as of ' + D.generated + ' close · ' + D.screener.length + ' coverage names · ' + D.close_rows.length + ' securities';
+document.getElementById('hdrmeta').textContent = 'Data as of ' + D.generated + ' close · ' + D.screener.length + ' coverage names · ' + Object.keys(D.names).length + ' securities (' + D.close_rows.length + ' basket slots)';
 
 /* tabs */
 document.getElementById('tabs').addEventListener('click', e=>{

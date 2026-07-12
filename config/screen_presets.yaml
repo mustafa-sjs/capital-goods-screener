@@ -1,55 +1,56 @@
-# Screener presets — transparent, editable rules applied to screener columns.
-# Rule syntax: "<column>: '<op> <value>'" with op in {<=, >=}. Rows with a
-# null in a rule column are excluded (never zero-filled). These are screens,
-# NOT investment recommendations.
-#
-# Revisions-based conditions are intentionally absent: no consensus feed
-# exists, so revision rules would be fabrication. Momentum + reported
-# fundamentals stand in, and each preset documents that substitution.
+# Screener presets — transparent, editable rules on screener columns.
+# Numeric rules: '<= N' / '>= N'. State rules: 'in stateA|stateB'.
+# All presets are SCREENS, not recommendations. Momentum states are
+# descriptive (not backtested) — see docs/momentum_methodology.md.
+# Revisions-based conditions remain impossible (no consensus feed) and are
+# never faked; reported fundamentals + price momentum stand in, labelled.
 
-potential_rerating_candidates:
+value_with_positive_inflection:
   description: >
-    Discount to direct peers, low own-history percentile, improving relative
-    momentum, margins not deteriorating. (Positive-revisions condition
-    replaced by reported margin change + relative momentum.)
+    Discount to direct peers with an emerging or established positive price
+    trend and fundamentals not deteriorating.
   rules:
     prem_disc_vs_peers_pct: '<= -15'
-    hist_percentile: '<= 50'
-    rel_3m_pct: '>= 0'
-    margin_chg_pp: '>= 0'
+    momentum_state: 'in emerging positive inflection|established uptrend'
+    fundamental_state: 'in improving|stable'
 
-potential_value_traps:
+quality_compounders:
   description: >
-    Cheap vs peers but deteriorating: negative reported momentum, margin
-    pressure, continued underperformance, leverage above 2.5x.
+    Above-peer growth with improving fundamentals and an established uptrend;
+    valuation premium accepted, shown not hidden.
   rules:
-    prem_disc_vs_peers_pct: '<= -15'
-    rel_3m_pct: '<= 0'
-    margin_chg_pp: '<= 0'
+    rev_growth_pct: '>= 4'
+    fundamental_state: 'in improving'
+    momentum_state: 'in established uptrend|emerging positive inflection'
 
-potential_downside_candidates:
+emerging_momentum_turn:
   description: >
-    Premium to peers at a high own-history percentile with weakening
-    relative momentum.
+    Fresh 20/60 EMA cross with improving gap — the earliest, least-proven
+    signal family; treat as a research queue, not a buy list.
+  rules:
+    momentum_state: 'in emerging positive inflection'
+
+cheap_but_deteriorating:
+  description: >
+    Value-trap screen: deep discount with deteriorating reported fundamentals
+    or an established downtrend.
+  rules:
+    prem_disc_vs_peers_pct: '<= -20'
+    fundamental_state: 'in deteriorating'
+
+expensive_and_fading:
+  description: >
+    Premium valuation with fading uptrend or breakdown momentum and
+    non-improving fundamentals.
   rules:
     prem_disc_vs_peers_pct: '>= 10'
-    hist_percentile: '>= 75'
-    rel_3m_pct: '<= 0'
+    momentum_state: 'in fading uptrend|emerging breakdown|established downtrend'
+    fundamental_state: 'in stable|deteriorating'
 
-premium_quality_compounders:
+rerating_laggards:
   description: >
-    Premium valuation earned by above-peer growth and strong relative
-    performance. (ROIC/cash-conversion columns join when normalised
-    fundamentals layer lands.)
-  rules:
-    prem_disc_vs_peers_pct: '>= 5'
-    rev_growth_pct: '>= 4'
-    rel_12m_pct: '>= 0'
-
-sector_rerating_laggards:
-  description: >
-    The pack rerated but the name did not: big peer discount at a LOW
-    percentile of its own range, without reported revenue decline.
+    Big peer discount at a low percentile of own history without reported
+    revenue decline — the pack rerated, the name did not.
   rules:
     prem_disc_vs_peers_pct: '<= -25'
     hist_percentile: '<= 40'
@@ -57,8 +58,15 @@ sector_rerating_laggards:
 
 fundamental_inflections:
   description: >
-    Margin inflection of at least +1.5pp in the latest fiscal year that the
-    market has not rewarded (still behind peers over 3M).
+    Margin inflection >= +1.5pp YoY that price has not yet followed
+    (3M relative total return still negative).
   rules:
     margin_chg_pp: '>= 1.5'
     rel_3m_pct: '<= 0'
+
+data_quality_exceptions:
+  description: >
+    Names whose numbers need care before use: NM multiples, proxies,
+    restructurings, captive finance. Review, don't trade the table.
+  rules:
+    momentum_state: 'in indeterminate'

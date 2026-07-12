@@ -41,8 +41,9 @@ class YahooFinanceAdapter(PriceDataSource):
                            currency=meta.get('currency'), source=self.name)
         bars = sorted(seen.values(), key=lambda b: b['date'])
         reg = (meta.get('currentTradingPeriod') or {}).get('regular') or {}
-        session_open = (meta.get('regularMarketTime') and reg.get('end')
-                        and meta['regularMarketTime'] < reg['end'])
+        import time as _t
+        session_open = (reg.get('start') and reg.get('end')
+                        and reg['start'] <= _t.time() < reg['end'])
         completed = bars[:-1] if (session_open and bars) else bars
         dt = datetime.fromtimestamp(meta['regularMarketTime'] + gmtoff,
                                     tz=timezone.utc).strftime('%Y-%m-%d')

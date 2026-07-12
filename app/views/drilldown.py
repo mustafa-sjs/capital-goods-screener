@@ -40,19 +40,45 @@ if r.get('rel_3m_pct') is not None:
     verb = 'outperformed' if r['rel_3m_pct'] > 0 else 'underperformed'
     bits.append(f"has {verb} its peer basket by {abs(r['rel_3m_pct']):.1f}pp over 3M")
 st.info(f"**{D['names'][key]}** " + '; '.join(bits) +
-        f". Consensus revisions unavailable — momentum is price/reported-results "
-        f"based. Classification: **{r['classification']}**.")
+        f". Consensus revisions unavailable. States — valuation: **{r['valuation_state']}**, "
+f"fundamentals: **{r['fundamental_state']}**, momentum: **{r['momentum_state']}** "
+f"(descriptive, not backtested).")
 if d.get('flags'):
     st.warning('**Data-quality flags:** ' + ' · '.join(d['flags']))
 
 c1, c2 = st.columns(2)
 with c1:
-    st.markdown('**Share price** — daily closes, stored history')
-    px = q(f"""SELECT price_date, close FROM raw_daily_prices
-               WHERE key = {ph()} ORDER BY price_date""", [key])
-    pdf = pd.DataFrame(px, columns=['date', 'close']).drop_duplicates('date')
-    pdf['date'] = pd.to_datetime(pdf['date'])
-    st.line_chart(pdf.set_index('date'))
+    import os as _os, altair as alt
+    ROOT2 = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+    basis = st.radio('Price basis', ['Total return', 'Raw', 'Split-adjusted'],
+                     horizontal=True, help='Total return reinvests dividends & '
+                     'special distributions — the default for momentum. Raw = '
+                     'as traded. 5y canonical daily history.')
+    bcol = {'Total return': 'close_tr', 'Raw': 'close_raw',
+            'Split-adjusted': 'close_split'}[basis]
+    hp = pd.read_parquet(_os.path.join(ROOT2, 'data', 'history', 'prices_daily.parquet'))
+    hp = hp[hp.key == key][['session_date', bcol]].rename(columns={bcol: 'px'})
+    hp['date'] = pd.to_datetime(hp['session_date'])
+    hp['EMA 20'] = hp['px'].ewm(span=20, adjust=False, min_periods=20).mean()
+    hp['EMA 60'] = hp['px'].ewm(span=60, adjust=False, min_periods=60).mean()
+    base = alt.Chart(hp).encode(x=alt.X('date:T', title=None))
+    lines = (base.mark_line(color='#175d63', strokeWidth=1.6).encode(
+                 y=alt.Y('px:Q', title=f'{basis} price', scale=alt.Scale(zero=False)),
+                 tooltip=['date:T', alt.Tooltip('px:Q', format='.2f')]) +
+             base.mark_line(color='#2a78d6', strokeWidth=1).encode(y='EMA 20:Q') +
+             base.mark_line(color='#eda100', strokeWidth=1).encode(y='EMA 60:Q'))
+    acts = pd.read_parquet(_os.path.join(ROOT2, 'data', 'history',
+                                         'corporate_actions.parquet'))
+    acts = acts[acts.key == key].copy()
+    if len(acts):
+        acts['date'] = pd.to_datetime(acts['action_date'])
+        marks = alt.Chart(acts).mark_rule(color='#b07100', strokeDash=[3, 3],
+                                          opacity=0.6).encode(
+            x='date:T', tooltip=['kind:N', 'value:Q', 'date:T'])
+        lines = lines + marks
+    st.altair_chart(lines.properties(height=320,
+        title=f'{basis} price with 20/60-session EMAs; amber rules = '
+              f'dividends/splits ({len(acts)})'), use_container_width=True)
 with c2:
     st.markdown('**EV/EBITDA vs own history** — annual, approximate')
     hist = pd.DataFrame(d['hist'], columns=['year', 'EV/EBITDA'])
@@ -84,6 +110,38 @@ df_show(style_table(pdf2,
     mult_cols=['EV/EBITDA', 'EV/EBIT', 'P/E', 'ND/EBITDA'],
     num_cols=['EV/Rev', 'FCF yld %', 'EBITDA mgn %'],
     bold_rows={0}))
-st.caption('Lineage: FactIQ statements + SEC XBRL; prices FactIQ history + Yahoo '
-           'incremental. Full definitions: docs/methodology (repo) and Page 6 of '
-           'the embedded dashboard.')
+group_header('Momentum & trend (descriptive — not backtested)')
+mo = d.get('momentum') or {}
+mc1, mc2, mc3, mc4, mc5 = st.columns(5)
+mc1.metric('Momentum state', (mo.get('momentum_state') or '?').replace('_', ' '))
+ema = (mo.get('ema') or {}).get('ema_20_60') or {}
+mc2.metric('20/60 EMA gap', f"{ema.get('gap_pct', '–')}%",
+           help=f"crossed {ema.get('cross_date')} ({ema.get('sessions_since_cross')} sessions ago); "
+                f"slope {ema.get('gap_slope_5s')}, percentile {ema.get('gap_percentile')}")
+am = mo.get('abs_momentum') or {}
+mc3.metric('63D total return', f"{am.get('63D', '–')}%")
+mc4.metric('12–1 momentum', f"{mo.get('mom_12_1_pct', '–')}%",
+           help='Fama-French style: TR return from 12 months ago to 1 month ago')
+mc5.metric('Trend strength', f"{mo.get('trend_strength_pct', '–')}%",
+           help='share of EMA pairs (10/30, 20/60, 50/200) in a bullish state')
+risk = mo.get('risk') or {}
+if risk:
+    st.caption(f"Risk: EW vol 20D {risk.get('ewvol_20d_pct')}% ann. · 60D "
+               f"{risk.get('ewvol_60d_pct')}% · 52w drawdown "
+               f"{risk.get('drawdown_52w_pct')}% · max DD {risk.get('max_drawdown_pct')}%")
+
+group_header('Return horizons — exact windows')
+rd = d.get('returns_detail') or {}
+rows2 = []
+for h in ('1D', '5D', '21D', '63D', '126D', '252D', '1M', '3M', '6M', '12M'):
+    raw = rd.get(f'{h}_raw') or {}
+    tr = rd.get(f'{h}_tr') or {}
+    rows2.append({'Horizon': h, 'Raw %': raw.get('pct'), 'Total return %': tr.get('pct'),
+                  'Window': f"{raw.get('start')} → {raw.get('end')}" if raw else '–',
+                  'Sessions': raw.get('sessions')})
+df_show(style_table(pd.DataFrame(rows2), pct_cols=['Raw %', 'Total return %']))
+st.caption('Session horizons (ND) count exact trading sessions on this security\'s '
+           'own calendar; calendar horizons (NM) roll back to the last session on '
+           'or before the same calendar date N months earlier. '
+           'Lineage: canonical 5y daily history (Yahoo, exchange-timezone dated) + '
+           'FactIQ statements & SEC XBRL. Full definitions: capital_goods_methodology.md.')

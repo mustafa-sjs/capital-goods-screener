@@ -58,15 +58,15 @@ pos = pd.DataFrame([{'Company': s['company'],
                      'rel 3M vs peers (pp)': s.get('rel_3m_pct'),
                      'vs peers %': s.get('prem_disc_vs_peers_pct'),
                      'Hist %ile': s.get('hist_percentile'),
-                     'Classification': s.get('classification')}
+                     'Momentum': s.get('momentum_state')}
                     for s in D['screener']])
 import altair as alt
 pts = pos.dropna(subset=['rel 3M vs peers (pp)', 'vs peers %'])
 base = alt.Chart(pts).encode(
     x=alt.X('rel 3M vs peers (pp):Q', title='3M relative performance vs peers (pp)'),
     y=alt.Y('vs peers %:Q', title='Premium / discount to peer median (%)'),
-    color=alt.Color('Classification:N', legend=alt.Legend(orient='bottom', columns=2)),
-    tooltip=['Company', 'vs peers %', 'rel 3M vs peers (pp)', 'Classification'])
+    color=alt.Color('Momentum:N', legend=alt.Legend(orient='bottom', columns=2)),
+    tooltip=['Company', 'vs peers %', 'rel 3M vs peers (pp)', 'Momentum'])
 chart = (base.mark_circle(size=90, opacity=0.85) +
          base.mark_text(dy=-9, fontSize=9).encode(text='Company:N')
         ).properties(height=420, title='Cheap-and-improving sits bottom-right; '
@@ -75,6 +75,6 @@ chart = (base.mark_circle(size=90, opacity=0.85) +
 st.altair_chart(chart, use_container_width=True)
 df_show(style_table(pos.sort_values('vs peers %'),
     pct_cols=['vs peers %'], num_cols=['rel 3M vs peers (pp)', 'Hist %ile'],
-    class_col='Classification'))
+    class_col='Momentum'))
 st.caption('Momentum is context, not a signal direction. Return decomposition '
            '(earnings/multiple/net-debt/share-count) lives on the Scenarios page.')

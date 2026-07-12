@@ -23,7 +23,9 @@ with st.sidebar:
     st.header('Filters')
     preset = st.selectbox('Preset', ['None'] + list(presets))
     sub = st.multiselect('Subgroup', sorted(df['subgroup'].unique()))
-    cls = st.multiselect('Classification', sorted(df['classification'].dropna().unique()))
+    vst = st.multiselect('Valuation state', sorted(df['valuation_state'].dropna().unique()))
+    fst = st.multiselect('Fundamental state', sorted(df['fundamental_state'].dropna().unique()))
+    mst = st.multiselect('Momentum state', sorted(df['momentum_state'].dropna().unique()))
     mcap_min = st.number_input('Min mcap $bn', 0.0)
     nd_max = st.number_input('Max ND/EBITDA (0 = any)', 0.0)
     search = st.text_input('Search company / ticker')
@@ -31,7 +33,9 @@ with st.sidebar:
 
 f = df.copy()
 if sub: f = f[f['subgroup'].isin(sub)]
-if cls: f = f[f['classification'].isin(cls)]
+if vst: f = f[f['valuation_state'].isin(vst)]
+if fst: f = f[f['fundamental_state'].isin(fst)]
+if mst: f = f[f['momentum_state'].isin(mst)]
 if mcap_min: f = f[f['mcap_usd_bn'].fillna(0) >= mcap_min]
 if nd_max: f = f[f['nd_ebitda'].fillna(0) <= nd_max]
 if search:
@@ -49,6 +53,9 @@ if preset != 'None' and preset in presets:
         if col not in f.columns:
             continue
         op, val = rule.split(' ', 1)
+        if op == 'in':
+            f = f[f[col].isin([v.strip() for v in val.split('|')])]
+            continue
         val = float(val)
         f = f[f[col].notna()]
         f = f[f[col] <= val] if op == '<=' else (f[f[col] >= val] if op == '>=' else f)
@@ -63,7 +70,9 @@ NICE = {'company': 'Company', 'ticker': 'Ticker', 'price': 'Price',
         'ebitda_margin_pct': 'Margin %', 'margin_chg_pp': 'Dmargin pp',
         'nd_ebitda': 'ND/EBITDA', 'rel_1m_pct': 'rel 1M', 'rel_3m_pct': 'rel 3M',
         'rel_12m_pct': 'rel 12M', 'drawdown_52w_pct': '52w dd %',
-        'classification': 'Classification', 'data_quality': 'Data quality'}
+        'valuation_state': 'Valuation', 'fundamental_state': 'Fundamentals',
+        'momentum_state': 'Momentum', 'hist_years': 'Hist n',
+        'data_quality': 'Data quality'}
 view = f[list(NICE)].rename(columns=NICE).sort_values('vs peers %')
 sty = style_table(
     view,
@@ -71,8 +80,25 @@ sty = style_table(
               'Dmargin pp', 'Rev g %', '52w dd %', 'FCF yld %', 'Margin %'],
     mult_cols=['EV/EBITDA', 'EV/EBIT', 'P/E', 'Peer med', 'ND/EBITDA'],
     num_cols=['Mcap $bn', 'EV/Rev', 'Hist %ile', 'Hist z'],
-    price_cols=['Price'], class_col='Classification', scale_col='vs peers %')
+    price_cols=['Price'], class_col='Valuation', scale_col='vs peers %')
+# also color the other two state columns
+
 df_show(sty, height=640)
+with st.expander('Why did these names surface? (component-based, not generated text)'):
+    for _, r in f.sort_values('prem_disc_vs_peers_pct').head(12).iterrows():
+        bits = []
+        if r['prem_disc_vs_peers_pct'] is not None and not pd.isna(r['prem_disc_vs_peers_pct']):
+            bits.append(f"{abs(r['prem_disc_vs_peers_pct']):.0f}% "
+                        f"{'below' if r['prem_disc_vs_peers_pct']<0 else 'above'} direct-peer median EV/EBITDA "
+                        f"({r['ev_ebitda_ltm']}x vs {r['peer_median_ev_ebitda']}x)")
+        if r.get('hist_percentile') is not None and not pd.isna(r.get('hist_percentile')):
+            bits.append(f"{r['hist_percentile']:.0f}th pct of own range (n={int(r['hist_years'] or 0)}, coarse)")
+        if r.get('rel_3m_pct') is not None and not pd.isna(r.get('rel_3m_pct')):
+            bits.append(f"3M total-return {r['rel_3m_pct']:+.1f}pp vs peers")
+        if r.get('margin_chg_pp') is not None and not pd.isna(r.get('margin_chg_pp')):
+            bits.append(f"EBITDA margin {r['margin_chg_pp']:+.1f}pp YoY")
+        bits.append(f"momentum: {r['momentum_state']}")
+        st.markdown(f"**{r['company']}** — " + '; '.join(bits) + '.')
 st.download_button('Export visible rows (CSV)', view.to_csv(index=False),
                    'screener_export.csv')
 st.caption(f'{len(f)} of {len(df)} coverage names shown - sorted cheapest-vs-'

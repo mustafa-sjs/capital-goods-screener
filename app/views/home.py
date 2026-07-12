@@ -11,8 +11,9 @@ D = payload()
 run = last_run()
 c1, c2, c3, c4 = st.columns(4)
 c1.metric('Data as of', f"{D.get('generated', '?')} close")
-c2.metric('Coverage / securities',
-          f"{len(D.get('screener', []))} / {len(D.get('names', {}))}")
+c2.metric('Coverage / unique securities',
+          f"{len(D.get('screener', []))} / {len(D.get('names', {}))}",
+          help='114 peer-basket slots; repeated peers deduplicate to 79 unique securities')
 c3.metric('Last refresh', str(run[2])[:16] if run else 'never')
 with c4:
     st.markdown('<div style="font-size:12px;color:#8a9494;margin-bottom:2px">'
@@ -50,16 +51,17 @@ with left2:
                 key=lambda r: r['prem_disc_vs_peers_pct'])
     df = pd.DataFrame([{'Company': r['company'], 'EV/EBITDA': r['ev_ebitda_ltm'],
                         'vs peers %': r['prem_disc_vs_peers_pct'],
-                        'Classification': r['classification']} for r in sc[:6]])
+                        'Momentum': r.get('momentum_state')} for r in sc[:6]])
     df_show(style_table(df, pct_cols=['vs peers %'], mult_cols=['EV/EBITDA'],
-                        class_col='Classification'))
+                        class_col='Momentum'))
 with right2:
     group_header('Largest premiums vs direct peers')
+    prem_only = [r for r in sc if r['prem_disc_vs_peers_pct'] > 0][-6:][::-1]
     df = pd.DataFrame([{'Company': r['company'], 'EV/EBITDA': r['ev_ebitda_ltm'],
                         'vs peers %': r['prem_disc_vs_peers_pct'],
-                        'Classification': r['classification']} for r in sc[-6:][::-1]])
+                        'Momentum': r.get('momentum_state')} for r in prem_only])
     df_show(style_table(df, pct_cols=['vs peers %'], mult_cols=['EV/EBITDA'],
-                        class_col='Classification'))
+                        class_col='Momentum'))
 
 group_header('Momentum context (revisions substitute)')
 st.caption('No consensus feed exists — momentum = relative price performance '
@@ -80,10 +82,12 @@ with m2:
           'Rev g %': r.get('rev_growth_pct')} for r in mo[-5:][::-1]]),
         pct_cols=['rel 3M pp', 'Rev g %']))
 
-warn = q("""SELECT check_name, severity, subject, message FROM validation_results
+warn = q("""SELECT check_name, severity, subject, min(created_at), max(created_at),
+            count(*) FROM validation_results
             WHERE severity IN ('warning','error','critical')
-            ORDER BY created_at DESC LIMIT 8""")
+            GROUP BY 1,2,3 ORDER BY max(created_at) DESC LIMIT 8""")
 if warn:
-    group_header('Data-quality warnings')
-    df_show(pd.DataFrame(warn, columns=['Check', 'Severity', 'Subject', 'Message']))
+    group_header('Data-quality warnings (deduplicated)')
+    df_show(pd.DataFrame(warn, columns=['Check', 'Severity', 'Subject',
+                                        'First seen', 'Last seen', 'Runs']))
 st.caption('Free-tier usage: Admin & Status page — target platform cost $0/month.')
