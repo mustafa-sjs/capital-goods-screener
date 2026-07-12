@@ -71,12 +71,12 @@ def capture_intraday(db, run_id, benchmark='16:30', tz='Europe/London'):
           if u['sec'][k]['qccy'] in ('EUR', 'GBp', 'CHF', 'SEK')}
     ad = YahooFinanceAdapter()
     rows, fails = [], 0
-    today = now().strftime('%Y-%m-%d')
     for k, sym in eu.items():
         try:
             px, ts, ccy = ad.intraday_price_at(sym, benchmark, tz)
             if px:
-                rows.append((k, today, f'{benchmark} {tz}', px, ts, None, None,
+                obs = ts[:10]   # the bar's own session date, not the run date
+                rows.append((k, obs, f'{benchmark} {tz}', px, ts, None, None,
                              ccy, 'yahoo', 'ok'))
         except Exception:
             fails += 1

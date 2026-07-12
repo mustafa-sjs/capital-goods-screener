@@ -1,0 +1,40 @@
+name: daily-refresh
+# Incremental daily cycle: Yahoo prices -> engine -> validation -> publish to
+# Supabase (if DATABASE_URL secret set) -> commit refreshed data files back.
+# Free-tier guards: linux runner only, strict timeout, no overlapping runs,
+# incremental fetch only (~1 month of bars/name, never full history).
+
+on:
+  schedule:
+    - cron: '12 22 * * 1-5'   # 22:12 UTC weekdays — after the 21:00/22:00 UTC US close year-round
+  workflow_dispatch: {}
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false   # never kill a mid-merge refresh; queue instead
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Daily refresh (incremental, idempotent)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scripts/refresh.py --mode daily
+      - name: Commit refreshed data back to the repo
+        run: |
+          git config user.name 'refresh-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/raw data/computed capital_goods_dashboard.html capital_goods_*.csv
+          git diff --cached --quiet || git commit -m "data: daily refresh $(date -u +%F) [skip ci]"
+          git push

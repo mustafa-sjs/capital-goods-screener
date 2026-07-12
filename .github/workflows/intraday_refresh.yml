@@ -1,0 +1,46 @@
+name: intraday-eu-close
+# Captures the TRUE 16:30 UK benchmark price for European names (5-minute
+# Yahoo bars), enabling real "move since European close" read-across.
+# Two UTC crons cover BST and GMT; the script checks Europe/London local
+# time and exits in seconds outside the 16:31-17:20 window, so exactly one
+# of the two daily firings does real work (~2 min).
+
+on:
+  schedule:
+    - cron: '36 15 * * 1-5'   # 16:36 London during BST
+    - cron: '36 16 * * 1-5'   # 16:36 London during GMT
+  workflow_dispatch: {}
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Capture 16:30 UK snapshots (window-guarded)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          python - <<'EOF'
+          from zoneinfo import ZoneInfo
+          from datetime import datetime
+          import subprocess, sys
+          now = datetime.now(ZoneInfo('Europe/London'))
+          if not (now.hour == 16 and now.minute >= 31) and not (now.hour == 17 and now.minute <= 20):
+              print(f'outside capture window (London {now:%H:%M}) — skipping cleanly')
+              sys.exit(0)
+          sys.exit(subprocess.run([sys.executable, 'scripts/refresh.py',
+                                   '--mode', 'intraday']).returncode)
+          EOF

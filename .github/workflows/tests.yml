@@ -1,0 +1,25 @@
+name: tests
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+    paths: ['src/**', 'app/**', 'scripts/**', 'config/**', 'tests/**',
+            '.github/workflows/**', 'requirements.txt']
+  workflow_dispatch: {}
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true    # redundant queued runs are cancelled
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt pytest
+      - run: python -m pytest tests/ -q

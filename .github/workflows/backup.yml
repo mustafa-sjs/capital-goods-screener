@@ -1,0 +1,36 @@
+name: backup
+# Weekly export of critical Supabase tables to a short-retention artifact.
+# Free-tier honesty: 7-day retention on a free plan is NOT paid-grade
+# resilience — the durable backups are (a) the git-versioned raw data files
+# and config, and (b) local Parquet archives via scripts/export_backup.py.
+# No database dumps are ever committed to git.
+
+on:
+  schedule:
+    - cron: '43 6 * * 0'      # Sundays 06:43 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Export critical tables
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scripts/export_backup.py --out backup
+      - uses: actions/upload-artifact@v4
+        with:
+          name: db-backup-${{ github.run_id }}
+          path: backup/
+          retention-days: 7
+          compression-level: 9
