@@ -49,8 +49,17 @@ class DB:
         if not rows:
             return
         if self.kind == 'postgres':
+            # batch VALUES lists: one round trip per page instead of per row
+            # (per-row executemany over a remote pooler is ~100x slower)
+            import re
+            from psycopg2.extras import execute_values
+            m = re.match(r'(INSERT INTO .+?) VALUES \([%s, ]+\)(.*)$', sql, re.S)
             with self.conn.cursor() as c:
-                c.executemany(sql, rows)
+                if m:
+                    execute_values(c, f'{m.group(1)} VALUES %s{m.group(2)}',
+                                   rows, page_size=500)
+                else:
+                    c.executemany(sql, rows)
         else:
             self.conn.executemany(sql, rows)
 

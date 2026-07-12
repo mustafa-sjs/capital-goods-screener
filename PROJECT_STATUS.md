@@ -7,7 +7,7 @@
 | Local project root | `/Users/Mustafa/capital-goods-dashboard` |
 | Git repository | local `main` (remote: **not yet pushed — user action required**) |
 | Production app URL | **not yet deployed — user action required** (Streamlit Community Cloud) |
-| Production database | **not yet created — user action required** (Supabase Free) |
+| Production database | Supabase Free — project `vsypgmhndqoxklujxrep` (eu-west-2), migrated 2026-07-12, 23 tables verified |
 | Dev database | `data/capital_goods.duckdb` (~11 MB) + `data/archive/*.parquet` |
 | Version / commit | run `git log --oneline -1` |
 | Last successful price refresh | 2026-07-12 (mode=daily, 84/84 ok — see `refresh_runs`) |
