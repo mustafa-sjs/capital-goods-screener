@@ -1,4 +1,4 @@
-import os
+import os, subprocess, sys, uuid
 import pandas as pd
 import streamlit as st
 from components.data import get_db, q, ph, payload
