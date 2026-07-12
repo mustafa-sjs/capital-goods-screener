@@ -6,7 +6,7 @@
 |---|---|
 | Local project root | `/Users/Mustafa/capital-goods-dashboard` |
 | Git repository | github.com/mustafa-sjs/capital-goods-screener (private), pushed 2026-07-12 |
-| Production app URL | **not yet deployed — user action required** (Streamlit Community Cloud) |
+| Production app URL | https://capital-goods-screener.streamlit.app (Streamlit Community Cloud, deployed 2026-07-12) |
 | Production database | Supabase Free — project `vsypgmhndqoxklujxrep` (eu-west-2), migrated 2026-07-12, 23 tables verified |
 | Dev database | `data/capital_goods.duckdb` (~11 MB) + `data/archive/*.parquet` |
 | Version / commit | run `git log --oneline -1` |
