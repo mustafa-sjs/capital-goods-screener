@@ -1,0 +1,2459 @@
+[
+{
+"key": "ABBN",
+"symbol": "ABBN:SIX",
+"func": "INCOME_STATEMENT",
+"out": "isa_ABBN.json",
+"interval": "annual"
+},
+{
+"key": "ABBN",
+"symbol": "ABBN:SIX",
+"func": "INCOME_STATEMENT",
+"out": "isq_ABBN.json",
+"interval": null
+},
+{
+"key": "ABBN",
+"symbol": "ABBN:SIX",
+"func": "BALANCE_SHEET",
+"out": "bsq_ABBN.json",
+"interval": null
+},
+{
+"key": "ABBN",
+"symbol": "ABBN:SIX",
+"func": "BALANCE_SHEET",
+"out": "bsa_ABBN.json",
+"interval": "annual"
+},
+{
+"key": "ABBN",
+"symbol": "ABBN:SIX",
+"func": "CASH_FLOW",
+"out": "cfa_ABBN.json",
+"interval": "annual"
+},
+{
+"key": "ALO",
+"symbol": "ALO:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isa_ALO.json",
+"interval": "annual"
+},
+{
+"key": "ALO",
+"symbol": "ALO:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isq_ALO.json",
+"interval": null
+},
+{
+"key": "ALO",
+"symbol": "ALO:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsq_ALO.json",
+"interval": null
+},
+{
+"key": "ALO",
+"symbol": "ALO:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsa_ALO.json",
+"interval": "annual"
+},
+{
+"key": "ALO",
+"symbol": "ALO:Euronext",
+"func": "CASH_FLOW",
+"out": "cfa_ALO.json",
+"interval": "annual"
+},
+{
+"key": "SRAIL",
+"symbol": "SRAIL:SIX",
+"func": "INCOME_STATEMENT",
+"out": "isa_SRAIL.json",
+"interval": "annual"
+},
+{
+"key": "SRAIL",
+"symbol": "SRAIL:SIX",
+"func": "INCOME_STATEMENT",
+"out": "isq_SRAIL.json",
+"interval": null
+},
+{
+"key": "SRAIL",
+"symbol": "SRAIL:SIX",
+"func": "BALANCE_SHEET",
+"out": "bsq_SRAIL.json",
+"interval": null
+},
+{
+"key": "SRAIL",
+"symbol": "SRAIL:SIX",
+"func": "BALANCE_SHEET",
+"out": "bsa_SRAIL.json",
+"interval": "annual"
+},
+{
+"key": "SRAIL",
+"symbol": "SRAIL:SIX",
+"func": "CASH_FLOW",
+"out": "cfa_SRAIL.json",
+"interval": "annual"
+},
+{
+"key": "LR",
+"symbol": "LR:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isa_LR.json",
+"interval": "annual"
+},
+{
+"key": "LR",
+"symbol": "LR:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isq_LR.json",
+"interval": null
+},
+{
+"key": "LR",
+"symbol": "LR:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsq_LR.json",
+"interval": null
+},
+{
+"key": "LR",
+"symbol": "LR:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsa_LR.json",
+"interval": "annual"
+},
+{
+"key": "LR",
+"symbol": "LR:Euronext",
+"func": "CASH_FLOW",
+"out": "cfa_LR.json",
+"interval": "annual"
+},
+{
+"key": "NEX",
+"symbol": "NEX:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isa_NEX.json",
+"interval": "annual"
+},
+{
+"key": "NEX",
+"symbol": "NEX:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isq_NEX.json",
+"interval": null
+},
+{
+"key": "NEX",
+"symbol": "NEX:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsq_NEX.json",
+"interval": null
+},
+{
+"key": "NEX",
+"symbol": "NEX:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsa_NEX.json",
+"interval": "annual"
+},
+{
+"key": "NEX",
+"symbol": "NEX:Euronext",
+"func": "CASH_FLOW",
+"out": "cfa_NEX.json",
+"interval": "annual"
+},
+{
+"key": "PRY",
+"symbol": "PRY:MTA",
+"func": "INCOME_STATEMENT",
+"out": "isa_PRY.json",
+"interval": "annual"
+},
+{
+"key": "PRY",
+"symbol": "PRY:MTA",
+"func": "INCOME_STATEMENT",
+"out": "isq_PRY.json",
+"interval": null
+},
+{
+"key": "PRY",
+"symbol": "PRY:MTA",
+"func": "BALANCE_SHEET",
+"out": "bsq_PRY.json",
+"interval": null
+},
+{
+"key": "PRY",
+"symbol": "PRY:MTA",
+"func": "BALANCE_SHEET",
+"out": "bsa_PRY.json",
+"interval": "annual"
+},
+{
+"key": "PRY",
+"symbol": "PRY:MTA",
+"func": "CASH_FLOW",
+"out": "cfa_PRY.json",
+"interval": "annual"
+},
+{
+"key": "RXL",
+"symbol": "RXL:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isa_RXL.json",
+"interval": "annual"
+},
+{
+"key": "RXL",
+"symbol": "RXL:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isq_RXL.json",
+"interval": null
+},
+{
+"key": "RXL",
+"symbol": "RXL:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsq_RXL.json",
+"interval": null
+},
+{
+"key": "RXL",
+"symbol": "RXL:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsa_RXL.json",
+"interval": "annual"
+},
+{
+"key": "RXL",
+"symbol": "RXL:Euronext",
+"func": "CASH_FLOW",
+"out": "cfa_RXL.json",
+"interval": "annual"
+},
+{
+"key": "SU",
+"symbol": "SU:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isa_SU.json",
+"interval": "annual"
+},
+{
+"key": "SU",
+"symbol": "SU:Euronext",
+"func": "INCOME_STATEMENT",
+"out": "isq_SU.json",
+"interval": null
+},
+{
+"key": "SU",
+"symbol": "SU:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsq_SU.json",
+"interval": null
+},
+{
+"key": "SU",
+"symbol": "SU:Euronext",
+"func": "BALANCE_SHEET",
+"out": "bsa_SU.json",
+"interval": "annual"
+},
+{
+"key": "SU",
+"symbol": "SU:Euronext",
+"func": "CASH_FLOW",
+"out": "cfa_SU.json",
+"interval": "annual"
+},
+{
+"key": "SIE",
+"symbol": "SIE:XETR",
+"func": "INCOME_STATEMENT",
+"out": "isa_SIE.json",
+"interval": "annual"
+},
+{
+"key": "SIE",
+"symbol": "SIE:XETR",
+"func": "INCOME_STATEMENT",
+"out": "isq_SIE.json",
+"interval": null
+},
+{
+"key": "SIE",
+"symbol": "SIE:XETR",
+"func": "BALANCE_SHEET",
+"out": "bsq_SIE.json",
+"interval": null
+},
+{
+"key": "SIE",
+"symbol": "SIE:XETR",
+"func": "BALANCE_SHEET",
+"out": "bsa_SIE.json",
+"interval": "annual"
+},
+{
+"key": "SIE",
+"symbol": "SIE:XETR",
+"func": "CASH_FLOW",
+"out": "cfa_SIE.json",
+"interval": "annual"
+},
+{
+"key": "DTG",
+"symbol": "DTG:XETR",
+"func": "INCOME_STATEMENT",
+"out": "isa_DTG.json",
+"interval": "annual"
+},
+{
+"key": "DTG",
+"symbol": "DTG:XETR",
+"func": "INCOME_STATEMENT",
+"out": "isq_DTG.json",
+"interval": null
+},
+{
+"key": "DTG",
+"symbol": "DTG:XETR",
+"func": "BALANCE_SHEET",
+"out": "bsq_DTG.json",
+"interval": null
+},
+{
+"key": "DTG",
+"symbol": "DTG:XETR",
+"func": "BALANCE_SHEET",
+"out": "bsa_DTG.json",
+"interval": "annual"
+},
+{
+"key": "DTG",
+"symbol": "DTG:XETR",
+"func": "CASH_FLOW",
+"out": "cfa_DTG.json",
+"interval": "annual"
+},
+{
+"key": "8TRA",
+"symbol": "8TRA:XETR",
+"func": "INCOME_STATEMENT",
+"out": "isa_8TRA.json",
+"interval": "annual"
+},
+{
+"key": "8TRA",
+"symbol": "8TRA:XETR",
+"func": "INCOME_STATEMENT",
+"out": "isq_8TRA.json",
+"interval": null
+},
+{
+"key": "8TRA",
+"symbol": "8TRA:XETR",
+"func": "BALANCE_SHEET",
+"out": "bsq_8TRA.json",
+"interval": null
+},
+{
+"key": "8TRA",
+"symbol": "8TRA:XETR",
+"func": "BALANCE_SHEET",
+"out": "bsa_8TRA.json",
+"interval": "annual"
+},
+{
+"key": "8TRA",
+"symbol": "8TRA:XETR",
+"func": "CASH_FLOW",
+"out": "cfa_8TRA.json",
+"interval": "annual"
+},
+{
+"key": "VOLVB",
+"symbol": "0HTP:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_VOLVB.json",
+"interval": "annual"
+},
+{
+"key": "VOLVB",
+"symbol": "0HTP:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_VOLVB.json",
+"interval": null
+},
+{
+"key": "VOLVB",
+"symbol": "0HTP:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_VOLVB.json",
+"interval": null
+},
+{
+"key": "VOLVB",
+"symbol": "0HTP:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_VOLVB.json",
+"interval": "annual"
+},
+{
+"key": "VOLVB",
+"symbol": "0HTP:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_VOLVB.json",
+"interval": "annual"
+},
+{
+"key": "KNEBV",
+"symbol": "0II2:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_KNEBV.json",
+"interval": "annual"
+},
+{
+"key": "KNEBV",
+"symbol": "0II2:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_KNEBV.json",
+"interval": null
+},
+{
+"key": "KNEBV",
+"symbol": "0II2:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_KNEBV.json",
+"interval": null
+},
+{
+"key": "KNEBV",
+"symbol": "0II2:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_KNEBV.json",
+"interval": "annual"
+},
+{
+"key": "KNEBV",
+"symbol": "0II2:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_KNEBV.json",
+"interval": "annual"
+},
+{
+"key": "SCHP",
+"symbol": "SCHP:SIX",
+"func": "INCOME_STATEMENT",
+"out": "isa_SCHP.json",
+"interval": "annual"
+},
+{
+"key": "SCHP",
+"symbol": "SCHP:SIX",
+"func": "INCOME_STATEMENT",
+"out": "isq_SCHP.json",
+"interval": null
+},
+{
+"key": "SCHP",
+"symbol": "SCHP:SIX",
+"func": "BALANCE_SHEET",
+"out": "bsq_SCHP.json",
+"interval": null
+},
+{
+"key": "SCHP",
+"symbol": "SCHP:SIX",
+"func": "BALANCE_SHEET",
+"out": "bsa_SCHP.json",
+"interval": "annual"
+},
+{
+"key": "SCHP",
+"symbol": "SCHP:SIX",
+"func": "CASH_FLOW",
+"out": "cfa_SCHP.json",
+"interval": "annual"
+},
+{
+"key": "HLMA",
+"symbol": "HLMA:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_HLMA.json",
+"interval": "annual"
+},
+{
+"key": "HLMA",
+"symbol": "HLMA:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_HLMA.json",
+"interval": null
+},
+{
+"key": "HLMA",
+"symbol": "HLMA:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_HLMA.json",
+"interval": null
+},
+{
+"key": "HLMA",
+"symbol": "HLMA:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_HLMA.json",
+"interval": "annual"
+},
+{
+"key": "HLMA",
+"symbol": "HLMA:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_HLMA.json",
+"interval": "annual"
+},
+{
+"key": "IMI",
+"symbol": "IMI:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_IMI.json",
+"interval": "annual"
+},
+{
+"key": "IMI",
+"symbol": "IMI:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_IMI.json",
+"interval": null
+},
+{
+"key": "IMI",
+"symbol": "IMI:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_IMI.json",
+"interval": null
+},
+{
+"key": "IMI",
+"symbol": "IMI:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_IMI.json",
+"interval": "annual"
+},
+{
+"key": "IMI",
+"symbol": "IMI:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_IMI.json",
+"interval": "annual"
+},
+{
+"key": "ROR",
+"symbol": "ROR:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_ROR.json",
+"interval": "annual"
+},
+{
+"key": "ROR",
+"symbol": "ROR:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_ROR.json",
+"interval": null
+},
+{
+"key": "ROR",
+"symbol": "ROR:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_ROR.json",
+"interval": null
+},
+{
+"key": "ROR",
+"symbol": "ROR:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_ROR.json",
+"interval": "annual"
+},
+{
+"key": "ROR",
+"symbol": "ROR:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_ROR.json",
+"interval": "annual"
+},
+{
+"key": "SMIN",
+"symbol": "SMIN:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_SMIN.json",
+"interval": "annual"
+},
+{
+"key": "SMIN",
+"symbol": "SMIN:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_SMIN.json",
+"interval": null
+},
+{
+"key": "SMIN",
+"symbol": "SMIN:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_SMIN.json",
+"interval": null
+},
+{
+"key": "SMIN",
+"symbol": "SMIN:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_SMIN.json",
+"interval": "annual"
+},
+{
+"key": "SMIN",
+"symbol": "SMIN:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_SMIN.json",
+"interval": "annual"
+},
+{
+"key": "SPX",
+"symbol": "SPX:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_SPX.json",
+"interval": "annual"
+},
+{
+"key": "SPX",
+"symbol": "SPX:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_SPX.json",
+"interval": null
+},
+{
+"key": "SPX",
+"symbol": "SPX:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_SPX.json",
+"interval": null
+},
+{
+"key": "SPX",
+"symbol": "SPX:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_SPX.json",
+"interval": "annual"
+},
+{
+"key": "SPX",
+"symbol": "SPX:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_SPX.json",
+"interval": "annual"
+},
+{
+"key": "WEIR",
+"symbol": "WEIR:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_WEIR.json",
+"interval": "annual"
+},
+{
+"key": "WEIR",
+"symbol": "WEIR:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_WEIR.json",
+"interval": null
+},
+{
+"key": "WEIR",
+"symbol": "WEIR:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_WEIR.json",
+"interval": null
+},
+{
+"key": "WEIR",
+"symbol": "WEIR:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_WEIR.json",
+"interval": "annual"
+},
+{
+"key": "WEIR",
+"symbol": "WEIR:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_WEIR.json",
+"interval": "annual"
+},
+{
+"key": "ASSAB",
+"symbol": "0R87:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_ASSAB.json",
+"interval": "annual"
+},
+{
+"key": "ASSAB",
+"symbol": "0R87:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_ASSAB.json",
+"interval": null
+},
+{
+"key": "ASSAB",
+"symbol": "0R87:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_ASSAB.json",
+"interval": null
+},
+{
+"key": "ASSAB",
+"symbol": "0R87:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_ASSAB.json",
+"interval": "annual"
+},
+{
+"key": "ASSAB",
+"symbol": "0R87:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_ASSAB.json",
+"interval": "annual"
+},
+{
+"key": "ATCOA",
+"symbol": "0XXT:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_ATCOA.json",
+"interval": "annual"
+},
+{
+"key": "ATCOA",
+"symbol": "0XXT:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_ATCOA.json",
+"interval": null
+},
+{
+"key": "ATCOA",
+"symbol": "0XXT:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_ATCOA.json",
+"interval": null
+},
+{
+"key": "ATCOA",
+"symbol": "0XXT:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_ATCOA.json",
+"interval": "annual"
+},
+{
+"key": "ATCOA",
+"symbol": "0XXT:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_ATCOA.json",
+"interval": "annual"
+},
+{
+"key": "EPIA",
+"symbol": "0YSU:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_EPIA.json",
+"interval": "annual"
+},
+{
+"key": "EPIA",
+"symbol": "0YSU:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_EPIA.json",
+"interval": null
+},
+{
+"key": "EPIA",
+"symbol": "0YSU:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_EPIA.json",
+"interval": null
+},
+{
+"key": "EPIA",
+"symbol": "0YSU:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_EPIA.json",
+"interval": "annual"
+},
+{
+"key": "EPIA",
+"symbol": "0YSU:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_EPIA.json",
+"interval": "annual"
+},
+{
+"key": "METSO",
+"symbol": "0MGI:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_METSO.json",
+"interval": "annual"
+},
+{
+"key": "METSO",
+"symbol": "0MGI:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_METSO.json",
+"interval": null
+},
+{
+"key": "METSO",
+"symbol": "0MGI:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_METSO.json",
+"interval": null
+},
+{
+"key": "METSO",
+"symbol": "0MGI:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_METSO.json",
+"interval": "annual"
+},
+{
+"key": "METSO",
+"symbol": "0MGI:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_METSO.json",
+"interval": "annual"
+},
+{
+"key": "SAND",
+"symbol": "0HC0:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_SAND.json",
+"interval": "annual"
+},
+{
+"key": "SAND",
+"symbol": "0HC0:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_SAND.json",
+"interval": null
+},
+{
+"key": "SAND",
+"symbol": "0HC0:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_SAND.json",
+"interval": null
+},
+{
+"key": "SAND",
+"symbol": "0HC0:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_SAND.json",
+"interval": "annual"
+},
+{
+"key": "SAND",
+"symbol": "0HC0:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_SAND.json",
+"interval": "annual"
+},
+{
+"key": "SKFB",
+"symbol": "0NWX:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_SKFB.json",
+"interval": "annual"
+},
+{
+"key": "SKFB",
+"symbol": "0NWX:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_SKFB.json",
+"interval": null
+},
+{
+"key": "SKFB",
+"symbol": "0NWX:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_SKFB.json",
+"interval": null
+},
+{
+"key": "SKFB",
+"symbol": "0NWX:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_SKFB.json",
+"interval": "annual"
+},
+{
+"key": "SKFB",
+"symbol": "0NWX:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_SKFB.json",
+"interval": "annual"
+},
+{
+"key": "RR",
+"symbol": "RR:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_RR.json",
+"interval": "annual"
+},
+{
+"key": "RR",
+"symbol": "RR:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_RR.json",
+"interval": null
+},
+{
+"key": "RR",
+"symbol": "RR:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_RR.json",
+"interval": null
+},
+{
+"key": "RR",
+"symbol": "RR:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_RR.json",
+"interval": "annual"
+},
+{
+"key": "RR",
+"symbol": "RR:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_RR.json",
+"interval": "annual"
+},
+{
+"key": "MRO",
+"symbol": "MRO:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isa_MRO.json",
+"interval": "annual"
+},
+{
+"key": "MRO",
+"symbol": "MRO:LSE",
+"func": "INCOME_STATEMENT",
+"out": "isq_MRO.json",
+"interval": null
+},
+{
+"key": "MRO",
+"symbol": "MRO:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsq_MRO.json",
+"interval": null
+},
+{
+"key": "MRO",
+"symbol": "MRO:LSE",
+"func": "BALANCE_SHEET",
+"out": "bsa_MRO.json",
+"interval": "annual"
+},
+{
+"key": "MRO",
+"symbol": "MRO:LSE",
+"func": "CASH_FLOW",
+"out": "cfa_MRO.json",
+"interval": "annual"
+},
+{
+"key": "PCAR",
+"symbol": "PCAR",
+"func": "INCOME_STATEMENT",
+"out": "isa_PCAR.json",
+"interval": "annual"
+},
+{
+"key": "PCAR",
+"symbol": "PCAR",
+"func": "INCOME_STATEMENT",
+"out": "isq_PCAR.json",
+"interval": null
+},
+{
+"key": "PCAR",
+"symbol": "PCAR",
+"func": "BALANCE_SHEET",
+"out": "bsq_PCAR.json",
+"interval": null
+},
+{
+"key": "PCAR",
+"symbol": "PCAR",
+"func": "BALANCE_SHEET",
+"out": "bsa_PCAR.json",
+"interval": "annual"
+},
+{
+"key": "PCAR",
+"symbol": "PCAR",
+"func": "CASH_FLOW",
+"out": "cfa_PCAR.json",
+"interval": "annual"
+},
+{
+"key": "OTIS",
+"symbol": "OTIS",
+"func": "INCOME_STATEMENT",
+"out": "isa_OTIS.json",
+"interval": "annual"
+},
+{
+"key": "OTIS",
+"symbol": "OTIS",
+"func": "INCOME_STATEMENT",
+"out": "isq_OTIS.json",
+"interval": null
+},
+{
+"key": "OTIS",
+"symbol": "OTIS",
+"func": "BALANCE_SHEET",
+"out": "bsq_OTIS.json",
+"interval": null
+},
+{
+"key": "OTIS",
+"symbol": "OTIS",
+"func": "BALANCE_SHEET",
+"out": "bsa_OTIS.json",
+"interval": "annual"
+},
+{
+"key": "OTIS",
+"symbol": "OTIS",
+"func": "CASH_FLOW",
+"out": "cfa_OTIS.json",
+"interval": "annual"
+},
+{
+"key": "ETN",
+"symbol": "ETN",
+"func": "INCOME_STATEMENT",
+"out": "isa_ETN.json",
+"interval": "annual"
+},
+{
+"key": "ETN",
+"symbol": "ETN",
+"func": "INCOME_STATEMENT",
+"out": "isq_ETN.json",
+"interval": null
+},
+{
+"key": "ETN",
+"symbol": "ETN",
+"func": "BALANCE_SHEET",
+"out": "bsq_ETN.json",
+"interval": null
+},
+{
+"key": "ETN",
+"symbol": "ETN",
+"func": "BALANCE_SHEET",
+"out": "bsa_ETN.json",
+"interval": "annual"
+},
+{
+"key": "ROK",
+"symbol": "ROK",
+"func": "INCOME_STATEMENT",
+"out": "isa_ROK.json",
+"interval": "annual"
+},
+{
+"key": "ROK",
+"symbol": "ROK",
+"func": "INCOME_STATEMENT",
+"out": "isq_ROK.json",
+"interval": null
+},
+{
+"key": "ROK",
+"symbol": "ROK",
+"func": "BALANCE_SHEET",
+"out": "bsq_ROK.json",
+"interval": null
+},
+{
+"key": "ROK",
+"symbol": "ROK",
+"func": "BALANCE_SHEET",
+"out": "bsa_ROK.json",
+"interval": "annual"
+},
+{
+"key": "GE",
+"symbol": "GE",
+"func": "INCOME_STATEMENT",
+"out": "isa_GE.json",
+"interval": "annual"
+},
+{
+"key": "GE",
+"symbol": "GE",
+"func": "INCOME_STATEMENT",
+"out": "isq_GE.json",
+"interval": null
+},
+{
+"key": "GE",
+"symbol": "GE",
+"func": "BALANCE_SHEET",
+"out": "bsq_GE.json",
+"interval": null
+},
+{
+"key": "GE",
+"symbol": "GE",
+"func": "BALANCE_SHEET",
+"out": "bsa_GE.json",
+"interval": "annual"
+},
+{
+"key": "EMR",
+"symbol": "EMR",
+"func": "INCOME_STATEMENT",
+"out": "isa_EMR.json",
+"interval": "annual"
+},
+{
+"key": "EMR",
+"symbol": "EMR",
+"func": "INCOME_STATEMENT",
+"out": "isq_EMR.json",
+"interval": null
+},
+{
+"key": "EMR",
+"symbol": "EMR",
+"func": "BALANCE_SHEET",
+"out": "bsq_EMR.json",
+"interval": null
+},
+{
+"key": "EMR",
+"symbol": "EMR",
+"func": "BALANCE_SHEET",
+"out": "bsa_EMR.json",
+"interval": "annual"
+},
+{
+"key": "WAB",
+"symbol": "WAB",
+"func": "INCOME_STATEMENT",
+"out": "isa_WAB.json",
+"interval": "annual"
+},
+{
+"key": "WAB",
+"symbol": "WAB",
+"func": "INCOME_STATEMENT",
+"out": "isq_WAB.json",
+"interval": null
+},
+{
+"key": "WAB",
+"symbol": "WAB",
+"func": "BALANCE_SHEET",
+"out": "bsq_WAB.json",
+"interval": null
+},
+{
+"key": "WAB",
+"symbol": "WAB",
+"func": "BALANCE_SHEET",
+"out": "bsa_WAB.json",
+"interval": "annual"
+},
+{
+"key": "GBX",
+"symbol": "GBX",
+"func": "INCOME_STATEMENT",
+"out": "isa_GBX.json",
+"interval": "annual"
+},
+{
+"key": "GBX",
+"symbol": "GBX",
+"func": "INCOME_STATEMENT",
+"out": "isq_GBX.json",
+"interval": null
+},
+{
+"key": "GBX",
+"symbol": "GBX",
+"func": "BALANCE_SHEET",
+"out": "bsq_GBX.json",
+"interval": null
+},
+{
+"key": "GBX",
+"symbol": "GBX",
+"func": "BALANCE_SHEET",
+"out": "bsa_GBX.json",
+"interval": "annual"
+},
+{
+"key": "TT",
+"symbol": "TT",
+"func": "INCOME_STATEMENT",
+"out": "isa_TT.json",
+"interval": "annual"
+},
+{
+"key": "TT",
+"symbol": "TT",
+"func": "INCOME_STATEMENT",
+"out": "isq_TT.json",
+"interval": null
+},
+{
+"key": "TT",
+"symbol": "TT",
+"func": "BALANCE_SHEET",
+"out": "bsq_TT.json",
+"interval": null
+},
+{
+"key": "TT",
+"symbol": "TT",
+"func": "BALANCE_SHEET",
+"out": "bsa_TT.json",
+"interval": "annual"
+},
+{
+"key": "ATKR",
+"symbol": "ATKR",
+"func": "INCOME_STATEMENT",
+"out": "isa_ATKR.json",
+"interval": "annual"
+},
+{
+"key": "ATKR",
+"symbol": "ATKR",
+"func": "INCOME_STATEMENT",
+"out": "isq_ATKR.json",
+"interval": null
+},
+{
+"key": "ATKR",
+"symbol": "ATKR",
+"func": "BALANCE_SHEET",
+"out": "bsq_ATKR.json",
+"interval": null
+},
+{
+"key": "ATKR",
+"symbol": "ATKR",
+"func": "BALANCE_SHEET",
+"out": "bsa_ATKR.json",
+"interval": "annual"
+},
+{
+"key": "BDC",
+"symbol": "BDC",
+"func": "INCOME_STATEMENT",
+"out": "isa_BDC.json",
+"interval": "annual"
+},
+{
+"key": "BDC",
+"symbol": "BDC",
+"func": "INCOME_STATEMENT",
+"out": "isq_BDC.json",
+"interval": null
+},
+{
+"key": "BDC",
+"symbol": "BDC",
+"func": "BALANCE_SHEET",
+"out": "bsq_BDC.json",
+"interval": null
+},
+{
+"key": "BDC",
+"symbol": "BDC",
+"func": "BALANCE_SHEET",
+"out": "bsa_BDC.json",
+"interval": "annual"
+},
+{
+"key": "VISN",
+"symbol": "VISN",
+"func": "INCOME_STATEMENT",
+"out": "isa_VISN.json",
+"interval": "annual"
+},
+{
+"key": "VISN",
+"symbol": "VISN",
+"func": "INCOME_STATEMENT",
+"out": "isq_VISN.json",
+"interval": null
+},
+{
+"key": "VISN",
+"symbol": "VISN",
+"func": "BALANCE_SHEET",
+"out": "bsq_VISN.json",
+"interval": null
+},
+{
+"key": "VISN",
+"symbol": "VISN",
+"func": "BALANCE_SHEET",
+"out": "bsa_VISN.json",
+"interval": "annual"
+},
+{
+"key": "GLW",
+"symbol": "GLW",
+"func": "INCOME_STATEMENT",
+"out": "isa_GLW.json",
+"interval": "annual"
+},
+{
+"key": "GLW",
+"symbol": "GLW",
+"func": "INCOME_STATEMENT",
+"out": "isq_GLW.json",
+"interval": null
+},
+{
+"key": "GLW",
+"symbol": "GLW",
+"func": "BALANCE_SHEET",
+"out": "bsq_GLW.json",
+"interval": null
+},
+{
+"key": "GLW",
+"symbol": "GLW",
+"func": "BALANCE_SHEET",
+"out": "bsa_GLW.json",
+"interval": "annual"
+},
+{
+"key": "FAST",
+"symbol": "FAST",
+"func": "INCOME_STATEMENT",
+"out": "isa_FAST.json",
+"interval": "annual"
+},
+{
+"key": "FAST",
+"symbol": "FAST",
+"func": "INCOME_STATEMENT",
+"out": "isq_FAST.json",
+"interval": null
+},
+{
+"key": "FAST",
+"symbol": "FAST",
+"func": "BALANCE_SHEET",
+"out": "bsq_FAST.json",
+"interval": null
+},
+{
+"key": "FAST",
+"symbol": "FAST",
+"func": "BALANCE_SHEET",
+"out": "bsa_FAST.json",
+"interval": "annual"
+},
+{
+"key": "WCC",
+"symbol": "WCC",
+"func": "INCOME_STATEMENT",
+"out": "isa_WCC.json",
+"interval": "annual"
+},
+{
+"key": "WCC",
+"symbol": "WCC",
+"func": "INCOME_STATEMENT",
+"out": "isq_WCC.json",
+"interval": null
+},
+{
+"key": "WCC",
+"symbol": "WCC",
+"func": "BALANCE_SHEET",
+"out": "bsq_WCC.json",
+"interval": null
+},
+{
+"key": "WCC",
+"symbol": "WCC",
+"func": "BALANCE_SHEET",
+"out": "bsa_WCC.json",
+"interval": "annual"
+},
+{
+"key": "VRT",
+"symbol": "VRT",
+"func": "INCOME_STATEMENT",
+"out": "isa_VRT.json",
+"interval": "annual"
+},
+{
+"key": "VRT",
+"symbol": "VRT",
+"func": "INCOME_STATEMENT",
+"out": "isq_VRT.json",
+"interval": null
+},
+{
+"key": "VRT",
+"symbol": "VRT",
+"func": "BALANCE_SHEET",
+"out": "bsq_VRT.json",
+"interval": null
+},
+{
+"key": "VRT",
+"symbol": "VRT",
+"func": "BALANCE_SHEET",
+"out": "bsa_VRT.json",
+"interval": "annual"
+},
+{
+"key": "HON",
+"symbol": "HON",
+"func": "INCOME_STATEMENT",
+"out": "isa_HON.json",
+"interval": "annual"
+},
+{
+"key": "HON",
+"symbol": "HON",
+"func": "INCOME_STATEMENT",
+"out": "isq_HON.json",
+"interval": null
+},
+{
+"key": "HON",
+"symbol": "HON",
+"func": "BALANCE_SHEET",
+"out": "bsq_HON.json",
+"interval": null
+},
+{
+"key": "HON",
+"symbol": "HON",
+"func": "BALANCE_SHEET",
+"out": "bsa_HON.json",
+"interval": "annual"
+},
+{
+"key": "JCI",
+"symbol": "JCI",
+"func": "INCOME_STATEMENT",
+"out": "isa_JCI.json",
+"interval": "annual"
+},
+{
+"key": "JCI",
+"symbol": "JCI",
+"func": "INCOME_STATEMENT",
+"out": "isq_JCI.json",
+"interval": null
+},
+{
+"key": "JCI",
+"symbol": "JCI",
+"func": "BALANCE_SHEET",
+"out": "bsq_JCI.json",
+"interval": null
+},
+{
+"key": "JCI",
+"symbol": "JCI",
+"func": "BALANCE_SHEET",
+"out": "bsa_JCI.json",
+"interval": "annual"
+},
+{
+"key": "CMI",
+"symbol": "CMI",
+"func": "INCOME_STATEMENT",
+"out": "isa_CMI.json",
+"interval": "annual"
+},
+{
+"key": "CMI",
+"symbol": "CMI",
+"func": "INCOME_STATEMENT",
+"out": "isq_CMI.json",
+"interval": null
+},
+{
+"key": "CMI",
+"symbol": "CMI",
+"func": "BALANCE_SHEET",
+"out": "bsq_CMI.json",
+"interval": null
+},
+{
+"key": "CMI",
+"symbol": "CMI",
+"func": "BALANCE_SHEET",
+"out": "bsa_CMI.json",
+"interval": "annual"
+},
+{
+"key": "OSK",
+"symbol": "OSK",
+"func": "INCOME_STATEMENT",
+"out": "isa_OSK.json",
+"interval": "annual"
+},
+{
+"key": "OSK",
+"symbol": "OSK",
+"func": "INCOME_STATEMENT",
+"out": "isq_OSK.json",
+"interval": null
+},
+{
+"key": "OSK",
+"symbol": "OSK",
+"func": "BALANCE_SHEET",
+"out": "bsq_OSK.json",
+"interval": null
+},
+{
+"key": "OSK",
+"symbol": "OSK",
+"func": "BALANCE_SHEET",
+"out": "bsa_OSK.json",
+"interval": "annual"
+},
+{
+"key": "DE",
+"symbol": "DE",
+"func": "INCOME_STATEMENT",
+"out": "isa_DE.json",
+"interval": "annual"
+},
+{
+"key": "DE",
+"symbol": "DE",
+"func": "INCOME_STATEMENT",
+"out": "isq_DE.json",
+"interval": null
+},
+{
+"key": "DE",
+"symbol": "DE",
+"func": "BALANCE_SHEET",
+"out": "bsq_DE.json",
+"interval": null
+},
+{
+"key": "DE",
+"symbol": "DE",
+"func": "BALANCE_SHEET",
+"out": "bsa_DE.json",
+"interval": "annual"
+},
+{
+"key": "CARR",
+"symbol": "CARR",
+"func": "INCOME_STATEMENT",
+"out": "isa_CARR.json",
+"interval": "annual"
+},
+{
+"key": "CARR",
+"symbol": "CARR",
+"func": "INCOME_STATEMENT",
+"out": "isq_CARR.json",
+"interval": null
+},
+{
+"key": "CARR",
+"symbol": "CARR",
+"func": "BALANCE_SHEET",
+"out": "bsq_CARR.json",
+"interval": null
+},
+{
+"key": "CARR",
+"symbol": "CARR",
+"func": "BALANCE_SHEET",
+"out": "bsa_CARR.json",
+"interval": "annual"
+},
+{
+"key": "COHR",
+"symbol": "COHR",
+"func": "INCOME_STATEMENT",
+"out": "isa_COHR.json",
+"interval": "annual"
+},
+{
+"key": "COHR",
+"symbol": "COHR",
+"func": "INCOME_STATEMENT",
+"out": "isq_COHR.json",
+"interval": null
+},
+{
+"key": "COHR",
+"symbol": "COHR",
+"func": "BALANCE_SHEET",
+"out": "bsq_COHR.json",
+"interval": null
+},
+{
+"key": "COHR",
+"symbol": "COHR",
+"func": "BALANCE_SHEET",
+"out": "bsa_COHR.json",
+"interval": "annual"
+},
+{
+"key": "FN",
+"symbol": "FN",
+"func": "INCOME_STATEMENT",
+"out": "isa_FN.json",
+"interval": "annual"
+},
+{
+"key": "FN",
+"symbol": "FN",
+"func": "INCOME_STATEMENT",
+"out": "isq_FN.json",
+"interval": null
+},
+{
+"key": "FN",
+"symbol": "FN",
+"func": "BALANCE_SHEET",
+"out": "bsq_FN.json",
+"interval": null
+},
+{
+"key": "FN",
+"symbol": "FN",
+"func": "BALANCE_SHEET",
+"out": "bsa_FN.json",
+"interval": "annual"
+},
+{
+"key": "LITE",
+"symbol": "LITE",
+"func": "INCOME_STATEMENT",
+"out": "isa_LITE.json",
+"interval": "annual"
+},
+{
+"key": "LITE",
+"symbol": "LITE",
+"func": "INCOME_STATEMENT",
+"out": "isq_LITE.json",
+"interval": null
+},
+{
+"key": "LITE",
+"symbol": "LITE",
+"func": "BALANCE_SHEET",
+"out": "bsq_LITE.json",
+"interval": null
+},
+{
+"key": "LITE",
+"symbol": "LITE",
+"func": "BALANCE_SHEET",
+"out": "bsa_LITE.json",
+"interval": "annual"
+},
+{
+"key": "AME",
+"symbol": "AME",
+"func": "INCOME_STATEMENT",
+"out": "isa_AME.json",
+"interval": "annual"
+},
+{
+"key": "AME",
+"symbol": "AME",
+"func": "INCOME_STATEMENT",
+"out": "isq_AME.json",
+"interval": null
+},
+{
+"key": "AME",
+"symbol": "AME",
+"func": "BALANCE_SHEET",
+"out": "bsq_AME.json",
+"interval": null
+},
+{
+"key": "AME",
+"symbol": "AME",
+"func": "BALANCE_SHEET",
+"out": "bsa_AME.json",
+"interval": "annual"
+},
+{
+"key": "WTS",
+"symbol": "WTS",
+"func": "INCOME_STATEMENT",
+"out": "isa_WTS.json",
+"interval": "annual"
+},
+{
+"key": "WTS",
+"symbol": "WTS",
+"func": "INCOME_STATEMENT",
+"out": "isq_WTS.json",
+"interval": null
+},
+{
+"key": "WTS",
+"symbol": "WTS",
+"func": "BALANCE_SHEET",
+"out": "bsq_WTS.json",
+"interval": null
+},
+{
+"key": "WTS",
+"symbol": "WTS",
+"func": "BALANCE_SHEET",
+"out": "bsa_WTS.json",
+"interval": "annual"
+},
+{
+"key": "BMI",
+"symbol": "BMI",
+"func": "INCOME_STATEMENT",
+"out": "isa_BMI.json",
+"interval": "annual"
+},
+{
+"key": "BMI",
+"symbol": "BMI",
+"func": "INCOME_STATEMENT",
+"out": "isq_BMI.json",
+"interval": null
+},
+{
+"key": "BMI",
+"symbol": "BMI",
+"func": "BALANCE_SHEET",
+"out": "bsq_BMI.json",
+"interval": null
+},
+{
+"key": "BMI",
+"symbol": "BMI",
+"func": "BALANCE_SHEET",
+"out": "bsa_BMI.json",
+"interval": "annual"
+},
+{
+"key": "FLS",
+"symbol": "FLS",
+"func": "INCOME_STATEMENT",
+"out": "isa_FLS.json",
+"interval": "annual"
+},
+{
+"key": "FLS",
+"symbol": "FLS",
+"func": "INCOME_STATEMENT",
+"out": "isq_FLS.json",
+"interval": null
+},
+{
+"key": "FLS",
+"symbol": "FLS",
+"func": "BALANCE_SHEET",
+"out": "bsq_FLS.json",
+"interval": null
+},
+{
+"key": "FLS",
+"symbol": "FLS",
+"func": "BALANCE_SHEET",
+"out": "bsa_FLS.json",
+"interval": "annual"
+},
+{
+"key": "CR",
+"symbol": "CR",
+"func": "INCOME_STATEMENT",
+"out": "isa_CR.json",
+"interval": "annual"
+},
+{
+"key": "CR",
+"symbol": "CR",
+"func": "INCOME_STATEMENT",
+"out": "isq_CR.json",
+"interval": null
+},
+{
+"key": "CR",
+"symbol": "CR",
+"func": "BALANCE_SHEET",
+"out": "bsq_CR.json",
+"interval": null
+},
+{
+"key": "CR",
+"symbol": "CR",
+"func": "BALANCE_SHEET",
+"out": "bsa_CR.json",
+"interval": "annual"
+},
+{
+"key": "ITT",
+"symbol": "ITT",
+"func": "INCOME_STATEMENT",
+"out": "isa_ITT.json",
+"interval": "annual"
+},
+{
+"key": "ITT",
+"symbol": "ITT",
+"func": "INCOME_STATEMENT",
+"out": "isq_ITT.json",
+"interval": null
+},
+{
+"key": "ITT",
+"symbol": "ITT",
+"func": "BALANCE_SHEET",
+"out": "bsq_ITT.json",
+"interval": null
+},
+{
+"key": "ITT",
+"symbol": "ITT",
+"func": "BALANCE_SHEET",
+"out": "bsa_ITT.json",
+"interval": "annual"
+},
+{
+"key": "LII",
+"symbol": "LII",
+"func": "INCOME_STATEMENT",
+"out": "isa_LII.json",
+"interval": "annual"
+},
+{
+"key": "LII",
+"symbol": "LII",
+"func": "INCOME_STATEMENT",
+"out": "isq_LII.json",
+"interval": null
+},
+{
+"key": "LII",
+"symbol": "LII",
+"func": "BALANCE_SHEET",
+"out": "bsq_LII.json",
+"interval": null
+},
+{
+"key": "LII",
+"symbol": "LII",
+"func": "BALANCE_SHEET",
+"out": "bsa_LII.json",
+"interval": "annual"
+},
+{
+"key": "DHR",
+"symbol": "DHR",
+"func": "INCOME_STATEMENT",
+"out": "isa_DHR.json",
+"interval": "annual"
+},
+{
+"key": "DHR",
+"symbol": "DHR",
+"func": "INCOME_STATEMENT",
+"out": "isq_DHR.json",
+"interval": null
+},
+{
+"key": "DHR",
+"symbol": "DHR",
+"func": "BALANCE_SHEET",
+"out": "bsq_DHR.json",
+"interval": null
+},
+{
+"key": "DHR",
+"symbol": "DHR",
+"func": "BALANCE_SHEET",
+"out": "bsa_DHR.json",
+"interval": "annual"
+},
+{
+"key": "IR",
+"symbol": "IR",
+"func": "INCOME_STATEMENT",
+"out": "isa_IR.json",
+"interval": "annual"
+},
+{
+"key": "IR",
+"symbol": "IR",
+"func": "INCOME_STATEMENT",
+"out": "isq_IR.json",
+"interval": null
+},
+{
+"key": "IR",
+"symbol": "IR",
+"func": "BALANCE_SHEET",
+"out": "bsq_IR.json",
+"interval": null
+},
+{
+"key": "IR",
+"symbol": "IR",
+"func": "BALANCE_SHEET",
+"out": "bsa_IR.json",
+"interval": "annual"
+},
+{
+"key": "IEX",
+"symbol": "IEX",
+"func": "INCOME_STATEMENT",
+"out": "isa_IEX.json",
+"interval": "annual"
+},
+{
+"key": "IEX",
+"symbol": "IEX",
+"func": "INCOME_STATEMENT",
+"out": "isq_IEX.json",
+"interval": null
+},
+{
+"key": "IEX",
+"symbol": "IEX",
+"func": "BALANCE_SHEET",
+"out": "bsq_IEX.json",
+"interval": null
+},
+{
+"key": "IEX",
+"symbol": "IEX",
+"func": "BALANCE_SHEET",
+"out": "bsa_IEX.json",
+"interval": "annual"
+},
+{
+"key": "KMT",
+"symbol": "KMT",
+"func": "INCOME_STATEMENT",
+"out": "isa_KMT.json",
+"interval": "annual"
+},
+{
+"key": "KMT",
+"symbol": "KMT",
+"func": "INCOME_STATEMENT",
+"out": "isq_KMT.json",
+"interval": null
+},
+{
+"key": "KMT",
+"symbol": "KMT",
+"func": "BALANCE_SHEET",
+"out": "bsq_KMT.json",
+"interval": null
+},
+{
+"key": "KMT",
+"symbol": "KMT",
+"func": "BALANCE_SHEET",
+"out": "bsa_KMT.json",
+"interval": "annual"
+},
+{
+"key": "CAT",
+"symbol": "CAT",
+"func": "INCOME_STATEMENT",
+"out": "isa_CAT.json",
+"interval": "annual"
+},
+{
+"key": "CAT",
+"symbol": "CAT",
+"func": "INCOME_STATEMENT",
+"out": "isq_CAT.json",
+"interval": null
+},
+{
+"key": "CAT",
+"symbol": "CAT",
+"func": "BALANCE_SHEET",
+"out": "bsq_CAT.json",
+"interval": null
+},
+{
+"key": "CAT",
+"symbol": "CAT",
+"func": "BALANCE_SHEET",
+"out": "bsa_CAT.json",
+"interval": "annual"
+},
+{
+"key": "TEX",
+"symbol": "TEX",
+"func": "INCOME_STATEMENT",
+"out": "isa_TEX.json",
+"interval": "annual"
+},
+{
+"key": "TEX",
+"symbol": "TEX",
+"func": "INCOME_STATEMENT",
+"out": "isq_TEX.json",
+"interval": null
+},
+{
+"key": "TEX",
+"symbol": "TEX",
+"func": "BALANCE_SHEET",
+"out": "bsq_TEX.json",
+"interval": null
+},
+{
+"key": "TEX",
+"symbol": "TEX",
+"func": "BALANCE_SHEET",
+"out": "bsa_TEX.json",
+"interval": "annual"
+},
+{
+"key": "ALLE",
+"symbol": "ALLE",
+"func": "INCOME_STATEMENT",
+"out": "isa_ALLE.json",
+"interval": "annual"
+},
+{
+"key": "ALLE",
+"symbol": "ALLE",
+"func": "INCOME_STATEMENT",
+"out": "isq_ALLE.json",
+"interval": null
+},
+{
+"key": "ALLE",
+"symbol": "ALLE",
+"func": "BALANCE_SHEET",
+"out": "bsq_ALLE.json",
+"interval": null
+},
+{
+"key": "ALLE",
+"symbol": "ALLE",
+"func": "BALANCE_SHEET",
+"out": "bsa_ALLE.json",
+"interval": "annual"
+},
+{
+"key": "AMAT",
+"symbol": "AMAT",
+"func": "INCOME_STATEMENT",
+"out": "isa_AMAT.json",
+"interval": "annual"
+},
+{
+"key": "AMAT",
+"symbol": "AMAT",
+"func": "INCOME_STATEMENT",
+"out": "isq_AMAT.json",
+"interval": null
+},
+{
+"key": "AMAT",
+"symbol": "AMAT",
+"func": "BALANCE_SHEET",
+"out": "bsq_AMAT.json",
+"interval": null
+},
+{
+"key": "AMAT",
+"symbol": "AMAT",
+"func": "BALANCE_SHEET",
+"out": "bsa_AMAT.json",
+"interval": "annual"
+},
+{
+"key": "KLAC",
+"symbol": "KLAC",
+"func": "INCOME_STATEMENT",
+"out": "isa_KLAC.json",
+"interval": "annual"
+},
+{
+"key": "KLAC",
+"symbol": "KLAC",
+"func": "INCOME_STATEMENT",
+"out": "isq_KLAC.json",
+"interval": null
+},
+{
+"key": "KLAC",
+"symbol": "KLAC",
+"func": "BALANCE_SHEET",
+"out": "bsq_KLAC.json",
+"interval": null
+},
+{
+"key": "KLAC",
+"symbol": "KLAC",
+"func": "BALANCE_SHEET",
+"out": "bsa_KLAC.json",
+"interval": "annual"
+},
+{
+"key": "TKR",
+"symbol": "TKR",
+"func": "INCOME_STATEMENT",
+"out": "isa_TKR.json",
+"interval": "annual"
+},
+{
+"key": "TKR",
+"symbol": "TKR",
+"func": "INCOME_STATEMENT",
+"out": "isq_TKR.json",
+"interval": null
+},
+{
+"key": "TKR",
+"symbol": "TKR",
+"func": "BALANCE_SHEET",
+"out": "bsq_TKR.json",
+"interval": null
+},
+{
+"key": "TKR",
+"symbol": "TKR",
+"func": "BALANCE_SHEET",
+"out": "bsa_TKR.json",
+"interval": "annual"
+},
+{
+"key": "RTX",
+"symbol": "RTX",
+"func": "INCOME_STATEMENT",
+"out": "isa_RTX.json",
+"interval": "annual"
+},
+{
+"key": "RTX",
+"symbol": "RTX",
+"func": "INCOME_STATEMENT",
+"out": "isq_RTX.json",
+"interval": null
+},
+{
+"key": "RTX",
+"symbol": "RTX",
+"func": "BALANCE_SHEET",
+"out": "bsq_RTX.json",
+"interval": null
+},
+{
+"key": "RTX",
+"symbol": "RTX",
+"func": "BALANCE_SHEET",
+"out": "bsa_RTX.json",
+"interval": "annual"
+},
+{
+"key": "HWM",
+"symbol": "HWM",
+"func": "INCOME_STATEMENT",
+"out": "isa_HWM.json",
+"interval": "annual"
+},
+{
+"key": "HWM",
+"symbol": "HWM",
+"func": "INCOME_STATEMENT",
+"out": "isq_HWM.json",
+"interval": null
+},
+{
+"key": "HWM",
+"symbol": "HWM",
+"func": "BALANCE_SHEET",
+"out": "bsq_HWM.json",
+"interval": null
+},
+{
+"key": "HWM",
+"symbol": "HWM",
+"func": "BALANCE_SHEET",
+"out": "bsa_HWM.json",
+"interval": "annual"
+},
+{
+"key": "TDG",
+"symbol": "TDG",
+"func": "INCOME_STATEMENT",
+"out": "isa_TDG.json",
+"interval": "annual"
+},
+{
+"key": "TDG",
+"symbol": "TDG",
+"func": "INCOME_STATEMENT",
+"out": "isq_TDG.json",
+"interval": null
+},
+{
+"key": "TDG",
+"symbol": "TDG",
+"func": "BALANCE_SHEET",
+"out": "bsq_TDG.json",
+"interval": null
+},
+{
+"key": "TDG",
+"symbol": "TDG",
+"func": "BALANCE_SHEET",
+"out": "bsa_TDG.json",
+"interval": "annual"
+},
+{
+"key": "WWD",
+"symbol": "WWD",
+"func": "INCOME_STATEMENT",
+"out": "isa_WWD.json",
+"interval": "annual"
+},
+{
+"key": "WWD",
+"symbol": "WWD",
+"func": "INCOME_STATEMENT",
+"out": "isq_WWD.json",
+"interval": null
+},
+{
+"key": "WWD",
+"symbol": "WWD",
+"func": "BALANCE_SHEET",
+"out": "bsq_WWD.json",
+"interval": null
+},
+{
+"key": "WWD",
+"symbol": "WWD",
+"func": "BALANCE_SHEET",
+"out": "bsa_WWD.json",
+"interval": "annual"
+},
+{
+"key": "MOGA",
+"symbol": "MOG.A",
+"func": "INCOME_STATEMENT",
+"out": "isa_MOGA.json",
+"interval": "annual"
+},
+{
+"key": "MOGA",
+"symbol": "MOG.A",
+"func": "INCOME_STATEMENT",
+"out": "isq_MOGA.json",
+"interval": null
+},
+{
+"key": "MOGA",
+"symbol": "MOG.A",
+"func": "BALANCE_SHEET",
+"out": "bsq_MOGA.json",
+"interval": null
+},
+{
+"key": "MOGA",
+"symbol": "MOG.A",
+"func": "BALANCE_SHEET",
+"out": "bsa_MOGA.json",
+"interval": "annual"
+},
+{
+"key": "HXL",
+"symbol": "HXL",
+"func": "INCOME_STATEMENT",
+"out": "isa_HXL.json",
+"interval": "annual"
+},
+{
+"key": "HXL",
+"symbol": "HXL",
+"func": "INCOME_STATEMENT",
+"out": "isq_HXL.json",
+"interval": null
+},
+{
+"key": "HXL",
+"symbol": "HXL",
+"func": "BALANCE_SHEET",
+"out": "bsq_HXL.json",
+"interval": null
+},
+{
+"key": "HXL",
+"symbol": "HXL",
+"func": "BALANCE_SHEET",
+"out": "bsa_HXL.json",
+"interval": "annual"
+},
+{
+"key": "NSK",
+"symbol": "6471:JPX",
+"func": "INCOME_STATEMENT",
+"out": "isa_NSK.json",
+"interval": "annual"
+},
+{
+"key": "NSK",
+"symbol": "6471:JPX",
+"func": "INCOME_STATEMENT",
+"out": "isq_NSK.json",
+"interval": null
+},
+{
+"key": "NSK",
+"symbol": "6471:JPX",
+"func": "BALANCE_SHEET",
+"out": "bsq_NSK.json",
+"interval": null
+},
+{
+"key": "NSK",
+"symbol": "6471:JPX",
+"func": "BALANCE_SHEET",
+"out": "bsa_NSK.json",
+"interval": "annual"
+},
+{
+"key": "NTN",
+"symbol": "6472:JPX",
+"func": "INCOME_STATEMENT",
+"out": "isa_NTN.json",
+"interval": "annual"
+},
+{
+"key": "NTN",
+"symbol": "6472:JPX",
+"func": "INCOME_STATEMENT",
+"out": "isq_NTN.json",
+"interval": null
+},
+{
+"key": "NTN",
+"symbol": "6472:JPX",
+"func": "BALANCE_SHEET",
+"out": "bsq_NTN.json",
+"interval": null
+},
+{
+"key": "NTN",
+"symbol": "6472:JPX",
+"func": "BALANCE_SHEET",
+"out": "bsa_NTN.json",
+"interval": "annual"
+},
+{
+"key": "EBARA",
+"symbol": "6361:JPX",
+"func": "INCOME_STATEMENT",
+"out": "isa_EBARA.json",
+"interval": "annual"
+},
+{
+"key": "EBARA",
+"symbol": "6361:JPX",
+"func": "INCOME_STATEMENT",
+"out": "isq_EBARA.json",
+"interval": null
+},
+{
+"key": "EBARA",
+"symbol": "6361:JPX",
+"func": "BALANCE_SHEET",
+"out": "bsq_EBARA.json",
+"interval": null
+},
+{
+"key": "EBARA",
+"symbol": "6361:JPX",
+"func": "BALANCE_SHEET",
+"out": "bsa_EBARA.json",
+"interval": "annual"
+},
+{
+"key": "FX",
+"symbol": "CHF/USD",
+"func": "FX_MONTHLY",
+"out": "fxm_CHFUSD.json",
+"interval": null
+},
+{
+"key": "FX",
+"symbol": "EUR/USD",
+"func": "FX_MONTHLY",
+"out": "fxm_EURUSD.json",
+"interval": null
+},
+{
+"key": "FX",
+"symbol": "GBP/USD",
+"func": "FX_MONTHLY",
+"out": "fxm_GBPUSD.json",
+"interval": null
+},
+{
+"key": "FX",
+"symbol": "SEK/USD",
+"func": "FX_MONTHLY",
+"out": "fxm_SEKUSD.json",
+"interval": null
+},
+{
+"key": "FX",
+"symbol": "JPY/USD",
+"func": "FX_MONTHLY",
+"out": "fxm_JPYUSD.json",
+"interval": null
+}
+]

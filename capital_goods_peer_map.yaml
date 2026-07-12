@@ -1,0 +1,147 @@
+# =============================================================================
+# Capital Goods coverage pack — curated peer map (source of truth)
+# =============================================================================
+# Edit this file to change coverage groups or peer baskets, then re-run
+# scripts/compute_metrics.py and scripts/embed_data.py to rebuild the dashboard.
+#
+# symbol conventions: provider symbol with MIC qualifier where needed
+#   (e.g. "SPX:XLON" = Spirax Group on London, not the S&P 500 index).
+# quote_currency: trading currency of the listing (GBp = pence sterling).
+# report_currency: currency of published financial statements (used for EV math).
+# active: set false to drop a coverage group or peer without deleting it.
+# preferred_metric: first choice when data supports it; the engine records the
+#   actual basis used per comparison in `estimate_basis` (see methodology —
+#   with no consensus estimates available in FactIQ, everything currently
+#   resolves to LTM reported fallback).
+
+pack: Capital Goods
+version: 2026-07-11
+default_preferred_metric: EV_EBITDA_LTM   # NTM EV/EBITA unavailable: no consensus feed
+metric_hierarchy_requested: [NTM_EV_EBITA, NTM_EV_EBITDA, FY1_EV_EBITA, FY1_PE, NTM_FCF_YIELD, LTM_EV_EBITDA]
+
+securities:
+  # ---- coverage securities (Europe / Nordics / UK / US-listed coverage) ----
+  ABBN:    {symbol: "ABBN:XSWX",   name: "ABB Ltd",                    exchange: SIX,   quote_currency: CHF, report_currency: USD}
+  ALO:     {symbol: "ALO:XPAR",    name: "Alstom SA",                  exchange: Euronext Paris, quote_currency: EUR, report_currency: EUR}
+  SRAIL:   {symbol: "SRAIL:XSWX",  name: "Stadler Rail AG",            exchange: SIX,   quote_currency: CHF, report_currency: CHF}
+  LR:      {symbol: "LR:XPAR",     name: "Legrand SA",                 exchange: Euronext Paris, quote_currency: EUR, report_currency: EUR}
+  NEX:     {symbol: "NEX:XPAR",    name: "Nexans SA",                  exchange: Euronext Paris, quote_currency: EUR, report_currency: EUR}
+  PRY:     {symbol: "PRY:XMIL",    name: "Prysmian SpA",               exchange: Borsa Italiana, quote_currency: EUR, report_currency: EUR}
+  RXL:     {symbol: "RXL:XPAR",    name: "Rexel SA",                   exchange: Euronext Paris, quote_currency: EUR, report_currency: EUR}
+  SU:      {symbol: "SU:XPAR",     name: "Schneider Electric SE",      exchange: Euronext Paris, quote_currency: EUR, report_currency: EUR}
+  SIE:     {symbol: "SIE:XETR",    name: "Siemens AG",                 exchange: XETRA, quote_currency: EUR, report_currency: EUR}
+  DTG:     {symbol: "DTG:XETR",    name: "Daimler Truck Holding AG",   exchange: XETRA, quote_currency: EUR, report_currency: EUR}
+  "8TRA":  {symbol: "8TRA:XETR",   name: "TRATON SE",                  exchange: XETRA, quote_currency: EUR, report_currency: EUR}
+  VOLVB:   {symbol: "VOLV.B:XSTO", name: "Volvo AB (B)",               exchange: Nasdaq Stockholm, quote_currency: SEK, report_currency: SEK}
+  KNEBV:   {symbol: "KNEBV:XHEL",  name: "KONE Oyj (B)",               exchange: Nasdaq Helsinki, quote_currency: EUR, report_currency: EUR}
+  SCHP:    {symbol: "SCHP:XSWX",   name: "Schindler Holding AG (PC)",  exchange: SIX,   quote_currency: CHF, report_currency: CHF,
+            note: "Participation certificate used (standard reference line); registered share SCHN also listed."}
+  HLMA:    {symbol: "HLMA:XLON",   name: "Halma plc",                  exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  IMI:     {symbol: "IMI:XLON",    name: "IMI plc",                    exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  ROR:     {symbol: "ROR:XLON",    name: "Rotork plc",                 exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  SMIN:    {symbol: "SMIN:XLON",   name: "Smiths Group plc",           exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  SPX:     {symbol: "SPX:XLON",    name: "Spirax Group plc",           exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  WEIR:    {symbol: "WEIR:XLON",   name: "Weir Group plc",             exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  ASSAB:   {symbol: "ASSA.B:XSTO", name: "Assa Abloy AB (B)",          exchange: Nasdaq Stockholm, quote_currency: SEK, report_currency: SEK}
+  ATCOA:   {symbol: "ATCO.A:XSTO", name: "Atlas Copco AB (A)",         exchange: Nasdaq Stockholm, quote_currency: SEK, report_currency: SEK}
+  EPIA:    {symbol: "EPI.A:XSTO",  name: "Epiroc AB (A)",              exchange: Nasdaq Stockholm, quote_currency: SEK, report_currency: SEK}
+  METSO:   {symbol: "METSO:XHEL",  name: "Metso Oyj",                  exchange: Nasdaq Helsinki, quote_currency: EUR, report_currency: EUR}
+  SAND:    {symbol: "SAND:XSTO",   name: "Sandvik AB",                 exchange: Nasdaq Stockholm, quote_currency: SEK, report_currency: SEK}
+  SKFB:    {symbol: "SKF.B:XSTO",  name: "SKF AB (B)",                 exchange: Nasdaq Stockholm, quote_currency: SEK, report_currency: SEK}
+  RR:      {symbol: "RR:XLON",     name: "Rolls-Royce Holdings plc",   exchange: LSE,   quote_currency: GBp, report_currency: GBP}
+  MRO:     {symbol: "MRO:XLON",    name: "Melrose Industries plc",     exchange: LSE,   quote_currency: GBp, report_currency: GBP,
+            note: "LSE MRO — distinct from Marathon Oil (NYSE:MRO); MIC qualifier required."}
+  # ---- US-listed securities (coverage + peers) ----
+  PCAR:  {symbol: PCAR, name: "PACCAR Inc",              exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  OTIS:  {symbol: OTIS, name: "Otis Worldwide Corp",     exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  ETN:   {symbol: ETN,  name: "Eaton Corp plc",          exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  ROK:   {symbol: ROK,  name: "Rockwell Automation Inc", exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  GE:    {symbol: GE,   name: "GE Aerospace",            exchange: NYSE,   quote_currency: USD, report_currency: USD,
+          note: "General Electric today = GE Aerospace after the 2023-24 three-way split (GE Vernova / GE HealthCare separated). Flagged as structural discontinuity."}
+  EMR:   {symbol: EMR,  name: "Emerson Electric Co",     exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  WAB:   {symbol: WAB,  name: "Westinghouse Air Brake Technologies (Wabtec)", exchange: NYSE, quote_currency: USD, report_currency: USD}
+  GBX:   {symbol: GBX,  name: "Greenbrier Companies Inc", exchange: NYSE,  quote_currency: USD, report_currency: USD}
+  TT:    {symbol: TT,   name: "Trane Technologies plc",  exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  ATKR:  {symbol: ATKR, name: "Atkore Inc",              exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  BDC:   {symbol: BDC,  name: "Belden Inc",              exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  VISN:  {symbol: VISN, name: "Vistance Networks Inc",   exchange: NASDAQ, quote_currency: USD, report_currency: USD,
+          note: "Resolved via provider symbol search: Vistance Networks, Inc., NASDAQ (XNGS). Validate fundamentals coverage before relying on multiples."}
+  GLW:   {symbol: GLW,  name: "Corning Inc",             exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  FAST:  {symbol: FAST, name: "Fastenal Co",             exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  WCC:   {symbol: WCC,  name: "WESCO International Inc", exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  VRT:   {symbol: VRT,  name: "Vertiv Holdings Co",      exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  HON:   {symbol: HON,  name: "Honeywell International Inc", exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  JCI:   {symbol: JCI,  name: "Johnson Controls International plc", exchange: NYSE, quote_currency: USD, report_currency: USD}
+  CMI:   {symbol: CMI,  name: "Cummins Inc",             exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  OSK:   {symbol: OSK,  name: "Oshkosh Corp",            exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  DE:    {symbol: DE,   name: "Deere & Co",              exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  CARR:  {symbol: CARR, name: "Carrier Global Corp",     exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  COHR:  {symbol: COHR, name: "Coherent Corp",           exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  FN:    {symbol: FN,   name: "Fabrinet",                exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  LITE:  {symbol: LITE, name: "Lumentum Holdings Inc",   exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  AME:   {symbol: AME,  name: "AMETEK Inc",              exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  WTS:   {symbol: WTS,  name: "Watts Water Technologies Inc", exchange: NYSE, quote_currency: USD, report_currency: USD}
+  BMI:   {symbol: BMI,  name: "Badger Meter Inc",        exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  FLS:   {symbol: FLS,  name: "Flowserve Corp",          exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  CR:    {symbol: CR,   name: "Crane Co",                exchange: NYSE,   quote_currency: USD, report_currency: USD,
+          note: "Crane Co post-2023 separation from Crane NXT. Structural discontinuity flag on history."}
+  ITT:   {symbol: ITT,  name: "ITT Inc",                 exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  LII:   {symbol: LII,  name: "Lennox International Inc", exchange: NYSE,  quote_currency: USD, report_currency: USD}
+  DHR:   {symbol: DHR,  name: "Danaher Corp",            exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  IR:    {symbol: IR,   name: "Ingersoll Rand Inc",      exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  IEX:   {symbol: IEX,  name: "IDEX Corp",               exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  KMT:   {symbol: KMT,  name: "Kennametal Inc",          exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  CAT:   {symbol: CAT,  name: "Caterpillar Inc",         exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  TEX:   {symbol: TEX,  name: "Terex Corp",              exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  ALLE:  {symbol: ALLE, name: "Allegion plc",            exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  AMAT:  {symbol: AMAT, name: "Applied Materials Inc",   exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  KLAC:  {symbol: KLAC, name: "KLA Corp",                exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  TKR:   {symbol: TKR,  name: "Timken Co",               exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  RTX:   {symbol: RTX,  name: "RTX Corp",                exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  HWM:   {symbol: HWM,  name: "Howmet Aerospace Inc",    exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  TDG:   {symbol: TDG,  name: "TransDigm Group Inc",     exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  WWD:   {symbol: WWD,  name: "Woodward Inc",            exchange: NASDAQ, quote_currency: USD, report_currency: USD}
+  MOGA:  {symbol: "MOG.A", name: "Moog Inc (A)",         exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  HXL:   {symbol: HXL,  name: "Hexcel Corp",             exchange: NYSE,   quote_currency: USD, report_currency: USD}
+  # ---- Japanese peers ----
+  NSK:   {symbol: "6471:XJPX", name: "NSK Ltd",   exchange: "JPX (Tokyo)", quote_currency: JPY, report_currency: JPY}
+  NTN:   {symbol: "6472:XJPX", name: "NTN Corp",  exchange: "JPX (Tokyo)", quote_currency: JPY, report_currency: JPY}
+  EBARA: {symbol: "6361:XJPX", name: "Ebara Corp", exchange: "JPX (Tokyo)", quote_currency: JPY, report_currency: JPY}
+
+subgroups:
+  - name: Automation & Electrical Equipment
+    coverage_groups:
+      - {display: "ABB",                coverage: [ABBN],        peers: [ETN, ROK, GE, EMR]}
+      - {display: "Alstom & Stadler",   coverage: [ALO, SRAIL],  peers: [WAB, GBX]}
+      - {display: "Legrand",            coverage: [LR],          peers: [ETN, TT, EMR]}
+      - {display: "Nexans & Prysmian",  coverage: [NEX, PRY],    peers: [ATKR, BDC, VISN, GLW]}
+      - {display: "Rexel",              coverage: [RXL],         peers: [FAST, WCC]}
+      - {display: "Schneider Electric", coverage: [SU],          peers: [ETN, VRT, HON, EMR, JCI, ROK]}
+      - {display: "Siemens",            coverage: [SIE],         peers: [EMR, HON, GE, JCI, ROK]}
+  - name: Trucks & Elevators
+    coverage_groups:
+      - {display: "Daimler Truck & Traton", coverage: [DTG, "8TRA"], peers: [CMI, PCAR]}
+      - {display: "Paccar",             coverage: [PCAR],        peers: [CMI, OSK]}
+      - {display: "Volvo",              coverage: [VOLVB],       peers: [CMI, DE, PCAR]}
+      - {display: "Kone & Schindler",   coverage: [KNEBV, SCHP], peers: [JCI, OTIS]}
+      - {display: "Otis",               coverage: [OTIS],        peers: [JCI, CARR]}
+  - name: UK Industrials
+    coverage_groups:
+      - {display: "Halma",              coverage: [HLMA],        peers: [COHR, FN, LITE, AME]}
+      - {display: "IMI",                coverage: [IMI],         peers: [WTS, EMR, BMI, FLS, CR]}
+      - {display: "Rotork",             coverage: [ROR],         peers: [EMR, ITT, FLS, CR]}
+      - {display: "Smiths Group",       coverage: [SMIN],        peers: [LII, CARR, EMR, FLS, CR]}
+      - {display: "Spirax Group",       coverage: [SPX],         peers: [DHR, IR, WTS, IEX]}
+      - {display: "Weir Group",         coverage: [WEIR],        peers: [ITT, KMT, CAT]}
+  - name: Nordic Industrial Machinery
+    coverage_groups:
+      - {display: "Assa Abloy",         coverage: [ASSAB],       peers: [ALLE]}
+      - {display: "Atlas Copco",        coverage: [ATCOA],       peers: [AMAT, EBARA, IR, KLAC]}
+      - {display: "Epiroc",             coverage: [EPIA],        peers: [CAT]}
+      - {display: "Metso",              coverage: [METSO],       peers: [CAT, TEX]}
+      - {display: "Sandvik",            coverage: [SAND],        peers: [CAT, KMT]}
+      - {display: "SKF",                coverage: [SKFB],        peers: [NSK, NTN, TKR]}
+  - name: Aerospace & Defence
+    coverage_groups:
+      - {display: "Rolls-Royce",        coverage: [RR],          peers: [GE, RTX, CMI, CAT]}
+      - {display: "Melrose Industries", coverage: [MRO],         peers: [HWM, TDG, WWD, MOGA, HXL]}

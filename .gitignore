@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.streamlit/secrets.toml
+logs/
+backups/
+data/*.duckdb
+data/*.duckdb.wal
+qa/view_*.html
+.DS_Store
+qa/

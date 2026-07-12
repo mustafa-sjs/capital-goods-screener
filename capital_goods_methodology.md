@@ -1,0 +1,202 @@
+# Capital Goods Dashboard — Methodology
+
+Generated 2026-07-11/12 from FactIQ MCP data (market-data provider + SEC EDGAR
+XBRL schema). All computation code lives in `scripts/compute_metrics.py`;
+edit `capital_goods_peer_map.yaml` and re-run it to change the universe.
+
+## 1. Security mapping
+
+Every security was resolved through the provider symbol search and validated
+by echoing the live quote (name / exchange / MIC / currency). The full table
+is `capital_goods_security_mapping.csv`. Key decisions:
+
+- **Nordic and Helsinki names** are priced through their LSE international
+  order-book lines (e.g. Volvo B = `0HTP:LSE`, Atlas Copco A = `0XXT:LSE`),
+  which quote in native SEK/EUR. Same issuer, same currency; provider direct
+  OMX symbols were not resolvable.
+- **Vistance Networks (“VISN” in the source material)** resolved cleanly to
+  Vistance Networks, Inc., NASDAQ (XNGS), USD. It was *not* substituted.
+  Its financials show a major restructuring (negative equity during 2024-25,
+  a large one-off tax benefit, a distorted quarterly revenue line), so all
+  earnings-based multiples are shown NM and the name carries a data-quality
+  flag wherever it appears.
+- **Crane Co**: the provider’s `CR` line carries Crane NXT statements after
+  the 2023 separation. It is used as an **approximate proxy** and flagged;
+  treat Crane-based peer stats with caution.
+- **GE** = GE Aerospace post the 2023-24 three-way split; pre-2024 history
+  is not comparable and is flagged.
+- **Schindler** uses the participation certificate (SCHP), the standard
+  reference line. **Moog** uses the class-A line (MOG.A).
+- GBp (pence) quotes are converted to GBP (÷100) before any market-cap math.
+
+## 2. Estimate basis — why everything is LTM
+
+The requested hierarchy (NTM EV/EBITA → NTM EV/EBITDA → FY1 → FY1 P/E →
+NTM FCF yield → LTM EV/EBITDA) was applied. FactIQ exposes **no consensus
+estimates, no estimate revisions, no analyst counts and no earnings
+surprises** (confirmed against the data catalog: SEC EDGAR carries reported
+XBRL and company guidance text for US filers only; the market-data provider
+carries reported statements). Therefore:
+
+> **Every comparison in this dashboard uses the LTM reported fallback.**
+> `estimate_basis = "LTM reported fallback"` on every row. No peer median
+> mixes NTM and LTM — the basis is uniformly LTM.
+
+Consequences:
+- The **earnings-revisions module is disabled** (Page 3 columns show n/a and
+  the drill-down states the limitation). Momentum context comes from price
+  performance and from reported growth (latest FY vs prior FY) instead.
+- Earnings surprises and guidance-change tracking are likewise disabled
+  (guidance text exists only for US filers and is not quantified consensus).
+
+## 3. Financial definitions
+
+All fundamentals are kept in each company’s **reporting currency**; market
+cap is converted into that currency at the spot FX (provider FX series,
+timestamp in the JSON payload) before EV is formed.
+
+- `EBITDA = operating income + depreciation & amortisation` where both are
+  reported; otherwise the provider’s `ebitda` column. EBITA is not reported
+  separately by these sources, so EV/EBIT (operating income) is shown as the
+  closest EBITA proxy, labelled EV/EBIT.
+- `Free cash flow = operating cash flow − capital expenditure` (annual CF
+  statement, or LTM sum for SEC names).
+- `Net debt = short-term debt + long-term debt − (cash + cash equivalents +
+  short-term investments)`. Leases are included only where the filer folds
+  them into debt.
+- `EV = market cap (report ccy) + net debt + minority interest`.
+- US names covered by the SEC XBRL schema use LTM sums of the last four
+  quarters. Where a filer does not tag operating income (ETN, EMR, GE, JCI,
+  DE, KLAC, WWD, COHR, PCAR), **EBIT is reconstructed as LTM pretax income +
+  interest expense** and flagged. Where debt/cash tags are missing (CAT, GE,
+  EMR-cash, PCAR), EV is built from what exists and flagged — those EVs are
+  understated/overstated accordingly.
+- **Captive finance** (CAT, DE, PCAR, Volvo, Daimler Truck, Traton):
+  consolidated net debt includes financial-services funding, so EV/EBITDA is
+  not comparable with “industrial-only” conventions. Flagged on every row.
+- `NM` is shown when a denominator is negative, missing, or < 2 % of the
+  numerator. Nothing is zero-filled.
+
+## 4. Peer / sector / history layers
+
+- **Direct peers**: curated baskets from `capital_goods_peer_map.yaml`
+  (never automated classifications). Median is the primary benchmark;
+  quartiles, min/max, percentile rank and distances are computed on the
+  members with valid values (count shown).
+- **Wider sector**: all unique tickers in the pack, **deduplicated** (Emerson
+  counts once no matter how many baskets it sits in). Equal-weighted median
+  by default; a market-cap-weighted median (weighted 50th percentile on USD
+  market caps) is also computed.
+- **Own history**: fiscal years 2020-2025. For each year,
+  `EV_y = year-end price × that year’s diluted shares × year-end FX +
+  that year-end’s net debt (+ minority)`, divided by that fiscal year’s
+  EBITDA. This is an **approximate point-in-time** series: it uses reported
+  fiscal-year fundamentals (not consensus, which does not exist here) and
+  month-end prices from a sampled monthly series. Percentile, z-score,
+  median/mean, quartiles, min/max are computed on those annual observations
+  (3–6 points per name — treat percentiles as coarse).
+- Look-ahead bias: year-end price vs fiscal-year fundamentals implies the
+  fundamentals were only partially known at the price date. This is the
+  standard trade-off absent point-in-time estimate vintages, and is why the
+  series is labelled *approximate* everywhere it appears.
+
+## 5. Price data, returns and correlations
+
+- Quotes are official-close snapshots (2026-07-10 close for Europe/US;
+  Tokyo 2026-07-10 local). Daily series ≈ last 4.5 months; monthly series
+  ≈ 8 years. Both are **intelligently sampled** by the API (recent rows
+  dense, older rows thinned): returns use nearest-date matching and
+  correlations use shared adjacent-session log returns only, with `n_obs`
+  reported next to every correlation.
+- 1D/5D returns come from daily closes; 1M/3M/6M/12M from monthly closes.
+- 30d/90d correlations: Pearson on shared-date log returns within 45/130
+  calendar-day windows (minimum 8 shared observations, else blank).
+
+### 5b. Incremental price refresh (secondary source)
+
+`scripts/refresh_prices.py` tops up the recent end of the price data without
+re-fetching history: one Yahoo Finance chart-endpoint call per security (no
+API key) refreshes the live quote (close / previous close / 52-week range)
+and merges any missing recent daily bars into the stored FactIQ series; the
+five FX pairs refresh the same way. The full universe takes ~1 minute.
+
+- Previous close is taken from the last completed bar strictly before the
+  quote date (Yahoo's `chartPreviousClose` refers to the range start and is
+  not used). Bars from a session still in progress are used for the live
+  quote but never merged into the daily series.
+- Refreshed files carry `refresh_source` / `refreshed_at` markers. A
+  currency mismatch versus the stored payload aborts that name rather than
+  mixing units.
+- Nordic names refresh from the native OMX lines, which quote in the same
+  SEK/EUR as the LSE order-book lines used for history; tiny line-to-line
+  differences (~0.1–0.3%) are possible.
+- FactIQ remains the source of record for fundamentals, statements, monthly
+  history and deep price history. Suggested cadence: quotes daily (this
+  script), monthly series monthly, statements quarterly (via FactIQ).
+
+After refreshing, re-run `scripts/compute_metrics.py` and re-assemble the
+dashboard; the "Data as of" banner picks up the newest quote date
+automatically.
+
+## 6. European close / post-close read-across
+
+FactIQ provides **no intraday or timestamped prices**, so the 16:30 UK
+snapshot cannot be built. The dashboard substitutes the transparent
+fallback: *the completed full-session move of each market’s official close*.
+US and Tokyo closes land after Europe’s 16:30 UK close, so the US peer
+moves shown are the natural “overnight read-across” into the next European
+session — but they are **full-session moves, not moves since 16:30 UK**.
+This is labelled on the page. Peer-implied signals:
+
+- Equal-weighted peer move = mean of peer 1-day moves.
+- Correlation-weighted move = Σ(move × max(corr30,0)) / Σ max(corr30,0),
+  correlations vs the (first) coverage security.
+- Beta-adjusted move = mean over peers of (corr30 × σ_coverage/σ_peer × move).
+- Outlier warning when the largest single peer move exceeds 3× |median| + 2pp.
+- **Hit-rate backtesting of the peer-implied signal is not possible** with
+  sampled daily history and no timestamped opens; the module is disabled and
+  the limitation stated in-app.
+
+## 7. Scenario engine
+
+Mechanical, never price targets. Defaults per coverage name:
+Bear = −10 % EBITDA at direct-peer Q1 multiple; Base = LTM EBITDA at current
+multiple; Bull = +10 % EBITDA at peer Q3; plus rerating rows to peer median,
+sector median and own 5-year median. For each:
+`EV* = multiple × EBITDA*`, `Equity* = EV* − net debt − minority`,
+`Price* = Equity*/diluted shares × FX(report→quote)`,
+`Return = Price*/current − 1`, decomposed into earnings effect
+(ΔEBITDA at constant multiple) and multiple effect (Δmultiple at new
+EBITDA). Net-debt and share-count effects are zero in the defaults but
+editable in the dashboard’s scenario page, which recomputes live in JS.
+
+## 8. Sector-specific KPIs
+
+FactIQ’s `sec_kpi` dataset covers US filers with >$10 bn market cap only;
+none of the European coverage names have order/backlog/book-to-bill KPI
+series, and mixing US-only KPIs into peer tables would bias comparisons.
+The KPI module is therefore **disabled**, with this explanation shown.
+
+## 9. Data-quality flags
+
+Rendered on every row (screener `data_quality` column and drill-down):
+unresolved lines, stale statements, fiscal-year-end differences (Siemens
+Sep, Alstom Mar, Smiths Jul, GBX Aug, KMT/AMAT/KLAC Jun–Sep, OSK Dec since
+FY2023), derived EBITDA/EBIT, reconstruction approximations, captive
+finance, GBp/GBP units, ADR vs local share notes, corporate actions
+(GE split, Crane split, Melrose demerger, Alstom-Bombardier, VISN
+restructuring), and negative-earnings periods. Winsorisation is applied
+only to chart axes (multiples clipped at the 2nd–98th percentile for
+readability); underlying tables always carry raw values.
+
+## 10. Known limitations (summary)
+
+1. No consensus data → LTM basis everywhere; revisions/surprise/guidance
+   modules disabled.
+2. No intraday prices → European-close module uses official closes.
+3. Sampled price history → returns/correlations are approximations with
+   n_obs shown.
+4. Historical valuation series are annual and approximate (3–6 points).
+5. Some US XBRL gaps are bridged with reconstructions (flagged per name).
+6. Captive-finance names not comparable on consolidated EV multiples.
+7. VISN and Crane carry structural data-quality warnings.

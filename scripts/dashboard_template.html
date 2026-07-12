@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Capital Goods — Equity Research Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script id="factiq-data" type="application/json">
+__FACTIQ_DATA__
+</script>
+<style>
+:root{
+  --teal-900:#0d3b3f; --teal-800:#11494e; --teal-700:#175d63; --teal-100:#e3efef; --teal-50:#f1f7f7;
+  --surface:#fcfcfb; --card:#ffffff; --line:#d9ded d;
+  --line:#d8dedd; --ink:#101314; --ink2:#4e5a5b; --ink3:#8a9494;
+  --pos:#0a7d38; --neg:#c0392b; --warn:#b07100;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#008300; --s5:#4a3aa7; --s6:#e34948; --s7:#e87ba4; --s8:#eb6834;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font);font-size:13px;line-height:1.45}
+header.top{background:var(--teal-900);color:#fff;padding:14px 22px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+header.top h1{font-size:17px;margin:0;font-weight:650;letter-spacing:.01em}
+header.top .meta{color:#bcd6d6;font-size:12px}
+nav.tabs{background:var(--teal-800);display:flex;gap:2px;padding:0 14px;flex-wrap:wrap;position:sticky;top:0;z-index:30}
+nav.tabs button{background:transparent;border:0;color:#cfe3e3;padding:10px 14px;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;font-family:var(--font)}
+nav.tabs button.active{color:#fff;border-bottom-color:#7fd1c8;font-weight:600}
+main{padding:16px 22px 60px;max-width:1650px;margin:0 auto}
+.page{display:none}.page.active{display:block}
+.note{background:var(--teal-50);border:1px solid var(--teal-100);border-left:4px solid var(--teal-700);padding:8px 12px;border-radius:6px;margin:10px 0;color:var(--ink2);font-size:12px}
+.warnnote{border-left-color:var(--warn)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1100px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0}
+.card h3{margin:0 0 4px;font-size:13.5px;font-weight:650}
+.card .sub{color:var(--ink3);font-size:11.5px;margin-bottom:8px}
+.chart{width:100%;height:340px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.controls label{color:var(--ink2);font-size:12px}
+select,input[type=text],input[type=number]{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+button.btn{font:inherit;padding:6px 12px;border:1px solid var(--teal-700);background:var(--teal-700);color:#fff;border-radius:6px;cursor:pointer}
+button.btn.ghost{background:#fff;color:var(--teal-800)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:12px;min-width:900px}
+thead th{position:sticky;top:0;background:var(--teal-800);color:#fff;text-align:right;padding:7px 8px;font-weight:600;white-space:nowrap;cursor:pointer;z-index:5}
+thead th:first-child,thead th.txt{text-align:left}
+tbody td{padding:5.5px 8px;border-top:1px solid #edf1f0;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody td:first-child,tbody td.txt{text-align:left}
+tr.subhdr td{background:var(--teal-900);color:#fff;font-weight:650;text-align:left;font-size:12.5px;letter-spacing:.02em;padding:7px 8px}
+tr.cov td{background:var(--teal-100);font-weight:700}
+tr.peer td{background:#fff}
+tr.basket td{background:#f6f8f8;color:var(--ink2);font-style:italic}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.nm{color:var(--ink3)}
+.big{font-weight:700}
+.dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:1px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpi .l{color:var(--ink3);font-size:11px}.kpi .v{font-size:19px;font-weight:700;margin-top:2px}
+.kpi .s{color:var(--ink2);font-size:11px}
+.flagbox{background:#fff8ec;border:1px solid #f0e2c0;border-radius:6px;padding:8px 12px;font-size:12px;color:#6b5717;margin:8px 0}
+.tt{position:fixed;pointer-events:none;background:#102325;color:#fff;padding:8px 10px;border-radius:6px;font-size:11.5px;max-width:360px;z-index:99;display:none;line-height:1.5;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+abbr.help{cursor:help;text-decoration:underline dotted var(--ink3);text-underline-offset:2px}
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.small{font-size:11.5px;color:var(--ink2)}
+h2.pagetitle{font-size:15px;margin:14px 0 2px;color:var(--teal-900)}
+.legendrow{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink2);margin:4px 0}
+footer{color:var(--ink3);font-size:11px;border-top:1px solid var(--line);margin-top:30px;padding:10px 22px}
+@media (prefers-color-scheme: dark){
+  :root{--surface:#141716;--card:#1b1f1e;--line:#2e3736;--ink:#e8ecea;--ink2:#aeb9b7;--ink3:#7d8886;
+        --teal-50:#172a2b;--teal-100:#1d3a3c;--pos:#4cc37a;--neg:#ee7b6d;
+        --s1:#3987e5;--s2:#199e70;--s3:#c98500;--s5:#9085e9;--s6:#e66767}
+  select,input[type=text],input[type=number]{background:#232827;color:var(--ink);border-color:var(--line)}
+  tr.peer td{background:var(--card)}
+  tr.cov td{background:var(--teal-100)}
+  tr.basket td{background:#20302f}
+  .tablewrap{background:var(--card)}
+  .flagbox{background:#2e2913;border-color:#4d431c;color:#e8d79a}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Capital Goods — Coverage Dashboard</h1>
+  <span class="meta" id="hdrmeta"></span>
+  <span class="meta">Basis: LTM reported fallback (no consensus feed) · Mechanical analytics, not investment advice</span>
+</header>
+<nav class="tabs" id="tabs">
+  <button data-p="p1" class="active">1 · Market Close &amp; Read-Across</button>
+  <button data-p="p2">2 · Rerating &amp; Performance</button>
+  <button data-p="p3">3 · Screener</button>
+  <button data-p="p4">4 · Company Drill-Down</button>
+  <button data-p="p5">5 · Scenarios</button>
+  <button data-p="p6">6 · Methodology &amp; Mapping</button>
+</nav>
+<main>
+
+<!-- ====================== PAGE 1 ====================== -->
+<section class="page active" id="p1">
+  <h2 class="pagetitle">Market close &amp; peer read-across</h2>
+  <div class="note warnnote"><b>European-close limitation:</b> FactIQ provides no intraday/timestamped prices, so the requested 16:30 UK snapshot cannot be built. This page shows each market's <b>completed full-session move at its official close</b>. US &amp; Tokyo closes land after Europe's close, so peer 1-day moves act as the overnight read-across into the next European session — they are full-day moves, not moves since 16:30 UK. Peer-implied hit-rate backtesting is disabled for the same reason.</div>
+  <div class="controls">
+    <label>Subgroup <select id="p1sub"><option value="">All</option></select></label>
+    <label><input type="checkbox" id="p1big"> Big moves only (|1D| &gt; 3%)</label>
+    <button class="btn ghost" onclick="exportTable('p1tbl','capital_goods_market_close_view.csv')">Export CSV</button>
+  </div>
+  <div class="tablewrap" style="max-height:72vh;overflow-y:auto">
+  <table id="p1tbl">
+    <thead><tr>
+      <th class="txt">Company</th><th class="txt">Ticker</th><th>Ccy</th>
+      <th>Prev close</th><th>Close</th><th>1D %</th><th>5D %</th><th>1M %</th><th>3M %</th><th>6M %</th><th>12M %</th>
+      <th><abbr class="help" title="Pearson correlation of shared-date daily log returns vs the coverage security, ~30 trading days. n_obs shown in tooltip.">ρ30</abbr></th>
+      <th><abbr class="help" title="~90 trading days">ρ90</abbr></th>
+      <th><abbr class="help" title="Peer 1-day move minus equal-weighted basket move">vs basket</abbr></th>
+      <th>⚑</th>
+    </tr></thead>
+    <tbody id="p1body"></tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ====================== PAGE 2 ====================== -->
+<section class="page" id="p2">
+  <h2 class="pagetitle">Sector rerating &amp; price performance</h2>
+  <div class="controls">
+    <label>Coverage company <select id="p2sel"></select></label>
+    <span class="small">Valuation metric: <b>EV/EBITDA (LTM basis)</b> — forward metrics unavailable (no consensus feed). History = fiscal-year fundamentals × year-end price (approximate).</span>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3 id="p2at">Valuation vs peers over time</h3><div class="sub">Company vs direct-peer median and interquartile range; wider-sector median dashed. Annual observations.</div><div class="chart" id="c_val"></div></div>
+    <div class="card"><h3>Premium / discount to direct-peer median</h3><div class="sub">Positive = company more expensive than its curated basket median.</div><div class="chart" id="c_prem"></div></div>
+    <div class="card"><h3>Sector-wide rerating &amp; dispersion</h3><div class="sub">Deduplicated pack universe: median, top &amp; bottom quartile EV/EBITDA by fiscal year, plus Q3−Q1 spread.</div><div class="chart" id="c_disp"></div></div>
+    <div class="card"><h3>Valuation positioning map</h3><div class="sub">X: percentile of current multiple within own 2020-25 range · Y: premium/discount to direct peers · bubble = market cap. Quadrants: cheap/expensive vs history × peers.</div><div class="chart" id="c_pos"></div></div>
+  </div>
+  <div class="card"><h3>Valuation vs momentum matrix</h3><div class="sub">X: 3-month relative performance vs direct peers (pp) · Y: premium/discount to direct-peer median (%). Context only — momentum is not scored as positive or negative.</div><div class="chart" id="c_mom" style="height:380px"></div></div>
+</section>
+
+<!-- ====================== PAGE 3 ====================== -->
+<section class="page" id="p3">
+  <h2 class="pagetitle">Screener — valuation, quality, performance</h2>
+  <div class="note warnnote"><b>Earnings-revisions module disabled:</b> FactIQ carries no consensus estimates, revision history, analyst counts or surprise data. Momentum context uses reported YoY growth and relative price performance instead. Every multiple is LTM reported (single consistent basis — no NTM/LTM mixing).</div>
+  <div class="controls">
+    <input type="text" id="p3q" placeholder="Search company / ticker…" style="width:210px">
+    <label>Subgroup <select id="p3sub"><option value="">All</option></select></label>
+    <label>Min mcap $bn <input type="number" id="p3mc" value="0" style="width:70px"></label>
+    <label>Max ND/EBITDA <input type="number" id="p3lev" placeholder="any" style="width:70px"></label>
+    <label>Classification <select id="p3cls"><option value="">All</option></select></label>
+    <button class="btn ghost" onclick="exportTable('p3tbl','capital_goods_screener_view.csv')">Export CSV</button>
+  </div>
+  <div class="tablewrap" style="max-height:70vh;overflow-y:auto">
+  <table id="p3tbl"><thead><tr id="p3head"></tr></thead><tbody id="p3body"></tbody></table>
+  </div>
+  <p class="small">Click a column header to sort. Hover any figure for definition, source and basis. NM = denominator missing/non-meaningful. Multiples use each company's reporting currency throughout.</p>
+</section>
+
+<!-- ====================== PAGE 4 ====================== -->
+<section class="page" id="p4">
+  <h2 class="pagetitle">Company drill-down</h2>
+  <div class="controls"><label>Coverage company <select id="p4sel"></select></label></div>
+  <div class="kpis" id="p4kpis"></div>
+  <div class="note" id="p4interp"></div>
+  <div class="flagbox" id="p4flags"></div>
+  <div class="grid2">
+    <div class="card"><h3>Share price (monthly, ~6y)</h3><div class="sub" id="p4pxsub"></div><div class="chart" id="c_px"></div></div>
+    <div class="card"><h3>EV/EBITDA vs own history</h3><div class="sub">Annual approximate observations; band = own min-max.</div><div class="chart" id="c_hist"></div></div>
+  </div>
+  <div class="card"><h3>Direct-peer comparison (LTM)</h3><div class="tablewrap"><table id="p4peers"><thead><tr>
+    <th class="txt">Name</th><th>EV/EBITDA</th><th>EV/EBIT</th><th>P/E</th><th>EV/Rev</th><th>FCF yield %</th><th>EBITDA margin %</th><th>ND/EBITDA</th><th>1D %</th><th>3M %</th><th>12M %</th>
+  </tr></thead><tbody></tbody></table></div></div>
+</section>
+
+<!-- ====================== PAGE 5 ====================== -->
+<section class="page" id="p5">
+  <h2 class="pagetitle">Scenario analysis</h2>
+  <div class="note warnnote"><b>Mechanical valuation scenarios — not analyst price targets.</b> Implied return decomposes into an earnings effect (ΔEBITDA at constant multiple), a multiple effect, a net-debt effect and a share-count effect.</div>
+  <div class="controls">
+    <label>Company <select id="p5sel"></select></label>
+    <label>ΔEBITDA % <input type="number" id="p5e" value="0" step="1" style="width:70px"></label>
+    <label>Target EV/EBITDA <input type="number" id="p5m" step="0.1" style="width:80px"></label>
+    <label>Net debt (bn, report ccy) <input type="number" id="p5nd" step="0.1" style="width:90px"></label>
+    <label>Shares (m) <input type="number" id="p5sh" step="1" style="width:90px"></label>
+    <button class="btn" id="p5go">Compute</button>
+  </div>
+  <div class="kpis" id="p5out"></div>
+  <div class="card"><h3>Preset scenarios</h3><div class="sub">Bear = −10% EBITDA @ peer Q1 · Base = LTM @ current · Bull = +10% @ peer Q3 · plus rerating rows.</div>
+  <div class="tablewrap"><table id="p5tbl"><thead><tr>
+    <th class="txt">Scenario</th><th>EBITDA (m)</th><th>Multiple</th><th>EV (bn)</th><th>Net debt (bn)</th><th>Implied px</th><th>Current px</th><th>Return %</th><th>Earnings eff. %</th><th>Multiple eff. %</th>
+  </tr></thead><tbody></tbody></table></div></div>
+</section>
+
+<!-- ====================== PAGE 6 ====================== -->
+<section class="page" id="p6">
+  <h2 class="pagetitle">Methodology, security mapping &amp; audit</h2>
+  <div class="card"><h3>Methodology (summary)</h3><div id="p6meth" class="small" style="line-height:1.7"></div></div>
+  <div class="card"><h3>Security mapping</h3><div class="tablewrap"><table id="p6map"><thead><tr>
+    <th class="txt">Requested</th><th class="txt">Resolved</th><th class="txt">Ticker</th><th class="txt">Provider symbol</th><th class="txt">Exchange</th><th>MIC</th><th>Ccy</th><th class="txt">Confidence</th><th class="txt">Notes</th>
+  </tr></thead><tbody></tbody></table></div></div>
+</section>
+
+</main>
+<footer>Sources: FactIQ market-data provider (quotes, prices, statements, FX) and SEC EDGAR XBRL via FactIQ. All figures reported/derived — no consensus estimates exist in the pipeline. Peer map: capital_goods_peer_map.yaml. Engine: scripts/compute_metrics.py. Winsorisation applies to chart axes only.</footer>
+<div class="tt" id="tt"></div>
+
+<script>
+const D = JSON.parse(document.getElementById('factiq-data').textContent).dash;
+const $ = s => document.querySelector(s);
+const fmt = (x,d=2) => (x==null||isNaN(x)) ? 'NM' : Number(x).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pcls = x => x==null ? 'nm' : (x>0?'pos':(x<0?'neg':''));
+const sgn = x => x==null ? 'NM' : (x>0?'+':'')+fmt(x,x>=100?0:2);
+document.getElementById('hdrmeta').textContent = 'Data as of ' + D.generated + ' close · ' + D.screener.length + ' coverage names · ' + D.close_rows.length + ' securities';
+
+/* tabs */
+document.getElementById('tabs').addEventListener('click', e=>{
+  if(e.target.tagName!=='BUTTON')return;
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active',b===e.target));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===e.target.dataset.p));
+  window.dispatchEvent(new Event('resize'));
+});
+
+/* tooltip helper */
+const tt = document.getElementById('tt');
+document.addEventListener('mouseover', e=>{
+  const t = e.target.closest('[data-tt]');
+  if(!t){tt.style.display='none';return;}
+  tt.innerHTML = t.dataset.tt; tt.style.display='block';
+});
+document.addEventListener('mousemove', e=>{
+  if(tt.style.display==='block'){
+    tt.style.left = Math.min(e.clientX+14, innerWidth-380)+'px';
+    tt.style.top = Math.min(e.clientY+14, innerHeight-140)+'px';
+  }
+});
+
+function exportTable(id, fname){
+  const rows=[...document.getElementById(id).querySelectorAll('tr')].map(tr=>
+    [...tr.children].map(td=>'"'+td.innerText.replace(/"/g,'""')+'"').join(','));
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  a.download=fname;a.click();
+}
+
+/* ============ PAGE 1 ============ */
+const subs=[...new Set(D.close_rows.map(r=>r.subgroup))];
+subs.forEach(s=>{$('#p1sub').append(new Option(s,s));$('#p3sub').append(new Option(s,s));});
+function ttCell(r){
+  return `<b>${r.company}</b> (${r.ticker})<br>Official close ${r.quote_time||''}, ${r.ccy}.<br>Full-session move; corr n_obs: 30d=${r.corr30_nobs??'–'}, 90d=${r.corr90_nobs??'–'}.<br>Source: FactIQ market-data provider GLOBAL_QUOTE / TIME_SERIES.`;
+}
+function renderP1(){
+  const sub=$('#p1sub').value, big=$('#p1big').checked;
+  const body=$('#p1body'); body.innerHTML='';
+  let curSub=null;
+  for(const g of D.close_groups){
+    if(sub && g.subgroup!==sub) continue;
+    const rows=D.close_rows.filter(r=>r.coverage_group===g.group);
+    if(big && !rows.some(r=>r.big_move)) continue;
+    if(g.subgroup!==curSub){
+      curSub=g.subgroup;
+      body.insertAdjacentHTML('beforeend',`<tr class="subhdr"><td colspan="15">${curSub}</td></tr>`);
+    }
+    for(const role of ['coverage','peer']){
+      for(const r of rows.filter(x=>x.role===role)){
+        if(big && !r.big_move && role==='peer') continue;
+        body.insertAdjacentHTML('beforeend', `<tr class="${role==='coverage'?'cov':'peer'}" data-tt='${ttCell(r).replace(/'/g,"&#39;")}'>
+          <td class="txt">${role==='coverage'?'▮ ':''}${r.company}</td><td class="txt">${r.ticker}</td><td>${r.ccy}</td>
+          <td>${fmt(r.prev_close)}</td><td class="big">${fmt(r.close_px)}</td>
+          <td class="${pcls(r.move_1d_pct)}">${sgn(r.move_1d_pct)}</td>
+          <td class="${pcls(r.move_5d_pct)}">${sgn(r.move_5d_pct)}</td>
+          <td class="${pcls(r.move_1m_pct)}">${sgn(r.move_1m_pct)}</td>
+          <td class="${pcls(r.move_3m_pct)}">${sgn(r.move_3m_pct)}</td>
+          <td class="${pcls(r.move_6m_pct)}">${sgn(r.move_6m_pct)}</td>
+          <td class="${pcls(r.move_12m_pct)}">${sgn(r.move_12m_pct)}</td>
+          <td>${r.corr30==null?'–':fmt(r.corr30)}</td><td>${r.corr90==null?'–':fmt(r.corr90)}</td>
+          <td class="${pcls(r.rel_vs_basket_pct)}">${r.rel_vs_basket_pct==null?'–':sgn(r.rel_vs_basket_pct)}</td>
+          <td>${r.big_move?'⚑':''}</td></tr>`);
+      }
+    }
+    const s=g.stats;
+    if(s) body.insertAdjacentHTML('beforeend',`<tr class="basket" data-tt="Equal-weighted mean of peer 1-day moves; corr-weighted uses max(ρ30,0) weights vs ${D.names[g.coverage[0]]}; beta-adjusted = mean(ρ30·σcov/σpeer·move). ${s.outlier?'<b>Outlier warning: one peer dominates.</b>':''}">
+      <td class="txt" colspan="3">↳ ${g.group} basket: eq ${sgn(s.eq)}% · median ${sgn(s.median)}% · corr-wtd ${sgn(s.cw)}% · β-adj ${s.beta_adj==null?'–':sgn(s.beta_adj)+'%'}</td>
+      <td colspan="12">▲${s.pos} ▼${s.neg} · best ${D.tickers[s.best[0]]} ${sgn(s.best[1])}% · worst ${D.tickers[s.worst[0]]} ${sgn(s.worst[1])}% · avg ρ30 ${s.avg_corr30==null?'–':fmt(s.avg_corr30)} ${s.outlier?' · ⚠ outlier-dominated':''}</td></tr>`);
+  }
+}
+$('#p1sub').onchange=renderP1; $('#p1big').onchange=renderP1;
+renderP1();
+
+/* ============ shared chart theming ============ */
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+const inkA = dark?'#e8ecea':'#101314', ink2A = dark?'#aeb9b7':'#4e5a5b', lineA = dark?'#2e3736':'#e2e8e7';
+const baseOpt = {textStyle:{fontFamily:getComputedStyle(document.body).fontFamily,color:inkA},
+  grid:{left:60,right:24,top:36,bottom:40,containLabel:true},
+  tooltip:{trigger:'axis',backgroundColor:dark?'#102325':'#102325',borderWidth:0,textStyle:{color:'#fff',fontSize:11.5}}};
+const AX = t => ({type:t||'value',axisLine:{lineStyle:{color:lineA}},axisLabel:{color:ink2A,fontSize:11},splitLine:{lineStyle:{color:lineA,opacity:.6}}});
+
+/* hist per year: peer/sector medians */
+const histBy = {};
+D.hist.forEach(h=>{ (histBy[h.key]=histBy[h.key]||{})[h.year]=h.ev_ebitda; });
+const YEARS=[2020,2021,2022,2023,2024,2025];
+function median(a){if(!a.length)return null;const s=[...a].sort((x,y)=>x-y);const m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2;}
+function quart(a,q){if(a.length<2)return null;const s=[...a].sort((x,y)=>x-y);const p=(s.length-1)*q;const lo=Math.floor(p);return s[lo]+(s[Math.min(lo+1,s.length-1)]-s[lo])*(p-lo);}
+const groupsFlat=[]; D.subgroups.forEach(sg=>sg.groups.forEach(g=>groupsFlat.push({...g,subgroup:sg.name})));
+const groupOf={}; groupsFlat.forEach(g=>g.coverage.forEach(c=>groupOf[c]=g));
+const scr={}; D.screener.forEach(r=>scr[r.key]=r);
+const allKeys=[...new Set(D.hist.map(h=>h.key))];
+const sectorByYear=YEARS.map(y=>{const v=allKeys.map(k=>histBy[k]?.[y]).filter(x=>x!=null);return {y,med:median(v),q1:quart(v,.25),q3:quart(v,.75)};});
+
+const covKeys=D.screener.map(r=>r.key);
+covKeys.forEach(k=>{['#p2sel','#p4sel','#p5sel'].forEach(s=>$(s).append(new Option(D.names[k]+' ('+D.tickers[k]+')',k)));});
+
+const charts={};
+function ch(id){ if(!charts[id]) charts[id]=echarts.init(document.getElementById(id)); return charts[id]; }
+addEventListener('resize',()=>Object.values(charts).forEach(c=>c.resize()));
+
+/* ============ PAGE 2 ============ */
+function renderP2(){
+  const k=$('#p2sel').value, g=groupOf[k];
+  $('#p2at').textContent=D.names[k]+' — EV/EBITDA vs direct peers';
+  const own=YEARS.map(y=>histBy[k]?.[y]??null);
+  const pmed=YEARS.map(y=>median(g.peers.map(p=>histBy[p]?.[y]).filter(x=>x!=null)));
+  const pq1=YEARS.map(y=>quart(g.peers.map(p=>histBy[p]?.[y]).filter(x=>x!=null),.25));
+  const pq3=YEARS.map(y=>quart(g.peers.map(p=>histBy[p]?.[y]).filter(x=>x!=null),.75));
+  const smed=sectorByYear.map(r=>r.med);
+  ch('c_val').setOption({...baseOpt,color:['#2a78d6','#11494e','#8a9494'],
+    legend:{top:0,data:[D.names[k],'Direct-peer median','Sector median'],textStyle:{color:ink2A,fontSize:11}},
+    xAxis:{...AX('category'),data:YEARS},yAxis:{...AX(),name:'EV/EBITDA ×',nameTextStyle:{color:ink2A}},
+    series:[
+      {name:D.names[k],type:'line',data:own,lineStyle:{width:2.5},symbolSize:8},
+      {name:'Direct-peer median',type:'line',data:pmed,lineStyle:{width:2},symbolSize:7},
+      {name:'Sector median',type:'line',data:smed,lineStyle:{width:1.5,type:'dashed'},symbol:'none'},
+      {name:'Peer Q1–Q3',type:'custom',renderItem:(p,api)=>{
+        const i=api.value(0),lo=pq1[i],hi=pq3[i];if(lo==null||hi==null)return;
+        const a=api.coord([i,lo]),b=api.coord([i,hi]);
+        return {type:'rect',shape:{x:a[0]-9,y:b[1],width:18,height:a[1]-b[1]},style:{fill:'rgba(23,93,99,.18)'}};
+      },data:YEARS.map((y,i)=>[i]),tooltip:{show:false},silent:true,z:0}
+    ]},true);
+  const prem=YEARS.map((y,i)=>(own[i]!=null&&pmed[i])?+(100*(own[i]/pmed[i]-1)).toFixed(1):null);
+  ch('c_prem').setOption({...baseOpt,color:['#175d63'],
+    xAxis:{...AX('category'),data:YEARS},yAxis:{...AX(),name:'% vs peer median'},
+    series:[{type:'bar',data:prem.map(v=>({value:v,itemStyle:{color:v==null?'#ccc':(v<0?'#0a7d38':'#c0392b'),borderRadius:[4,4,0,0]}})),barWidth:26,
+      label:{show:true,position:'top',formatter:p=>p.value==null?'':sgn(p.value)+'%',color:ink2A,fontSize:10.5}}]},true);
+  ch('c_disp').setOption({...baseOpt,color:['#11494e','#2a78d6','#eda100','#8a9494'],
+    legend:{top:0,textStyle:{color:ink2A,fontSize:11}},
+    xAxis:{...AX('category'),data:YEARS},yAxis:{...AX(),name:'EV/EBITDA ×'},
+    series:[
+      {name:'Sector median',type:'line',data:sectorByYear.map(r=>r.med&&+r.med.toFixed(2)),lineStyle:{width:2.5},symbolSize:7},
+      {name:'Top quartile',type:'line',data:sectorByYear.map(r=>r.q3&&+r.q3.toFixed(2)),lineStyle:{width:1.5},symbolSize:5},
+      {name:'Bottom quartile',type:'line',data:sectorByYear.map(r=>r.q1&&+r.q1.toFixed(2)),lineStyle:{width:1.5},symbolSize:5},
+      {name:'Dispersion (Q3−Q1)',type:'bar',data:sectorByYear.map(r=>(r.q1&&r.q3)?+(r.q3-r.q1).toFixed(2):null),barWidth:16,itemStyle:{color:'rgba(23,93,99,.25)',borderRadius:[3,3,0,0]}}
+    ]},true);
+  /* positioning bubble */
+  const pts=D.screener.filter(r=>r.hist_percentile!=null&&r.prem_disc_vs_peers_pct!=null)
+    .map(r=>({name:D.tickers[r.key].split(' ')[0],value:[r.hist_percentile,r.prem_disc_vs_peers_pct,Math.max(r.mcap_usd_bn||3,3)],sel:r.key===k}));
+  ch('c_pos').setOption({...baseOpt,tooltip:{trigger:'item',backgroundColor:'#102325',borderWidth:0,textStyle:{color:'#fff',fontSize:11.5},
+      formatter:p=>`<b>${p.name}</b><br>Own-history percentile: ${p.value[0]}%<br>Vs peers: ${sgn(p.value[1])}%<br>Mcap $${fmt(p.value[2],0)}bn`},
+    xAxis:{...AX(),min:0,max:100,name:'percentile of own 2020-25 EV/EBITDA range',nameLocation:'middle',nameGap:26,nameTextStyle:{color:ink2A}},
+    yAxis:{...AX(),name:'% vs direct-peer median',nameTextStyle:{color:ink2A}},
+    series:[{type:'scatter',data:pts,symbolSize:d=>6+Math.sqrt(d[2])*2.1,
+      itemStyle:{color:p=>pts[p.dataIndex].sel?'#eda100':'rgba(23,93,99,.75)',borderColor:dark?'#141716':'#fff',borderWidth:1.5},
+      label:{show:true,position:'top',formatter:p=>p.name,fontSize:9.5,color:ink2A},labelLayout:{hideOverlap:true},
+      markLine:{silent:true,symbol:'none',lineStyle:{color:ink2A,type:'dashed',opacity:.6},
+        data:[{xAxis:50},{yAxis:0}],label:{show:false}}}]},true);
+  /* momentum matrix */
+  const mp=D.screener.filter(r=>r.rel_3m_pct!=null&&r.prem_disc_vs_peers_pct!=null)
+    .map(r=>({name:D.tickers[r.key].split(' ')[0],value:[r.rel_3m_pct,r.prem_disc_vs_peers_pct],sel:r.key===k}));
+  ch('c_mom').setOption({...baseOpt,tooltip:{trigger:'item',backgroundColor:'#102325',borderWidth:0,textStyle:{color:'#fff',fontSize:11.5},
+      formatter:p=>`<b>${p.name}</b><br>3M rel perf: ${sgn(p.value[0])}pp<br>Vs peers: ${sgn(p.value[1])}%`},
+    xAxis:{...AX(),name:'3M performance relative to direct peers (pp)',nameLocation:'middle',nameGap:26,nameTextStyle:{color:ink2A}},
+    yAxis:{...AX(),name:'% vs direct-peer median',nameTextStyle:{color:ink2A}},
+    series:[{type:'scatter',data:mp,symbolSize:11,
+      itemStyle:{color:p=>mp[p.dataIndex].sel?'#eda100':'rgba(42,120,214,.8)',borderColor:dark?'#141716':'#fff',borderWidth:1.5},
+      label:{show:true,position:'top',formatter:p=>p.name,fontSize:9.5,color:ink2A},labelLayout:{hideOverlap:true},
+      markLine:{silent:true,symbol:'none',lineStyle:{color:ink2A,type:'dashed',opacity:.6},data:[{xAxis:0},{yAxis:0}],label:{show:false}}}]},true);
+}
+$('#p2sel').onchange=renderP2;
+
+/* ============ PAGE 3 ============ */
+const COLS=[
+ ['coverage_group','Group','txt'],['company','Company','txt'],['ticker','Ticker','txt'],
+ ['price','Price'],['quote_ccy','Ccy','txt'],['mcap_usd_bn','Mcap $bn'],['ev_report_ccy_bn','EV bn'],
+ ['estimate_basis','Basis','txt'],
+ ['ev_ebitda_ltm','EV/EBITDA'],['ev_ebit_ltm','EV/EBIT'],['pe_ltm','P/E'],['ev_rev_ltm','EV/Rev'],['fcf_yield_pct','FCF yld %'],
+ ['peer_median_ev_ebitda','Peer med'],['prem_disc_vs_peers_pct','vs peers %'],
+ ['sector_median_ev_ebitda','Sector med'],['prem_disc_vs_sector_pct','vs sector %'],
+ ['hist_median_ev_ebitda','Hist med'],['hist_percentile','Hist pct'],['hist_zscore','Hist z'],
+ ['rev_growth_pct','Rev g %'],['ebitda_growth_pct','EBITDA g %'],['ebitda_margin_pct','Margin %'],['margin_chg_pp','ΔMargin pp'],
+ ['fcf_conversion','FCF conv'],['nd_ebitda','ND/EBITDA'],['interest_cover','Int cover'],
+ ['rel_1m_pct','Rel 1M'],['rel_3m_pct','Rel 3M'],['rel_12m_pct','Rel 12M'],['drawdown_52w_pct','vs 52w hi %'],
+ ['classification','Classification','txt'],['data_quality','Flags','txt']];
+const TTDEF={ev_ebitda_ltm:'Enterprise value ÷ LTM EBITDA (operating income + D&A). Report currency. Source: FactIQ statements / SEC XBRL. Basis: LTM reported.',
+ prem_disc_vs_peers_pct:'Current EV/EBITDA vs median of curated direct-peer basket (same LTM basis, valid members only).',
+ hist_percentile:'Percentile of current multiple within own fiscal 2020-25 annual EV/EBITDA observations (approximate point-in-time).',
+ fcf_yield_pct:'(Operating cash flow − capex, latest annual/LTM) ÷ market cap.',
+ nd_ebitda:'(Total debt − cash & ST investments) ÷ LTM EBITDA. Captive-finance names flagged.',
+ classification:'Rules: cheap = >10% below peer median; rich = >10% above. Improving = FY rev growth >3% and margin not falling; weak = negative growth or margin −1pp.'};
+$('#p3head').innerHTML=COLS.map(([k,l,t])=>`<th class="${t||''}" data-k="${k}">${l}</th>`).join('');
+[...new Set(D.screener.map(r=>r.classification))].forEach(c=>$('#p3cls').append(new Option(c,c)));
+let sortK='prem_disc_vs_peers_pct',sortA=true;
+function renderP3(){
+  const q=$('#p3q').value.toLowerCase(),sub=$('#p3sub').value,mc=+$('#p3mc').value||0,
+        lev=$('#p3lev').value===''?null:+$('#p3lev').value,cls=$('#p3cls').value;
+  let rows=D.screener.filter(r=>
+    (!q||(r.company+r.ticker).toLowerCase().includes(q)) &&
+    (!sub||r.subgroup===sub) && ((r.mcap_usd_bn||0)>=mc) &&
+    (lev==null||r.nd_ebitda==null||r.nd_ebitda<=lev) && (!cls||r.classification===cls));
+  rows.sort((a,b)=>{const x=a[sortK],y=b[sortK];
+    if(x==null)return 1;if(y==null)return -1;
+    return (typeof x==='string'? x.localeCompare(y) : x-y)*(sortA?1:-1);});
+  $('#p3body').innerHTML=rows.map(r=>'<tr>'+COLS.map(([k,l,t])=>{
+    let v=r[k];
+    let klass=t?'txt':'';
+    if(['prem_disc_vs_peers_pct','prem_disc_vs_sector_pct','rev_growth_pct','ebitda_growth_pct','margin_chg_pp','rel_1m_pct','rel_3m_pct','rel_12m_pct','drawdown_52w_pct','fcf_yield_pct'].includes(k)) klass+=' '+pcls(v);
+    let txt = t? (v??'') : (v==null?'NM':fmt(v, ['mcap_usd_bn','ev_report_ccy_bn'].includes(k)?1:2));
+    if(k==='data_quality'&&v&&v!=='OK') txt='⚠';
+    if(k==='estimate_basis') txt='LTM';
+    const ttx=(TTDEF[k]?TTDEF[k]+' ':'')+(k==='data_quality'?(v||''):'');
+    return `<td class="${klass}" ${ttx?`data-tt="${ttx.replace(/"/g,'&quot;')}"`:''}>${txt}</td>`;
+  }).join('')+'</tr>').join('');
+}
+$('#p3head').addEventListener('click',e=>{const k=e.target.dataset.k;if(!k)return;
+  if(sortK===k)sortA=!sortA;else{sortK=k;sortA=true;}renderP3();});
+['#p3q','#p3sub','#p3mc','#p3lev','#p3cls'].forEach(s=>$(s).addEventListener('input',renderP3));
+renderP3();
+
+/* ============ PAGE 4 ============ */
+function interp(k){
+  const r=scr[k],d=D.drill[k];
+  const bits=[];
+  if(r.prem_disc_vs_peers_pct!=null) bits.push(`trades at a ${fmt(Math.abs(r.prem_disc_vs_peers_pct),0)}% ${r.prem_disc_vs_peers_pct<0?'discount':'premium'} to its direct-peer median EV/EBITDA (${fmt(r.peer_median_ev_ebitda,1)}× vs ${fmt(r.ev_ebitda_ltm,1)}×, LTM basis)`);
+  const ord=n=>{const v=Math.round(n),t=v%10,h=v%100;return v+(h>=11&&h<=13?'th':t===1?'st':t===2?'nd':t===3?'rd':'th')};
+  if(r.hist_percentile!=null) bits.push(`sits at the ${ord(r.hist_percentile)} percentile of its own 2020-25 valuation range (${r.hist_years} annual obs.)`);
+  if(r.rev_growth_pct!=null) bits.push(`reported ${sgn(r.rev_growth_pct)}% revenue growth in the latest fiscal year with EBITDA margin ${r.margin_chg_pp==null?'':(r.margin_chg_pp>=0?'up':'down')+' '+fmt(Math.abs(r.margin_chg_pp),1)+'pp to'} ${fmt(r.ebitda_margin_pct,1)}%`);
+  if(r.nd_ebitda!=null) bits.push(`net debt is ${fmt(r.nd_ebitda,1)}× EBITDA`);
+  if(r.rel_3m_pct!=null) bits.push(`the shares have ${r.rel_3m_pct>=0?'outperformed':'underperformed'} the peer basket by ${fmt(Math.abs(r.rel_3m_pct),1)}pp over three months`);
+  return `<b>${D.names[k]}</b> ${bits.join('; ')}. Consensus revisions unavailable — momentum shown is price/reported-results based. Classification: <b>${r.classification}</b>.`;
+}
+function renderP4(){
+  const k=$('#p4sel').value,r=scr[k],d=D.drill[k],g=groupOf[k];
+  $('#p4kpis').innerHTML=[
+    ['Price',fmt(r.price)+' '+r.quote_ccy,''],
+    ['Market cap',(r.mcap_usd_bn?('$'+fmt(r.mcap_usd_bn,1)+'bn'):'NM'),''],
+    ['EV (report ccy)',r.ev_report_ccy_bn?fmt(r.ev_report_ccy_bn,1)+'bn '+r.report_ccy:'NM',''],
+    ['EV/EBITDA',fmt(r.ev_ebitda_ltm,1)+'×','LTM'],['EV/EBIT',fmt(r.ev_ebit_ltm,1)+'×','LTM'],
+    ['P/E',fmt(r.pe_ltm,1)+'×','LTM'],['FCF yield',r.fcf_yield_pct==null?'NM':fmt(r.fcf_yield_pct,1)+'%',''],
+    ['ND/EBITDA',fmt(r.nd_ebitda,1)+'×',''],['Vs peers',r.prem_disc_vs_peers_pct==null?'NM':sgn(r.prem_disc_vs_peers_pct)+'%','EV/EBITDA'],
+    ['52w drawdown',r.drawdown_52w_pct==null?'NM':fmt(r.drawdown_52w_pct,1)+'%','vs high'],
+  ].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
+  $('#p4interp').innerHTML=interp(k);
+  $('#p4flags').innerHTML='<b>Data-quality flags:</b> '+((d.flags&&d.flags.length)?d.flags.join(' · '):'none')+
+    ` · Statement basis: ${d.fund.basis} (as of ${d.fund.asof}). Fundamentals in ${r.report_ccy}.`;
+  $('#p4pxsub').textContent=`Monthly closes, ${r.quote_ccy}. Sampled series — older months thinned.`;
+  const ser=(D.monthlies[k]||[]).slice().reverse();
+  ch('c_px').setOption({...baseOpt,color:['#175d63'],
+    xAxis:{...AX('category'),data:ser.map(x=>x[0].slice(0,7)),axisLabel:{color:ink2A,fontSize:10,interval:11}},
+    yAxis:{...AX(),scale:true},
+    series:[{type:'line',data:ser.map(x=>x[1]),symbol:'none',lineStyle:{width:2},
+      areaStyle:{color:dark?'rgba(23,93,99,.28)':'rgba(23,93,99,.12)'}}]},true);
+  const hs=d.hist_stats||{};
+  ch('c_hist').setOption({...baseOpt,color:['#2a78d6'],
+    xAxis:{...AX('category'),data:d.hist.map(h=>h[0])},
+    yAxis:{...AX(),name:'EV/EBITDA ×',scale:true},
+    series:[{type:'bar',data:d.hist.map(h=>h[1]),barWidth:26,itemStyle:{color:'rgba(42,120,214,.75)',borderRadius:[4,4,0,0]},
+      label:{show:true,position:'top',formatter:p=>fmt(p.value,1),fontSize:10,color:ink2A},
+      markLine:{silent:true,symbol:'none',data:[
+        {yAxis:r.ev_ebitda_ltm,label:{formatter:'now '+fmt(r.ev_ebitda_ltm,1)+'×',color:ink2A,fontSize:10},lineStyle:{color:'#eda100',width:2}},
+        ...(hs.median?[{yAxis:+hs.median.toFixed(2),label:{formatter:'median',position:'insideEndTop',color:ink2A,fontSize:10},lineStyle:{color:ink2A,type:'dashed'}}]:[])
+      ]}}]},true);
+  const tb=$('#p4peers tbody');
+  const rows=[k,...g.peers];
+  tb.innerHTML=rows.map(p=>{
+    const sm = D.drill[k].peer_multiples||{};
+    const isCov=p===k;
+    const vals = (isCov? D.drill[k].metrics : (D.drill[p]&&D.drill[p].metrics) || (D.all_metrics&&D.all_metrics[p])) || {};
+    const evbd = isCov? r.ev_ebitda_ltm : (sm[p]!=null? sm[p] : vals.ev_ebitda);
+    const c2=D.close_rows.find(x=>x.key===p);
+    return `<tr class="${isCov?'cov':'peer'}"><td class="txt">${isCov?'▮ ':''}${D.names[p]}</td>
+      <td>${evbd==null?'NM':fmt(evbd,1)}</td>
+      <td>${vals.ev_ebit==null?'–':fmt(vals.ev_ebit,1)}</td>
+      <td>${vals.pe==null?'–':fmt(vals.pe,1)}</td>
+      <td>${vals.ev_rev==null?'–':fmt(vals.ev_rev,2)}</td>
+      <td>${vals.fcf_yield==null?'–':fmt(100*vals.fcf_yield,1)}</td>
+      <td>${vals.ebitda_margin==null?'–':fmt(100*vals.ebitda_margin,1)}</td>
+      <td>${vals.nd_ebitda==null?'–':fmt(vals.nd_ebitda,1)}</td>
+      <td class="${pcls(c2?.move_1d_pct)}">${c2?sgn(c2.move_1d_pct):'–'}</td>
+      <td class="${pcls(c2?.move_3m_pct)}">${c2?sgn(c2.move_3m_pct):'–'}</td>
+      <td class="${pcls(c2?.move_12m_pct)}">${c2?sgn(c2.move_12m_pct):'–'}</td></tr>`;
+  }).join('');
+}
+$('#p4sel').onchange=renderP4;
+
+/* ============ PAGE 5 ============ */
+const scenBy={};
+D.scenarios.forEach(s=>{(scenBy[s.key]=scenBy[s.key]||[]).push(s);});
+function p5fill(){
+  const k=$('#p5sel').value,d=D.drill[k],r=scr[k];
+  $('#p5m').value=r.ev_ebitda_ltm??'';
+  $('#p5nd').value=d.metrics.net_debt!=null?+(d.metrics.net_debt/1e9).toFixed(2):'';
+  $('#p5sh').value=d.fund.sh?+(d.fund.sh/1e6).toFixed(1):'';
+  $('#p5e').value=0;
+  const tb=$('#p5tbl tbody');
+  tb.innerHTML=(scenBy[k]||[]).map(s=>`<tr>
+    <td class="txt">${s.scenario}</td><td>${fmt(s.ebitda_report_ccy,0)}</td><td>${fmt(s.target_multiple,1)}</td>
+    <td>${fmt(s.implied_ev_bn,1)}</td><td>${fmt(s.net_debt_bn,1)}</td>
+    <td>${fmt(s.implied_price)}</td><td>${fmt(s.current_price)}</td>
+    <td class="${pcls(s.implied_return_pct)} big">${sgn(s.implied_return_pct)}</td>
+    <td>${sgn(s.earnings_effect_pct)}</td><td>${sgn(s.multiple_effect_pct)}</td></tr>`).join('');
+  p5calc();
+}
+function p5calc(){
+  const k=$('#p5sel').value,d=D.drill[k],r=scr[k];
+  const e0=d.fund.ebitda, m0=r.ev_ebitda_ltm, nd0=d.metrics.net_debt||0, sh0=d.fund.sh;
+  const de=+$('#p5e').value/100, m=+$('#p5m').value, nd=(+$('#p5nd').value)*1e9, sh=(+$('#p5sh').value)*1e6;
+  if(!e0||!m||!sh){$('#p5out').innerHTML='<div class="kpi"><div class="l">Insufficient inputs</div></div>';return;}
+  const e=e0*(1+de);
+  const fxNote = r.quote_ccy!==r.report_ccy;
+  const conv = r.price / ((m0*e0-nd0-(d.fund.minority||0))/sh0); /* implied current conversion incl. GBp & FX */
+  const px=(m*e-nd-(d.fund.minority||0))/sh*conv;
+  const ret=px/r.price-1;
+  /* additive equity-level bridge: effects sum exactly to implied return */
+  const eq0=m0*e0-nd0-(d.fund.minority||0);
+  const earn=m0*(e-e0)/eq0, multEff=(m-m0)*e/eq0, ndEff=-(nd-nd0)/eq0,
+        shEff=((m*e-nd-(d.fund.minority||0))/eq0)*(sh0/sh-1);
+  $('#p5out').innerHTML=[
+    ['Scenario EBITDA',fmt(e/1e6,0)+'m '+r.report_ccy],['Target EV',fmt(m*e/1e9,1)+'bn'],
+    ['Implied price',fmt(px)+' '+r.quote_ccy],['Implied return',sgn(100*ret)+'%'],
+    ['Earnings effect',sgn(100*earn)+'%'],['Multiple effect',sgn(100*multEff)+'%'],
+    ['Net-debt effect',sgn(100*ndEff)+'%'],['Share-count effect',sgn(100*shEff)+'%'],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v ${v.startsWith('+')?'pos':(v.startsWith('-')?'neg':'')}">${v}</div></div>`).join('')+
+  `<div class="kpi" style="grid-column:1/-1"><div class="s">Mechanical: EV* = multiple × EBITDA*; Equity* = EV* − net debt − minority; Price* = Equity*/shares${fxNote?' × FX(report→quote, embedded via current-price calibration)':''}. Not a price target.</div></div>`;
+}
+$('#p5sel').onchange=p5fill; $('#p5go').onclick=p5calc;
+['#p5e','#p5m','#p5nd','#p5sh'].forEach(s=>$(s).addEventListener('change',p5calc));
+
+/* ============ PAGE 6 ============ */
+$('#p6meth').innerHTML=`
+<b>Estimate basis.</b> FactIQ exposes no consensus estimates/revisions/surprises, so the requested NTM hierarchy collapses to the documented fallback: <b>every multiple and every peer statistic is LTM reported</b> — one uniform basis, never mixed. The revisions, surprise, guidance and read-across-backtest modules are disabled with in-app notices.<br>
+<b>Definitions.</b> EBITDA = operating income + D&amp;A (or provider EBITDA); FCF = OCF − capex; Net debt = ST+LT debt − (cash+ST investments); EV = mcap(report ccy) + net debt + minorities. NM where denominators are missing/≤0. US names use SEC XBRL LTM sums; tagged gaps are bridged (EBIT ≈ pretax + interest) and flagged per row.<br>
+<b>Peers &amp; sector.</b> Curated baskets only (capital_goods_peer_map.yaml). Sector stats deduplicate repeated peers; equal- and mcap-weighted medians computed (${fmt(D.sector_median_ev_ebitda,1)}× / ${fmt(D.sector_median_ev_ebitda_mcap_weighted,1)}×).<br>
+<b>History.</b> Own-history series = fiscal-year fundamentals × year-end price × same-vintage shares + that year-end net debt; 2020-25; approximate point-in-time (no consensus vintages exist). 3–6 obs per name — percentiles are coarse.<br>
+<b>Prices.</b> Official closes ${D.generated}; daily/monthly series API-sampled; correlations use shared adjacent-session log returns (n_obs recorded). European-close module uses official closes (no intraday data), labelled on Page 1.<br>
+<b>Scenarios.</b> Mechanical EV = multiple × EBITDA bridges with earnings/multiple/net-debt/share-count decomposition; presets use peer Q1/median/Q3 and own 5y median.<br>
+Full document: <span class="mono">capital_goods_methodology.md</span>. Engine: <span class="mono">scripts/compute_metrics.py</span>. FX as of ${D.fx_asof}.`;
+$('#p6map tbody').innerHTML=D.mapping.map(m=>`<tr>
+  <td class="txt">${m.requested}</td><td class="txt">${m.resolved}</td><td class="txt">${m.bbg_style_ticker}</td>
+  <td class="txt">${m.provider_symbol||''}</td><td class="txt">${m.exchange||''}</td><td>${m.mic||''}</td>
+  <td>${m.currency||''}</td><td class="txt">${m.confidence}</td><td class="txt" style="white-space:normal;max-width:420px">${m.notes||''}</td></tr>`).join('');
+
+/* initial renders */
+renderP2(); renderP4(); p5fill();
+
+/* deep-link: open tab from ?page= or #pN (also lets QA screenshots target a page) */
+const want=(new URLSearchParams(location.search).get('page'))||location.hash.replace('#','');
+if(want && document.getElementById(want)){
+  document.querySelector(`nav.tabs button[data-p="${want}"]`)?.click();
+}
+</script>
+</body>
+</html>
