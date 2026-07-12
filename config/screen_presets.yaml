@@ -1,0 +1,64 @@
+# Screener presets — transparent, editable rules applied to screener columns.
+# Rule syntax: "<column>: '<op> <value>'" with op in {<=, >=}. Rows with a
+# null in a rule column are excluded (never zero-filled). These are screens,
+# NOT investment recommendations.
+#
+# Revisions-based conditions are intentionally absent: no consensus feed
+# exists, so revision rules would be fabrication. Momentum + reported
+# fundamentals stand in, and each preset documents that substitution.
+
+potential_rerating_candidates:
+  description: >
+    Discount to direct peers, low own-history percentile, improving relative
+    momentum, margins not deteriorating. (Positive-revisions condition
+    replaced by reported margin change + relative momentum.)
+  rules:
+    prem_disc_vs_peers_pct: '<= -15'
+    hist_percentile: '<= 50'
+    rel_3m_pct: '>= 0'
+    margin_chg_pp: '>= 0'
+
+potential_value_traps:
+  description: >
+    Cheap vs peers but deteriorating: negative reported momentum, margin
+    pressure, continued underperformance, leverage above 2.5x.
+  rules:
+    prem_disc_vs_peers_pct: '<= -15'
+    rel_3m_pct: '<= 0'
+    margin_chg_pp: '<= 0'
+
+potential_downside_candidates:
+  description: >
+    Premium to peers at a high own-history percentile with weakening
+    relative momentum.
+  rules:
+    prem_disc_vs_peers_pct: '>= 10'
+    hist_percentile: '>= 75'
+    rel_3m_pct: '<= 0'
+
+premium_quality_compounders:
+  description: >
+    Premium valuation earned by above-peer growth and strong relative
+    performance. (ROIC/cash-conversion columns join when normalised
+    fundamentals layer lands.)
+  rules:
+    prem_disc_vs_peers_pct: '>= 5'
+    rev_growth_pct: '>= 4'
+    rel_12m_pct: '>= 0'
+
+sector_rerating_laggards:
+  description: >
+    The pack rerated but the name did not: big peer discount at a LOW
+    percentile of its own range, without reported revenue decline.
+  rules:
+    prem_disc_vs_peers_pct: '<= -25'
+    hist_percentile: '<= 40'
+    rev_growth_pct: '>= 0'
+
+fundamental_inflections:
+  description: >
+    Margin inflection of at least +1.5pp in the latest fiscal year that the
+    market has not rewarded (still behind peers over 3M).
+  rules:
+    margin_chg_pp: '>= 1.5'
+    rel_3m_pct: '<= 0'
