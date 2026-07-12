@@ -1,11 +1,10 @@
-import sys, os, uuid
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/app')
-import streamlit as st
+import os
 import pandas as pd
+import streamlit as st
 from datetime import datetime, timezone
 from components.data import get_db, payload, q, ph
+from components.ui import style_table, df_show, group_header
 
-st.set_page_config(page_title='Watchlists', page_icon='🏭', layout='wide')
 st.title('Watchlists')
 
 db = get_db()
@@ -44,19 +43,28 @@ rows = q(f"""SELECT m.key, m.note, m.priority, m.thesis_status, m.added_at
 if rows:
     scr = {r['key']: r for r in D['screener']}
     df = pd.DataFrame([{
+        'Remove': False,
         'Key': k, 'Company': D['names'].get(k, k), 'Note': note, 'Priority': prio,
         'Thesis': ts, 'Added': str(added)[:10],
         'EV/EBITDA': scr.get(k, {}).get('ev_ebitda_ltm'),
         'vs peers %': scr.get(k, {}).get('prem_disc_vs_peers_pct'),
         'rel 3M pp': scr.get(k, {}).get('rel_3m_pct')}
         for k, note, prio, ts, added in rows])
-    st.dataframe(df, hide_index=True, use_container_width=True)
-    st.download_button('Export CSV', df.to_csv(index=False), f'{pick[1]}.csv')
-    rm = st.selectbox('Remove member', ['—'] + [r[0] for r in rows])
-    if rm != '—' and st.button('Remove'):
-        db.execute(f'DELETE FROM watchlist_members WHERE watchlist_id = {ph()} '
-                   f'AND key = {ph()}', [pick[0], rm])
+    edited = st.data_editor(df, hide_index=True, use_container_width=True,
+                            disabled=[c for c in df.columns if c != 'Remove'],
+                            column_config={
+        'Remove': st.column_config.CheckboxColumn('Remove'),
+        'EV/EBITDA': st.column_config.NumberColumn(format='%.1f x'),
+        'vs peers %': st.column_config.NumberColumn(format='%+.1f%%'),
+        'rel 3M pp': st.column_config.NumberColumn(format='%+.1f')})
+    to_rm = edited[edited['Remove']]['Key'].tolist()
+    if to_rm and st.button(f'Remove {len(to_rm)} selected'):
+        for k in to_rm:
+            db.execute(f'DELETE FROM watchlist_members WHERE watchlist_id = {ph()} '
+                       f'AND key = {ph()}', [pick[0], k])
         st.cache_data.clear(); st.rerun()
+    st.download_button('Export CSV', df.drop(columns=['Remove']).to_csv(index=False),
+                       f'{pick[1]}.csv')
 else:
     st.info('Empty list — add securities above. Watchlist data lives in the '
             'database (Supabase in production), so it survives app restarts.')

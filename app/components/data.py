@@ -15,10 +15,19 @@ from src.database.db import connect  # noqa: E402
 
 
 def _db_url():
-    try:
-        return st.secrets.get('DATABASE_URL')
-    except Exception:
-        return os.environ.get('DATABASE_URL')
+    # env first; only touch st.secrets when a secrets file actually exists,
+    # otherwise Streamlit renders a red "No secrets files found" box on
+    # every page (audited defect #1).
+    if os.environ.get('DATABASE_URL'):
+        return os.environ['DATABASE_URL']
+    for p in (os.path.expanduser('~/.streamlit/secrets.toml'),
+              os.path.join(ROOT, '.streamlit', 'secrets.toml')):
+        if os.path.exists(p):
+            try:
+                return st.secrets.get('DATABASE_URL')
+            except Exception:
+                return None
+    return None
 
 
 @st.cache_resource

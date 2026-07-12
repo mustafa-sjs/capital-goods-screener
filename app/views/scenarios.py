@@ -1,10 +1,9 @@
-import sys, os, json
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/app')
-import streamlit as st
+import os
 import pandas as pd
+import streamlit as st
 from components.data import payload, BASIS_BANNER
+from components.ui import style_table, df_show, group_header
 
-st.set_page_config(page_title='Scenarios', page_icon='🏭', layout='wide')
 st.title('Scenario analysis')
 st.warning('**Mechanical valuation scenarios — not analyst price targets.** '
            'Implied return decomposes additively into earnings, multiple, '
@@ -51,13 +50,18 @@ for col, (l, v) in zip(cols, [
 st.caption('EV* = multiple × EBITDA*; Equity* = EV* − net debt − minority; '
            'Price* = Equity*/shares × FX. Effects sum exactly to the return.')
 
-st.subheader('Preset scenarios')
+group_header('Preset scenarios')
 pres = [json.loads(p) if isinstance(p, str) else p
         for p in [row for row in D['scenarios'] if row['key'] == key]]
 df = pd.DataFrame(pres)[['scenario', 'ebitda_report_ccy', 'target_multiple',
                          'implied_ev_bn', 'implied_price', 'current_price',
                          'implied_return_pct', 'earnings_effect_pct',
                          'multiple_effect_pct']]
-st.dataframe(df, hide_index=True, use_container_width=True)
+df.columns = ['Scenario', 'EBITDA (m)', 'Multiple', 'EV (bn)', 'Implied px',
+              'Current px', 'Return %', 'Earnings eff. %', 'Multiple eff. %']
+df_show(style_table(df, pct_cols=['Return %', 'Earnings eff. %', 'Multiple eff. %'],
+                    mult_cols=['Multiple'], num_cols=['EBITDA (m)', 'EV (bn)'],
+                    price_cols=['Implied px', 'Current px']),
+        height=int(38*(len(df)+1))+4)
 st.caption('Bear = −10% EBITDA @ peer Q1 · Base = LTM @ current · Bull = +10% @ '
            'peer Q3 · plus rerating rows. Every row: mechanical scenario, not a target.')

@@ -1,10 +1,9 @@
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/app')
-import streamlit as st
+import os
 import pandas as pd
+import streamlit as st
 from components.data import payload, q, ph, BASIS_BANNER
+from components.ui import style_table, df_show, group_header
 
-st.set_page_config(page_title='Drill-Down', page_icon='🏭', layout='wide')
 st.title('Company drill-down')
 st.caption(BASIS_BANNER)
 
@@ -48,20 +47,20 @@ if d.get('flags'):
 
 c1, c2 = st.columns(2)
 with c1:
-    st.subheader('Share price (daily, stored history)')
+    st.markdown('**Share price** — daily closes, stored history')
     px = q(f"""SELECT price_date, close FROM raw_daily_prices
                WHERE key = {ph()} ORDER BY price_date""", [key])
     pdf = pd.DataFrame(px, columns=['date', 'close']).drop_duplicates('date')
     pdf['date'] = pd.to_datetime(pdf['date'])
     st.line_chart(pdf.set_index('date'))
 with c2:
-    st.subheader('EV/EBITDA vs own history')
+    st.markdown('**EV/EBITDA vs own history** — annual, approximate')
     hist = pd.DataFrame(d['hist'], columns=['year', 'EV/EBITDA'])
     if not hist.empty:
         hist['year'] = hist['year'].astype(str)
         st.bar_chart(hist.set_index('year'))
 
-st.subheader('Direct-peer comparison (LTM)')
+group_header('Direct-peer comparison (LTM)')
 g = None
 for sg in D['subgroups']:
     for grp in sg['groups']:
@@ -79,7 +78,12 @@ for p in [key] + (g['peers'] if g else []):
                  'EBITDA mgn %': round(m['ebitda_margin'] * 100, 1) if m.get('ebitda_margin') else None,
                  'ND/EBITDA': m.get('nd_ebitda'), '1D %': cr.get('move_1d_pct'),
                  '3M %': cr.get('move_3m_pct'), '12M %': cr.get('move_12m_pct')})
-st.dataframe(pd.DataFrame(rows).round(2), hide_index=True, use_container_width=True)
+pdf2 = pd.DataFrame(rows)
+df_show(style_table(pdf2,
+    pct_cols=['1D %', '3M %', '12M %'],
+    mult_cols=['EV/EBITDA', 'EV/EBIT', 'P/E', 'ND/EBITDA'],
+    num_cols=['EV/Rev', 'FCF yld %', 'EBITDA mgn %'],
+    bold_rows={0}))
 st.caption('Lineage: FactIQ statements + SEC XBRL; prices FactIQ history + Yahoo '
            'incremental. Full definitions: docs/methodology (repo) and Page 6 of '
            'the embedded dashboard.')

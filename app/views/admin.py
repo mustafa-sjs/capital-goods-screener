@@ -1,17 +1,16 @@
-import sys, os, subprocess
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/app')
-import streamlit as st
+import os
 import pandas as pd
+import streamlit as st
 from components.data import get_db, q, ph, payload
+from components.ui import df_show, group_header
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-st.set_page_config(page_title='Admin & Status', page_icon='🏭', layout='wide')
 st.title('Admin & system status')
 
 db = get_db()
 D = payload()
 
-st.subheader('Refresh history')
+group_header('Refresh history')
 runs = q("""SELECT run_id, mode, started_at, finished_at, status, rows_inserted,
             items_failed, notes FROM refresh_runs ORDER BY started_at DESC LIMIT 15""")
 st.dataframe(pd.DataFrame(runs, columns=['Run', 'Mode', 'Started', 'Finished',
@@ -24,7 +23,7 @@ if fails:
     st.dataframe(pd.DataFrame(fails, columns=['Run', 'Item', 'Message']),
                  hide_index=True, use_container_width=True)
 
-st.subheader('Database')
+group_header('Database')
 counts = db.table_counts()
 tot_rows = sum(counts.values())
 c1, c2, c3 = st.columns(3)
@@ -44,7 +43,7 @@ c3.metric('DB size', f'{size_mb:.0f} MB' if size_mb else '?')
 st.dataframe(pd.DataFrame(sorted(counts.items()), columns=['Table', 'Rows']),
              hide_index=True)
 
-st.subheader('Free-Tier Usage')
+group_header('Free-Tier Usage')
 SUPABASE_LIMIT_MB = 500     # verify against current supabase.com/pricing
 ACTIONS_LIMIT_MIN = 2000    # GitHub Free private-repo minutes/month — verify
 rows = []
@@ -69,7 +68,7 @@ st.caption('Thresholds: Actions warn at 70/85/95%, Supabase at 60/75/90%. '
            'Limits are config — verify current provider terms; at the top '
            'band, non-essential scheduled tasks stop (core price refresh last).')
 
-st.subheader('Controls')
+group_header('Controls')
 c1, c2 = st.columns(2)
 if c1.button('Run validation now'):
     from src.validation.checks import run_checks
@@ -86,7 +85,7 @@ if db.kind == 'postgres':
                '("Run workflow") rather than inside the app — long jobs must '
                'not block the free dyno.')
 
-st.subheader('Versions')
+group_header('Versions')
 st.write({'code': subprocess.run(['git', 'rev-parse', '--short', 'HEAD'],
                                  capture_output=True, text=True, cwd=ROOT).stdout.strip() or 'n/a',
           'data snapshot': D.get('generated'), 'fx as of': D.get('fx_asof'),

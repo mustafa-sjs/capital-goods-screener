@@ -1,11 +1,9 @@
-import sys, os, json
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/app')
+import os
 import streamlit as st
 import streamlit.components.v1 as components
 from components.data import payload
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-st.set_page_config(page_title='Full Dashboard', page_icon='🏭', layout='wide')
 st.title('Full dashboard (original rich view)')
 st.caption('The validated single-file dashboard, embedded unchanged and rebuilt '
            'from the latest database snapshot — pixel-identical to the original '
@@ -21,4 +19,5 @@ elif os.path.exists(html_path):
 else:
     st.error('Dashboard template not found in this deployment.')
     st.stop()
-components.html(html, height=1400, scrolling=True)
+components.html(html, height=1600, scrolling=True)
+st.caption('Tip: the standalone file capital_goods_dashboard.html opens offline too; deep-link pages with ?page=p2 … ?page=p6.')

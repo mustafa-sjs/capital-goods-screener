@@ -1,10 +1,9 @@
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/app')
-import streamlit as st
+import os
 import pandas as pd
+import streamlit as st
 from components.data import q, ph
+from components.ui import df_show, group_header
 
-st.set_page_config(page_title='Daily Changes', page_icon='🏭', layout='wide')
 st.title('Daily changes')
 st.caption('What changed since the previous successful refresh. Snapshots '
            'persist per date, so screen history is auditable.')
@@ -17,23 +16,20 @@ snap = st.selectbox('Snapshot', dates)
 
 ev = q(f'SELECT key, event_type, detail FROM daily_change_events '
        f'WHERE snapshot_date = {ph()} ORDER BY event_type, key', [snap])
-st.subheader(f'Change events — {snap}')
+group_header(f'Change events — {snap}')
 if ev:
-    st.dataframe(pd.DataFrame(ev, columns=['Key', 'Event', 'Detail']),
-                 hide_index=True, use_container_width=True)
+    df_show(pd.DataFrame(ev, columns=['Key', 'Event', 'Detail']))
 else:
     st.info('No detected changes vs the prior snapshot (classification moves, '
             '±5pp peer-discount shifts, ±5% price moves, universe entries). '
             'Events accumulate as daily snapshots build up.')
 
-st.subheader('Classification snapshot history (auditable screens)')
+group_header('Classification snapshot history (auditable screens)')
 hist = q("""SELECT snapshot_date, classification, count(*)
             FROM feat_screener GROUP BY 1, 2 ORDER BY 1 DESC, 2""")
-st.dataframe(pd.DataFrame(hist, columns=['Snapshot', 'Classification', 'Names']),
-             hide_index=True, use_container_width=True)
+df_show(pd.DataFrame(hist, columns=['Snapshot', 'Classification', 'Names']))
 
-st.subheader('New validation findings')
+group_header('New validation findings')
 v = q("""SELECT run_id, check_name, severity, subject, message
          FROM validation_results ORDER BY created_at DESC LIMIT 20""")
-st.dataframe(pd.DataFrame(v, columns=['Run', 'Check', 'Severity', 'Subject', 'Message']),
-             hide_index=True, use_container_width=True)
+df_show(pd.DataFrame(v, columns=['Run', 'Check', 'Severity', 'Subject', 'Message']))
