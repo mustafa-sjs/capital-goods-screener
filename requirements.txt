@@ -1,8 +1,9 @@
-# Streamlit Cloud / GitHub Actions runtime (Python 3.11+ there; local venv
-# pins streamlit<1.36 separately for the system Python 3.9)
-streamlit>=1.35
-pandas>=2.0
-duckdb>=1.0
+# Pinned to the validated stack. pandas 3.x segfaulted on Streamlit Cloud
+# (2026-07-12 deploy log) — keep <3 until explicitly re-tested.
+streamlit>=1.35,<1.50
+pandas>=2.0,<3
+numpy<2.4
+duckdb>=1.0,<2
 pyyaml>=6.0
 psycopg2-binary>=2.9
-pyarrow>=15.0
+pyarrow>=15.0,<22
