@@ -1,0 +1,647 @@
+# Capital Goods coverage pack — SINGLE SOURCE OF TRUTH for the universe.
+# Edit here; engine, refresh scripts and app all read this file.
+pack: capital_goods
+display_name: Capital Goods
+securities:
+  ABBN:
+    name: ABB Ltd
+    ticker: ABBN SW
+    exchange: SIX
+    quote_ccy: CHF
+    report_ccy: USD
+    yahoo_symbol: ABBN.SW
+  ALO:
+    name: Alstom SA
+    ticker: ALO FP
+    exchange: Euronext Paris
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: ALO.PA
+  SRAIL:
+    name: Stadler Rail AG
+    ticker: SRAIL SW
+    exchange: SIX
+    quote_ccy: CHF
+    report_ccy: CHF
+    yahoo_symbol: SRAIL.SW
+  LR:
+    name: Legrand SA
+    ticker: LR FP
+    exchange: Euronext Paris
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: LR.PA
+  NEX:
+    name: Nexans SA
+    ticker: NEX FP
+    exchange: Euronext Paris
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: NEX.PA
+  PRY:
+    name: Prysmian SpA
+    ticker: PRY IM
+    exchange: Borsa Italiana
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: PRY.MI
+  RXL:
+    name: Rexel SA
+    ticker: RXL FP
+    exchange: Euronext Paris
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: RXL.PA
+  SU:
+    name: Schneider Electric SE
+    ticker: SU FP
+    exchange: Euronext Paris
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: SU.PA
+  SIE:
+    name: Siemens AG
+    ticker: SIE GY
+    exchange: XETRA
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: SIE.DE
+  DTG:
+    name: Daimler Truck Holding AG
+    ticker: DTG GY
+    exchange: XETRA
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: DTG.DE
+  8TRA:
+    name: TRATON SE
+    ticker: 8TRA GY
+    exchange: XETRA
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: 8TRA.DE
+  VOLVB:
+    name: Volvo AB (B)
+    ticker: VOLVB SS
+    exchange: Nasdaq Stockholm
+    quote_ccy: SEK
+    report_ccy: SEK
+    yahoo_symbol: VOLV-B.ST
+  KNEBV:
+    name: KONE Oyj (B)
+    ticker: KNEBV FH
+    exchange: Nasdaq Helsinki
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: KNEBV.HE
+  SCHP:
+    name: Schindler Holding (PC)
+    ticker: SCHP SW
+    exchange: SIX
+    quote_ccy: CHF
+    report_ccy: CHF
+    yahoo_symbol: SCHP.SW
+  HLMA:
+    name: Halma plc
+    ticker: HLMA LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: HLMA.L
+  IMI:
+    name: IMI plc
+    ticker: IMI LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: IMI.L
+  ROR:
+    name: Rotork plc
+    ticker: ROR LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: ROR.L
+  SMIN:
+    name: Smiths Group plc
+    ticker: SMIN LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: SMIN.L
+  SPX:
+    name: Spirax Group plc
+    ticker: SPX LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: SPX.L
+  WEIR:
+    name: Weir Group plc
+    ticker: WEIR LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: WEIR.L
+  ASSAB:
+    name: Assa Abloy AB (B)
+    ticker: ASSAB SS
+    exchange: Nasdaq Stockholm
+    quote_ccy: SEK
+    report_ccy: SEK
+    yahoo_symbol: ASSA-B.ST
+  ATCOA:
+    name: Atlas Copco AB (A)
+    ticker: ATCOA SS
+    exchange: Nasdaq Stockholm
+    quote_ccy: SEK
+    report_ccy: SEK
+    yahoo_symbol: ATCO-A.ST
+  EPIA:
+    name: Epiroc AB (A)
+    ticker: EPIA SS
+    exchange: Nasdaq Stockholm
+    quote_ccy: SEK
+    report_ccy: SEK
+    yahoo_symbol: EPI-A.ST
+  METSO:
+    name: Metso Oyj
+    ticker: METSO FH
+    exchange: Nasdaq Helsinki
+    quote_ccy: EUR
+    report_ccy: EUR
+    yahoo_symbol: METSO.HE
+  SAND:
+    name: Sandvik AB
+    ticker: SAND SS
+    exchange: Nasdaq Stockholm
+    quote_ccy: SEK
+    report_ccy: SEK
+    yahoo_symbol: SAND.ST
+  SKFB:
+    name: SKF AB (B)
+    ticker: SKFB SS
+    exchange: Nasdaq Stockholm
+    quote_ccy: SEK
+    report_ccy: SEK
+    yahoo_symbol: SKF-B.ST
+  RR:
+    name: Rolls-Royce Holdings plc
+    ticker: RR/ LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: RR.L
+  MRO:
+    name: Melrose Industries plc
+    ticker: MRO LN
+    exchange: LSE
+    quote_ccy: GBp
+    report_ccy: GBP
+    yahoo_symbol: MRO.L
+  PCAR:
+    name: PACCAR Inc
+    ticker: PCAR US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: PCAR
+  OTIS:
+    name: Otis Worldwide Corp
+    ticker: OTIS US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: OTIS
+  ETN:
+    name: Eaton Corp plc
+    ticker: ETN US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: ETN
+  ROK:
+    name: Rockwell Automation
+    ticker: ROK US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: ROK
+  GE:
+    name: GE Aerospace
+    ticker: GE US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: GE
+  EMR:
+    name: Emerson Electric
+    ticker: EMR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: EMR
+  WAB:
+    name: Wabtec
+    ticker: WAB US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: WAB
+  GBX:
+    name: Greenbrier
+    ticker: GBX US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: GBX
+  TT:
+    name: Trane Technologies
+    ticker: TT US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: TT
+  ATKR:
+    name: Atkore
+    ticker: ATKR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: ATKR
+  BDC:
+    name: Belden
+    ticker: BDC US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: BDC
+  VISN:
+    name: Vistance Networks
+    ticker: VISN US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: VISN
+  GLW:
+    name: Corning
+    ticker: GLW US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: GLW
+  FAST:
+    name: Fastenal
+    ticker: FAST US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: FAST
+  WCC:
+    name: WESCO International
+    ticker: WCC US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: WCC
+  VRT:
+    name: Vertiv Holdings
+    ticker: VRT US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: VRT
+  HON:
+    name: Honeywell
+    ticker: HON US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: HON
+  JCI:
+    name: Johnson Controls
+    ticker: JCI US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: JCI
+  CMI:
+    name: Cummins
+    ticker: CMI US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: CMI
+  OSK:
+    name: Oshkosh
+    ticker: OSK US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: OSK
+  DE:
+    name: "Deere & Co"
+    ticker: DE US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: DE
+  CARR:
+    name: Carrier Global
+    ticker: CARR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: CARR
+  COHR:
+    name: Coherent
+    ticker: COHR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: COHR
+  FN:
+    name: Fabrinet
+    ticker: FN US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: FN
+  LITE:
+    name: Lumentum
+    ticker: LITE US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: LITE
+  AME:
+    name: AMETEK
+    ticker: AME US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: AME
+  WTS:
+    name: Watts Water
+    ticker: WTS US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: WTS
+  BMI:
+    name: Badger Meter
+    ticker: BMI US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: BMI
+  FLS:
+    name: Flowserve
+    ticker: FLS US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: FLS
+  CR:
+    name: Crane Co (Crane NXT line)
+    ticker: CR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: CR
+  ITT:
+    name: ITT Inc
+    ticker: ITT US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: ITT
+  LII:
+    name: Lennox International
+    ticker: LII US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: LII
+  DHR:
+    name: Danaher
+    ticker: DHR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: DHR
+  IR:
+    name: Ingersoll Rand
+    ticker: IR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: IR
+  IEX:
+    name: IDEX
+    ticker: IEX US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: IEX
+  KMT:
+    name: Kennametal
+    ticker: KMT US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: KMT
+  CAT:
+    name: Caterpillar
+    ticker: CAT US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: CAT
+  TEX:
+    name: Terex
+    ticker: TEX US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: TEX
+  ALLE:
+    name: Allegion plc
+    ticker: ALLE US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: ALLE
+  AMAT:
+    name: Applied Materials
+    ticker: AMAT US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: AMAT
+  KLAC:
+    name: KLA Corp
+    ticker: KLAC US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: KLAC
+  TKR:
+    name: Timken
+    ticker: TKR US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: TKR
+  RTX:
+    name: RTX Corp
+    ticker: RTX US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: RTX
+  HWM:
+    name: Howmet Aerospace
+    ticker: HWM US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: HWM
+  TDG:
+    name: TransDigm
+    ticker: TDG US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: TDG
+  WWD:
+    name: Woodward
+    ticker: WWD US
+    exchange: NASDAQ
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: WWD
+  MOGA:
+    name: Moog Inc (A)
+    ticker: MOG/A US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: MOG-A
+  HXL:
+    name: Hexcel
+    ticker: HXL US
+    exchange: NYSE
+    quote_ccy: USD
+    report_ccy: USD
+    yahoo_symbol: HXL
+  NSK:
+    name: NSK Ltd
+    ticker: 6471 JP
+    exchange: JPX Tokyo
+    quote_ccy: JPY
+    report_ccy: JPY
+    yahoo_symbol: 6471.T
+  NTN:
+    name: NTN Corp
+    ticker: 6472 JP
+    exchange: JPX Tokyo
+    quote_ccy: JPY
+    report_ccy: JPY
+    yahoo_symbol: 6472.T
+  EBARA:
+    name: Ebara Corp
+    ticker: 6361 JP
+    exchange: JPX Tokyo
+    quote_ccy: JPY
+    report_ccy: JPY
+    yahoo_symbol: 6361.T
+subgroups:
+- name: "Automation & Electrical Equipment"
+  groups:
+  - display: ABB
+    coverage: [ABBN]
+    peers: [ETN, ROK, GE, EMR]
+  - display: "Alstom & Stadler"
+    coverage: [ALO, SRAIL]
+    peers: [WAB, GBX]
+  - display: Legrand
+    coverage: [LR]
+    peers: [ETN, TT, EMR]
+  - display: "Nexans & Prysmian"
+    coverage: [NEX, PRY]
+    peers: [ATKR, BDC, VISN, GLW]
+  - display: Rexel
+    coverage: [RXL]
+    peers: [FAST, WCC]
+  - display: Schneider Electric
+    coverage: [SU]
+    peers: [ETN, VRT, HON, EMR, JCI, ROK]
+  - display: Siemens
+    coverage: [SIE]
+    peers: [EMR, HON, GE, JCI, ROK]
+- name: "Trucks & Elevators"
+  groups:
+  - display: "Daimler Truck & Traton"
+    coverage: [DTG, 8TRA]
+    peers: [CMI, PCAR]
+  - display: Paccar
+    coverage: [PCAR]
+    peers: [CMI, OSK]
+  - display: Volvo
+    coverage: [VOLVB]
+    peers: [CMI, DE, PCAR]
+  - display: "Kone & Schindler"
+    coverage: [KNEBV, SCHP]
+    peers: [JCI, OTIS]
+  - display: Otis
+    coverage: [OTIS]
+    peers: [JCI, CARR]
+- name: UK Industrials
+  groups:
+  - display: Halma
+    coverage: [HLMA]
+    peers: [COHR, FN, LITE, AME]
+  - display: IMI
+    coverage: [IMI]
+    peers: [WTS, EMR, BMI, FLS, CR]
+  - display: Rotork
+    coverage: [ROR]
+    peers: [EMR, ITT, FLS, CR]
+  - display: Smiths Group
+    coverage: [SMIN]
+    peers: [LII, CARR, EMR, FLS, CR]
+  - display: Spirax Group
+    coverage: [SPX]
+    peers: [DHR, IR, WTS, IEX]
+  - display: Weir Group
+    coverage: [WEIR]
+    peers: [ITT, KMT, CAT]
+- name: Nordic Industrial Machinery
+  groups:
+  - display: Assa Abloy
+    coverage: [ASSAB]
+    peers: [ALLE]
+  - display: Atlas Copco
+    coverage: [ATCOA]
+    peers: [AMAT, EBARA, IR, KLAC]
+  - display: Epiroc
+    coverage: [EPIA]
+    peers: [CAT]
+  - display: Metso
+    coverage: [METSO]
+    peers: [CAT, TEX]
+  - display: Sandvik
+    coverage: [SAND]
+    peers: [CAT, KMT]
+  - display: SKF
+    coverage: [SKFB]
+    peers: [NSK, NTN, TKR]
+- name: "Aerospace & Defence"
+  groups:
+  - display: Rolls-Royce
+    coverage: [RR]
+    peers: [GE, RTX, CMI, CAT]
+  - display: Melrose Industries
+    coverage: [MRO]
+    peers: [HWM, TDG, WWD, MOGA, HXL]

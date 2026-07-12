@@ -52,6 +52,17 @@ US_PLAIN = ['PCAR','OTIS','ETN','ROK','GE','EMR','WAB','GBX','TT','ATKR','BDC',
             'TDG','WWD','HXL']
 for k in US_PLAIN: YAHOO[k] = k
 
+# config override: the coverage-pack YAML is the source of truth when available
+try:
+    import sys as _sys
+    _sys.path.insert(0, ROOT)
+    from src.utils.universe import load_universe as _lu
+    _u = _lu()
+    if _u and _u.get('yahoo'):
+        YAHOO = _u['yahoo']
+except Exception:
+    pass
+
 FX_PAIRS = ['CHFUSD', 'EURUSD', 'GBPUSD', 'JPYUSD', 'SEKUSD']
 
 

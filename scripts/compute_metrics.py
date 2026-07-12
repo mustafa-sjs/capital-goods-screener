@@ -148,6 +148,19 @@ SUBGROUPS = [
 ]
 
 COVERAGE = sorted({k for _, groups in SUBGROUPS for _, cov, _ in groups for k in cov})
+# config override: config/coverage_packs/capital_goods.yaml is the single
+# source of truth when PyYAML is available; the literals above are the
+# no-dependency fallback and are kept equivalent by tests.
+try:
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(ROOT))
+    from src.utils.universe import load_universe as _lu
+    _u = _lu()
+    if _u:
+        SEC, SUBGROUPS = _u['sec'], _u['subgroups']
+except Exception:
+    pass
+
 ALL_KEYS = sorted({k for _, groups in SUBGROUPS for _, cov, peers in groups for k in cov+peers})
 SEC_SCHEMA_US = {'ETN','ROK','GE','EMR','WAB','TT','GLW','FAST','WCC','VRT','HON','JCI','CMI','PCAR','DE','OTIS','CARR','COHR','FN','LITE','AME','WTS','FLS','CR','ITT','LII','DHR','IR','IEX','CAT','ALLE','AMAT','KLAC','RTX','HWM','TDG','WWD'}
 DUAL_REV = {'VRT','FLS'}   # sec LTM revenue double-counted (two concepts) -> halve
