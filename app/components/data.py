@@ -35,9 +35,47 @@ def get_db():
     return connect(_db_url())
 
 
-@st.cache_data(ttl=600)
-def payload():
-    """Latest full engine payload (everything the original dashboard shows)."""
+def data_version():
+    """Cheap version stamp: changes the cache key the moment a new snapshot
+    or fresher quotes are published — no more fixed-TTL stale serving."""
+    try:
+        db = get_db()
+        r = db.fetchall('SELECT max(snapshot_date) FROM app_payload')
+        q = db.fetchall('SELECT max(refreshed_at) FROM raw_quotes')
+        return f'{r[0][0]}|{q[0][0]}'
+    except Exception:
+        return 'fallback'
+
+
+def freshness():
+    """(latest quote date, quotes at that date, total, oldest core lag) for
+    the visible status line on market-data pages."""
+    try:
+        db = get_db()
+        rows = db.fetchall('SELECT quote_date, count(*) FROM raw_quotes '
+                           'GROUP BY quote_date ORDER BY quote_date DESC')
+        latest = str(rows[0][0]) if rows else '?'
+        at_latest = rows[0][1] if rows else 0
+        total = sum(r[1] for r in rows)
+        return latest, at_latest, total
+    except Exception:
+        return '?', 0, 0
+
+
+def freshness_banner():
+    latest, n, total = freshness()
+    ver = data_version()
+    st.caption(f'Prices updated: {ver.split("|")[1][:16]} · latest market '
+               f'observation: {latest} · coverage at latest date: {n}/{total}. '
+               f'Quotes are delayed public data, not real-time.')
+    if total and n < total * 0.8:
+        st.warning(f'{total - n} securities are behind the latest market date — '
+                   'treat their rows as stale (see Admin for detail).')
+
+
+@st.cache_data(ttl=300)
+def payload(_version=None):
+    """Latest full engine payload; cache keyed by data_version()."""
     db = get_db()
     row = db.fetchall(
         'SELECT payload FROM app_payload ORDER BY snapshot_date DESC LIMIT 1')
@@ -48,7 +86,7 @@ def payload():
     return json.load(open(p))
 
 
-@st.cache_data(ttl=600)
+@st.cache_data(ttl=300)
 def latest_snapshot():
     db = get_db()
     r = db.fetchall('SELECT max(snapshot_date) FROM feat_screener')

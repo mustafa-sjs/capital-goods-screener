@@ -2,7 +2,7 @@ import json, os
 import pandas as pd
 import streamlit as st
 import yaml
-from components.data import payload, BASIS_BANNER, get_db, q, ph
+from components.data import payload, data_version, BASIS_BANNER, get_db, q, ph
 from components.ui import style_table, df_show
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,7 +11,7 @@ st.caption(BASIS_BANNER + ' Every multiple is **LTM reported** (uniform basis). 
            'No opaque master score — every column is a defined metric; presets '
            'are editable YAML rules.')
 
-D = payload()
+D = payload(data_version())
 df = pd.DataFrame(D['screener'])
 
 presets = {}

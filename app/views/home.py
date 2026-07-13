@@ -1,13 +1,15 @@
 import pandas as pd
 import streamlit as st
-from components.data import (payload, last_run, latest_snapshot, q, ph,
+from components.data import (payload, last_run, latest_snapshot, q, ph, data_version,
                              BASIS_BANNER)
 from components.ui import style_table, df_show, status_badge, group_header
 
 st.title('Capital Goods — Coverage Platform')
 st.caption(BASIS_BANNER)
+from components.data import freshness_banner
+freshness_banner()
 
-D = payload()
+D = payload(data_version())
 run = last_run()
 c1, c2, c3, c4 = st.columns(4)
 c1.metric('Data as of', f"{D.get('generated', '?')} close")

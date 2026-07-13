@@ -1,14 +1,14 @@
 import os, subprocess, sys, uuid
 import pandas as pd
 import streamlit as st
-from components.data import get_db, q, ph, payload
+from components.data import get_db, q, ph, payload, data_version
 from components.ui import df_show, group_header
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 st.title('Admin & system status')
 
 db = get_db()
-D = payload()
+D = payload(data_version())
 
 group_header('Refresh history')
 runs = q("""SELECT run_id, mode, started_at, finished_at, status, rows_inserted,

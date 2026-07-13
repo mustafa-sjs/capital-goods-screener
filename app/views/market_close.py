@@ -1,12 +1,12 @@
 import pandas as pd
 import streamlit as st
-from components.data import payload, q, BASIS_BANNER
+from components.data import payload, q, BASIS_BANNER, data_version
 from components.ui import group_header, basket_caption, style_table, df_show
 
 st.title('Market close & peer read-across')
 st.caption(BASIS_BANNER)
 
-D = payload()
+D = payload(data_version())
 snaps = q('SELECT key, obs_date, price, later_price FROM eu_close_snapshots '
           'ORDER BY obs_date DESC LIMIT 300')
 if snaps:

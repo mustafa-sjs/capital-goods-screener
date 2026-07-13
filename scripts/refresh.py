@@ -38,12 +38,36 @@ def now():
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
-def refresh_prices(db, run_id):
-    """Incremental quotes + daily bars for all active securities + FX."""
+def _select_keys(rp, args):
+    keys = list(rp.YAHOO)
+    if getattr(args, 'keys', None):
+        return [k for k in args.keys if k in rp.YAHOO]
+    u = load_universe()
+    if getattr(args, 'universe', None) == 'core':
+        core = {k for _, gs in u['subgroups'] for _, cov, _ in gs for k in cov}
+        keys = [k for k in keys if k in core]
+    if getattr(args, 'region', None):
+        REGION = {'europe': ('Euronext Paris', 'XETRA', 'SIX', 'Borsa Italiana',
+                             'Nasdaq Stockholm', 'Nasdaq Helsinki', 'LSE'),
+                  'uk': ('LSE',), 'us': ('NYSE', 'NASDAQ'),
+                  'japan': ('JPX Tokyo',)}
+        exs = REGION.get(args.region, ())
+        keys = [k for k in keys if u['sec'][k]['exch'] in exs]
+    if getattr(args, 'failed_only', False):
+        p = os.path.join(ROOT, 'data', 'computed', 'last_price_run_stats.json')
+        if os.path.exists(p):
+            keys = [k for k in json.load(open(p)).get('failed_keys', [])
+                    if k in rp.YAHOO]
+    return keys
+
+
+def refresh_prices(db, run_id, args=None):
+    """Incremental quotes + daily bars for selected securities + FX."""
     rp = _mod('rp', 'scripts/refresh_prices.py')   # proven fetch/merge logic
     ok = fail = 0
     items = []
-    for k in rp.YAHOO:
+    sel = _select_keys(rp, args) if args is not None else list(rp.YAHOO)
+    for k in sel:
         try:
             msg = rp.refresh_key(k)
             items.append((run_id, k, 'ok', msg)); ok += 1
@@ -132,6 +156,11 @@ def main():
                              'estimates', 'full_refresh', 'rebuild_features',
                              'validate_only'])
     ap.add_argument('--db-url', default=None)
+    ap.add_argument('--keys', nargs='*', default=None)
+    ap.add_argument('--universe', choices=['core', 'all'], default=None)
+    ap.add_argument('--region', choices=['europe', 'uk', 'us', 'japan'],
+                    default=None)
+    ap.add_argument('--failed-only', action='store_true')
     args = ap.parse_args()
     db = connect(args.db_url)
     run_id = f'{args.mode}-{now().strftime("%Y%m%dT%H%M%S")}-{uuid.uuid4().hex[:6]}'
@@ -149,7 +178,7 @@ def main():
             pass
         else:
             if args.mode in ('daily', 'prices_only', 'full_refresh'):
-                ok, fail = refresh_prices(db, run_id)
+                ok, fail = refresh_prices(db, run_id, args)
                 failed = fail
                 notes.append(f'prices: {ok} ok, {fail} failed')
                 if fail > ok:
@@ -167,13 +196,20 @@ def main():
                     raise RuntimeError('canonical refresh failed: ' + r.stderr[-300:])
                 tail = [l for l in r.stdout.splitlines() if l.strip()][-1:]
                 notes.append('canonical: ' + (tail[0] if tail else 'ok'))
-            if args.mode in ('daily', 'full_refresh', 'rebuild_features'):
+            if args.mode in ('daily', 'full_refresh', 'rebuild_features',
+                             'prices_only'):
+                # prices_only MUST rebuild features (engine ~3s) — publishing
+                # the previous dashboard_data.json would republish a stale
+                # snapshot as new (bug found+fixed 2026-07-13, v2.6)
                 rebuild_features()
                 notes.append('features rebuilt')
         # validation gate before publishing features to the DB
         counts = run_checks(db, run_id)
-        from src.validation.checks import run_candidate_checks
+        from src.validation.checks import run_candidate_checks, run_freshness_checks
         cand = run_candidate_checks(db, run_id)
+        fresh = run_freshness_checks(db, run_id)
+        for k2 in ('critical', 'error', 'warning'):
+            cand[k2] = cand.get(k2, 0) + fresh.get(k2, 0)
         for k2 in ('critical', 'error', 'warning'):
             counts[k2] = counts.get(k2, 0) + cand.get(k2, 0)
         notes.append(f"validation: {counts} (incl. candidate gate {cand})")

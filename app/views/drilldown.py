@@ -1,13 +1,13 @@
 import os
 import pandas as pd
 import streamlit as st
-from components.data import payload, q, ph, BASIS_BANNER
+from components.data import payload, q, ph, BASIS_BANNER, data_version
 from components.ui import style_table, df_show, group_header
 
 st.title('Company drill-down')
 st.caption(BASIS_BANNER)
 
-D = payload()
+D = payload(data_version())
 scr = {r['key']: r for r in D['screener']}
 key = st.selectbox('Coverage company', list(scr),
                    format_func=lambda k: f"{D['names'][k]} ({D['tickers'][k]})")

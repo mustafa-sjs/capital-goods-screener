@@ -1,7 +1,7 @@
 import json, os
 import streamlit as st
 import streamlit.components.v1 as components
-from components.data import payload
+from components.data import payload, data_version
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 st.title('Full dashboard (original rich view)')
@@ -13,7 +13,7 @@ tpl_path = os.path.join(ROOT, 'scripts', 'dashboard_template.html')
 html_path = os.path.join(ROOT, 'capital_goods_dashboard.html')
 if os.path.exists(tpl_path):
     html = open(tpl_path).read().replace(
-        '__FACTIQ_DATA__', json.dumps({'dash': payload()}))
+        '__FACTIQ_DATA__', json.dumps({'dash': payload(data_version())}))
 elif os.path.exists(html_path):
     html = open(html_path).read()
 else:

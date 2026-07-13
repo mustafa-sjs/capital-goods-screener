@@ -12,7 +12,7 @@ on:
   workflow_dispatch: {}
 
 concurrency:
-  group: refresh
+  group: intraday-snapshot
   cancel-in-progress: false
 
 permissions:

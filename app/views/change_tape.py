@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import streamlit as st
-from components.data import payload, q, ph
+from components.data import payload, data_version, q, ph
 from components.ui import df_show, group_header, style_table
 
 st.title('Signal Change Tape')
@@ -10,7 +10,7 @@ st.caption('What changed since the previous successful snapshot — typed, '
            'consolidated (first seen / last seen / count), never re-spammed. '
            'No event is a recommendation.')
 
-D = payload()
+D = payload(data_version())
 scr = {r['key']: r for r in D['screener']}
 roles = {}
 for r in D['close_rows']:

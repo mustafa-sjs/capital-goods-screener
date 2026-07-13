@@ -66,12 +66,47 @@ except Exception:
 FX_PAIRS = ['CHFUSD', 'EURUSD', 'GBPUSD', 'JPYUSD', 'SEKUSD']
 
 
+RETRY_MAX = int(os.environ.get('YF_RETRY_MAX', 3))
+BASE_SLEEP = float(os.environ.get('YF_BASE_SLEEP', 0.7))
+STATS = {'requests': 0, 'ok': 0, 'fail': 0, 'http_429': 0, 'retried': 0,
+         'durations': []}
+
+
+def _get(url):
+    import random, time as _t
+    last = None
+    for attempt in range(1, RETRY_MAX + 1):
+        STATS['requests'] += 1
+        t0 = _t.time()
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=20) as r:
+                out = json.load(r)
+            STATS['durations'].append(_t.time() - t0)
+            STATS['ok'] += 1
+            return out
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code == 429:
+                STATS['http_429'] += 1
+                _t.sleep(min(60, 8 * attempt + random.uniform(0, 4)))
+            elif e.code in (401, 403):
+                break                     # auth-type block: do not hammer
+            else:
+                _t.sleep(2 * attempt + random.uniform(0, 1))
+        except Exception as e:
+            last = e
+            _t.sleep(1.5 * attempt + random.uniform(0, 1))
+        if attempt < RETRY_MAX:
+            STATS['retried'] += 1
+    STATS['fail'] += 1
+    raise last
+
+
 def fetch(symbol, rng='1mo'):
     url = (f'https://query1.finance.yahoo.com/v8/finance/chart/{symbol}'
            f'?range={rng}&interval=1d')
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=20) as r:
-        payload = json.load(r)
+    payload = _get(url)
     res = payload['chart']['result'][0]
     meta = res['meta']
     ts = res.get('timestamp') or []
@@ -200,12 +235,26 @@ if __name__ == '__main__':
             print(refresh_key(k))
         except Exception as e:
             fails.append(k); print(f'{k}: FAILED {e!r}')
-        time.sleep(0.35)
+        import random
+        time.sleep(BASE_SLEEP + random.uniform(0, 0.4))
     for p in FX_PAIRS:
         try:
             print(refresh_fx(p))
         except Exception as e:
             fails.append('fx_' + p); print(f'fx {p}: FAILED {e!r}')
-        time.sleep(0.35)
+        import random
+        time.sleep(BASE_SLEEP + random.uniform(0, 0.4))
+    import statistics as _st
+    dur = STATS['durations']
     print(f'\ndone: {len(keys) + len(FX_PAIRS) - len(fails)} refreshed, '
           f'{len(fails)} failed{": " + ", ".join(fails) if fails else ""}')
+    print(f"run stats: requests={STATS['requests']} ok={STATS['ok']} "
+          f"fail={STATS['fail']} http429={STATS['http_429']} "
+          f"retried={STATS['retried']} "
+          f"median_ms={int(_st.median(dur)*1000) if dur else 0} "
+          f"max_ms={int(max(dur)*1000) if dur else 0}")
+    json.dump({**STATS, 'durations': None,
+               'median_ms': int(_st.median(dur)*1000) if dur else None,
+               'failed_keys': fails},
+              open(os.path.join(ROOT, 'data', 'computed',
+                                'last_price_run_stats.json'), 'w'))

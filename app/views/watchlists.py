@@ -2,13 +2,13 @@ import os
 import pandas as pd
 import streamlit as st
 from datetime import datetime, timezone
-from components.data import get_db, payload, q, ph
+from components.data import get_db, payload, q, ph, data_version
 from components.ui import style_table, df_show, group_header
 
 st.title('Watchlists')
 
 db = get_db()
-D = payload()
+D = payload(data_version())
 KINDS = ['potential_longs', 'potential_shorts', 'holdings',
          'upcoming_earnings', 'research_required', 'custom']
 

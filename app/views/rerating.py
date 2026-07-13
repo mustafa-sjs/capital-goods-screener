@@ -1,14 +1,14 @@
 import os
 import pandas as pd
 import streamlit as st
-from components.data import payload, BASIS_BANNER
+from components.data import payload, BASIS_BANNER, data_version
 from components.ui import style_table, df_show, group_header
 
 st.title('Sector rerating & performance')
 st.caption(BASIS_BANNER + ' History = fiscal-year fundamentals × year-end price '
            '(approximate — no point-in-time consensus vintages exist).')
 
-D = payload()
+D = payload(data_version())
 scr = {r['key']: r for r in D['screener']}
 names = {k: D['names'][k] for k in scr}
 key = st.selectbox('Coverage company', list(scr),

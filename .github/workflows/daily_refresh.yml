@@ -6,7 +6,8 @@ name: daily-refresh
 
 on:
   schedule:
-    - cron: '12 22 * * 1-5'   # 22:12 UTC weekdays — after the 21:00/22:00 UTC US close year-round
+    - cron: '12 22 * * 1-5'   # US post-close: full daily cycle (22:12 UTC works year-round)
+    - cron: '42 16 * * 1-5'   # European post-close: prices_only (London 16:30 + CET 17:30 closed by 16:42 UTC in BOTH DST regimes)
   workflow_dispatch: {}
 
 concurrency:
@@ -27,14 +28,19 @@ jobs:
           python-version: '3.11'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Daily refresh (incremental, idempotent)
+      - name: Refresh (mode by schedule — EU close = prices_only, US close = daily)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scripts/refresh.py --mode daily
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" -lt 20 ]; then MODE=prices_only; else MODE=daily; fi
+          echo "running mode=$MODE (UTC hour $HOUR)"
+          python scripts/refresh.py --mode $MODE
       - name: Commit refreshed data back to the repo
         run: |
           git config user.name 'refresh-bot'
           git config user.email 'actions@users.noreply.github.com'
           git add data/raw data/computed capital_goods_dashboard.html capital_goods_*.csv
-          git diff --cached --quiet || git commit -m "data: daily refresh $(date -u +%F) [skip ci]"
+          git diff --cached --quiet || git commit -m "data: refresh $(date -u +%FT%H:%M) [skip ci]"
+          git pull --rebase origin main || true
           git push

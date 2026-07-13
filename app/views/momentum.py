@@ -5,7 +5,7 @@ import streamlit as st
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
-from components.data import payload, BASIS_BANNER
+from components.data import payload, data_version, BASIS_BANNER, freshness_banner
 from components.ui import style_table, df_show, group_header
 from src.features.momentum import momentum_config
 from src.screening.momentum import (build_table, heatmap_frame, HEATMAP_COLS,
@@ -17,7 +17,8 @@ st.caption('EWMA-signal screener on **total-return adjusted** prices (10y '
            'promised: out-of-sample, cost-aware, sample sizes shown. '
            'Not investment advice.')
 
-D = payload()
+D = payload(data_version())
+freshness_banner()
 cfg = momentum_config()
 bt = backtest_payload()
 names = D['names']
@@ -39,7 +40,19 @@ pairs = [tuple(p) for p in cfg['ewma']['pairs']]
 default_pair = tuple(cfg['ewma']['default_pair'])
 if 'mom_pair' not in st.session_state:
     st.session_state['mom_pair'] = default_pair
-c1, c2, c3, c4, c5, c6 = st.columns([1.4, 1.4, 1.2, 1.3, 1.3, 0.9])
+# universe: CORE COVERAGE by default — the explicit coverage lists in
+# config/coverage_packs/capital_goods.yaml are the source of truth (one
+# primary listing per core company; peers/ADRs/share classes excluded)
+CORE = sorted({k for sg in D['subgroups'] for g in sg['groups']
+               for k in g['coverage']})
+PEERS = sorted({k for sg in D['subgroups'] for g in sg['groups']
+                for k in g['peers']})
+u0, c1, c2, c3, c4, c5, c6 = st.columns([1.5, 1.3, 1.3, 1.2, 1.2, 1.2, 0.8])
+uni_pick = u0.selectbox('Universe', ['Core coverage', 'Core + direct peers',
+                                     'Full universe'],
+                        help='Core = the 30 coverage companies from the pack '
+                             'config. Calculations are identical across '
+                             'universes; this only selects rows.')
 sub = c1.multiselect('Subgroup', sorted(set(sub_of.values())))
 search = c2.text_input('Search company')
 pair = c3.selectbox('EWMA pair', pairs,
@@ -50,9 +63,13 @@ sigf = c4.selectbox('Signal', ['All', 'Bullish', 'Bearish',
                                'New bullish crossover', 'New bearish crossover'])
 clsf = c5.multiselect('Classification',
                       ['strong', 'improving', 'neutral', 'deteriorating', 'weak'])
-topn = c6.number_input('Top N', 5, 79, 79, step=5)
+topn = c6.number_input('Top N', 5, 79, 40, step=5)
 
 df = _table(pair, 5)
+if uni_pick == 'Core coverage':
+    df = df[df['key'].isin(CORE)].reset_index(drop=True)
+elif uni_pick == 'Core + direct peers':
+    df = df[df['key'].isin(set(CORE) | set(PEERS))].reset_index(drop=True)
 f = df.copy()
 if sub: f = f[f['subgroup'].isin(sub)]
 if search:

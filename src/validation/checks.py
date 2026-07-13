@@ -185,3 +185,46 @@ def run_candidate_checks(db, run_id):
               res, ['run_id', 'check_name', 'subject'])
     return {s: sum(1 for r in res if r[2] == s) for s in SEVERITIES} | \
            {'total': len(res)}
+
+
+def run_freshness_checks(db, run_id):
+    """Core-coverage freshness gate (v2.6): every core name's quote must sit
+    at its currency-group's latest date; >2 stale core names -> CRITICAL
+    (blocks publication), 1-2 -> error + explicit stale flags. Also checks
+    GBp scale plausibility (a pence price mistakenly in pounds is ~100x off
+    its 52w band) and zero/negative prices."""
+    from src.utils.universe import load_universe
+    u = load_universe()
+    core = {k for _, gs in u['subgroups'] for _, cov, _ in gs for k in cov}
+    res = []
+    rows = db.fetchall('SELECT key, quote_date, close, high_52w, low_52w, '
+                       'currency FROM raw_quotes')
+    latest = {}
+    for k, d, c, hi, lo, ccy in rows:
+        if d:
+            latest[ccy] = max(latest.get(ccy, ''), str(d))
+    stale_core = []
+    for k, d, c, hi, lo, ccy in rows:
+        if c is not None and c <= 0:
+            _emit(db, run_id, res, 'invalid_price', 'critical', k, f'close={c}')
+        if hi and lo and c and not (lo * 0.5 <= c <= hi * 2):
+            _emit(db, run_id, res, 'price_scale_implausible', 'critical', k,
+                  f'close {c} outside 52w band [{lo}, {hi}] — unit/scale error?')
+        if ccy == 'GBp' and c is not None and c < 50:
+            _emit(db, run_id, res, 'price_scale_implausible', 'critical', k,
+                  f'GBp quote {c} looks like POUNDS not pence (100x error)')
+        if d and str(d) < latest.get(ccy, ''):
+            sev = 'error' if k in core else 'warning'
+            _emit(db, run_id, res, 'stale_vs_market', sev, k,
+                  f'quote {d} behind currency-group latest {latest[ccy]}')
+            if k in core:
+                stale_core.append(k)
+    if len(stale_core) > 2:
+        _emit(db, run_id, res, 'core_coverage_stale', 'critical',
+              ','.join(stale_core[:8]),
+              f'{len(stale_core)} core names stale — publication blocked')
+    db.upsert('validation_results',
+              ['run_id', 'check_name', 'severity', 'subject', 'message', 'created_at'],
+              res, ['run_id', 'check_name', 'subject'])
+    return {s: sum(1 for r in res if r[2] == s) for s in SEVERITIES} | \
+           {'total': len(res)}
