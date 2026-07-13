@@ -1,0 +1,5502 @@
+{
+"source": "FactIQ sec schema, filings table (10-K/10-Q), fetched 2026-07-13",
+"note": "filed_date = period_of_report + lag_days as reported by EDGAR; coverage: 37 of 48 US-listed lines (missing: ATKR, BDC, BMI, GBX, HXL, KMT, MOGA, OSK, TEX, TKR, VISN \u2014 not in FactIQ filings table)",
+"rows": [
+{
+"key": "ALLE",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-23",
+"lag_days": 23
+},
+{
+"key": "ALLE",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-23",
+"lag_days": 23
+},
+{
+"key": "ALLE",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-22",
+"lag_days": 22
+},
+{
+"key": "ALLE",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-16",
+"lag_days": 47
+},
+{
+"key": "ALLE",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-22",
+"lag_days": 22
+},
+{
+"key": "ALLE",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-22",
+"lag_days": 22
+},
+{
+"key": "ALLE",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-21",
+"lag_days": 21
+},
+{
+"key": "ALLE",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-15",
+"lag_days": 46
+},
+{
+"key": "ALLE",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-26",
+"lag_days": 26
+},
+{
+"key": "ALLE",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-28",
+"lag_days": 28
+},
+{
+"key": "ALLE",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-27",
+"lag_days": 27
+},
+{
+"key": "ALLE",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-22",
+"lag_days": 53
+},
+{
+"key": "ALLE",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-26",
+"lag_days": 26
+},
+{
+"key": "ALLE",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-26",
+"lag_days": 26
+},
+{
+"key": "ALLE",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-31",
+"lag_days": 31
+},
+{
+"key": "ALLE",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-20",
+"lag_days": 51
+},
+{
+"key": "ALLE",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-25",
+"lag_days": 25
+},
+{
+"key": "ALLE",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-24",
+"lag_days": 24
+},
+{
+"key": "ALLE",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-24",
+"lag_days": 24
+},
+{
+"key": "ALLE",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-18",
+"lag_days": 49
+},
+{
+"key": "ALLE",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-24",
+"lag_days": 24
+},
+{
+"key": "ALLE",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-24",
+"lag_days": 24
+},
+{
+"key": "ALLE",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-23",
+"lag_days": 23
+},
+{
+"key": "ALLE",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-17",
+"lag_days": 48
+},
+{
+"key": "ALLE",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-28",
+"lag_days": 28
+},
+{
+"key": "AMAT",
+"period_end": "2020-01-26",
+"filed_date": "2020-02-20",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2020-04-26",
+"filed_date": "2020-05-21",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2020-07-26",
+"filed_date": "2020-08-20",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2020-10-25",
+"filed_date": "2020-12-11",
+"lag_days": 47
+},
+{
+"key": "AMAT",
+"period_end": "2021-01-31",
+"filed_date": "2021-02-25",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2021-05-02",
+"filed_date": "2021-05-27",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2021-08-01",
+"filed_date": "2021-08-26",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2021-10-31",
+"filed_date": "2021-12-17",
+"lag_days": 47
+},
+{
+"key": "AMAT",
+"period_end": "2022-01-30",
+"filed_date": "2022-02-24",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2022-05-01",
+"filed_date": "2022-05-26",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2022-07-31",
+"filed_date": "2022-08-25",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2022-10-30",
+"filed_date": "2022-12-16",
+"lag_days": 47
+},
+{
+"key": "AMAT",
+"period_end": "2023-01-29",
+"filed_date": "2023-02-23",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2023-04-30",
+"filed_date": "2023-05-26",
+"lag_days": 26
+},
+{
+"key": "AMAT",
+"period_end": "2023-07-30",
+"filed_date": "2023-08-24",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2023-10-29",
+"filed_date": "2023-12-15",
+"lag_days": 47
+},
+{
+"key": "AMAT",
+"period_end": "2024-01-28",
+"filed_date": "2024-02-27",
+"lag_days": 30
+},
+{
+"key": "AMAT",
+"period_end": "2024-04-28",
+"filed_date": "2024-05-23",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2024-07-28",
+"filed_date": "2024-08-22",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2024-10-27",
+"filed_date": "2024-12-13",
+"lag_days": 47
+},
+{
+"key": "AMAT",
+"period_end": "2025-01-26",
+"filed_date": "2025-02-20",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2025-04-27",
+"filed_date": "2025-05-22",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2025-07-27",
+"filed_date": "2025-08-21",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2025-10-26",
+"filed_date": "2025-12-12",
+"lag_days": 47
+},
+{
+"key": "AMAT",
+"period_end": "2026-01-25",
+"filed_date": "2026-02-19",
+"lag_days": 25
+},
+{
+"key": "AMAT",
+"period_end": "2026-04-26",
+"filed_date": "2026-05-21",
+"lag_days": 25
+},
+{
+"key": "AME",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-05",
+"lag_days": 35
+},
+{
+"key": "AME",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-04",
+"lag_days": 35
+},
+{
+"key": "AME",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-29",
+"lag_days": 29
+},
+{
+"key": "AME",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-18",
+"lag_days": 49
+},
+{
+"key": "AME",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-04",
+"lag_days": 34
+},
+{
+"key": "AME",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-03",
+"lag_days": 34
+},
+{
+"key": "AME",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-02",
+"lag_days": 33
+},
+{
+"key": "AME",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-22",
+"lag_days": 53
+},
+{
+"key": "AME",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-03",
+"lag_days": 33
+},
+{
+"key": "AME",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-02",
+"lag_days": 33
+},
+{
+"key": "AME",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-01",
+"lag_days": 32
+},
+{
+"key": "AME",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-21",
+"lag_days": 52
+},
+{
+"key": "AME",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-02",
+"lag_days": 32
+},
+{
+"key": "AME",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-01",
+"lag_days": 32
+},
+{
+"key": "AME",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-31",
+"lag_days": 31
+},
+{
+"key": "AME",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-22",
+"lag_days": 53
+},
+{
+"key": "AME",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-02",
+"lag_days": 32
+},
+{
+"key": "AME",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-01",
+"lag_days": 32
+},
+{
+"key": "AME",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-31",
+"lag_days": 31
+},
+{
+"key": "AME",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-20",
+"lag_days": 51
+},
+{
+"key": "AME",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "AME",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-31",
+"lag_days": 31
+},
+{
+"key": "AME",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-30",
+"lag_days": 30
+},
+{
+"key": "AME",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-17",
+"lag_days": 48
+},
+{
+"key": "AME",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+},
+{
+"key": "CARR",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-11",
+"lag_days": 41
+},
+{
+"key": "CARR",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-31",
+"lag_days": 31
+},
+{
+"key": "CARR",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-29",
+"lag_days": 29
+},
+{
+"key": "CARR",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-09",
+"lag_days": 40
+},
+{
+"key": "CARR",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-29",
+"lag_days": 29
+},
+{
+"key": "CARR",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-29",
+"lag_days": 29
+},
+{
+"key": "CARR",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-28",
+"lag_days": 28
+},
+{
+"key": "CARR",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-08",
+"lag_days": 39
+},
+{
+"key": "CARR",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-28",
+"lag_days": 28
+},
+{
+"key": "CARR",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-28",
+"lag_days": 28
+},
+{
+"key": "CARR",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-27",
+"lag_days": 27
+},
+{
+"key": "CARR",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-07",
+"lag_days": 38
+},
+{
+"key": "CARR",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-26",
+"lag_days": 26
+},
+{
+"key": "CARR",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "CARR",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-26",
+"lag_days": 26
+},
+{
+"key": "CARR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-06",
+"lag_days": 37
+},
+{
+"key": "CARR",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-25",
+"lag_days": 25
+},
+{
+"key": "CARR",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-25",
+"lag_days": 25
+},
+{
+"key": "CARR",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-25",
+"lag_days": 25
+},
+{
+"key": "CARR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-11",
+"lag_days": 42
+},
+{
+"key": "CARR",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "CARR",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-29",
+"lag_days": 29
+},
+{
+"key": "CARR",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-28",
+"lag_days": 28
+},
+{
+"key": "CARR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-05",
+"lag_days": 36
+},
+{
+"key": "CARR",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+},
+{
+"key": "CAT",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-06",
+"lag_days": 36
+},
+{
+"key": "CAT",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-05",
+"lag_days": 36
+},
+{
+"key": "CAT",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-04",
+"lag_days": 35
+},
+{
+"key": "CAT",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-17",
+"lag_days": 48
+},
+{
+"key": "CAT",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-05",
+"lag_days": 35
+},
+{
+"key": "CAT",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-04",
+"lag_days": 35
+},
+{
+"key": "CAT",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-03",
+"lag_days": 34
+},
+{
+"key": "CAT",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-16",
+"lag_days": 47
+},
+{
+"key": "CAT",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-04",
+"lag_days": 34
+},
+{
+"key": "CAT",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-03",
+"lag_days": 34
+},
+{
+"key": "CAT",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-02",
+"lag_days": 33
+},
+{
+"key": "CAT",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-15",
+"lag_days": 46
+},
+{
+"key": "CAT",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-03",
+"lag_days": 33
+},
+{
+"key": "CAT",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "CAT",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-01",
+"lag_days": 32
+},
+{
+"key": "CAT",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-16",
+"lag_days": 47
+},
+{
+"key": "CAT",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-01",
+"lag_days": 31
+},
+{
+"key": "CAT",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-07",
+"lag_days": 38
+},
+{
+"key": "CAT",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-06",
+"lag_days": 37
+},
+{
+"key": "CAT",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-14",
+"lag_days": 45
+},
+{
+"key": "CAT",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-07",
+"lag_days": 37
+},
+{
+"key": "CAT",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-06",
+"lag_days": 37
+},
+{
+"key": "CAT",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-03",
+"lag_days": 34
+},
+{
+"key": "CAT",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-13",
+"lag_days": 44
+},
+{
+"key": "CAT",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-06",
+"lag_days": 36
+},
+{
+"key": "CMI",
+"period_end": "2020-03-29",
+"filed_date": "2020-04-28",
+"lag_days": 30
+},
+{
+"key": "CMI",
+"period_end": "2020-06-28",
+"filed_date": "2020-07-28",
+"lag_days": 30
+},
+{
+"key": "CMI",
+"period_end": "2020-09-27",
+"filed_date": "2020-10-27",
+"lag_days": 30
+},
+{
+"key": "CMI",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-10",
+"lag_days": 41
+},
+{
+"key": "CMI",
+"period_end": "2021-04-04",
+"filed_date": "2021-05-04",
+"lag_days": 30
+},
+{
+"key": "CMI",
+"period_end": "2021-07-04",
+"filed_date": "2021-08-03",
+"lag_days": 30
+},
+{
+"key": "CMI",
+"period_end": "2021-10-03",
+"filed_date": "2021-11-02",
+"lag_days": 30
+},
+{
+"key": "CMI",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-08",
+"lag_days": 39
+},
+{
+"key": "CMI",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-03",
+"lag_days": 33
+},
+{
+"key": "CMI",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-03",
+"lag_days": 34
+},
+{
+"key": "CMI",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-04",
+"lag_days": 35
+},
+{
+"key": "CMI",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-14",
+"lag_days": 45
+},
+{
+"key": "CMI",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-02",
+"lag_days": 32
+},
+{
+"key": "CMI",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-03",
+"lag_days": 34
+},
+{
+"key": "CMI",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-02",
+"lag_days": 33
+},
+{
+"key": "CMI",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-12",
+"lag_days": 43
+},
+{
+"key": "CMI",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-02",
+"lag_days": 32
+},
+{
+"key": "CMI",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-01",
+"lag_days": 32
+},
+{
+"key": "CMI",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-05",
+"lag_days": 36
+},
+{
+"key": "CMI",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-11",
+"lag_days": 42
+},
+{
+"key": "CMI",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-05",
+"lag_days": 35
+},
+{
+"key": "CMI",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-05",
+"lag_days": 36
+},
+{
+"key": "CMI",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-06",
+"lag_days": 37
+},
+{
+"key": "CMI",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-10",
+"lag_days": 41
+},
+{
+"key": "CMI",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-05",
+"lag_days": 35
+},
+{
+"key": "COHR",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-11",
+"lag_days": 41
+},
+{
+"key": "COHR",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-26",
+"lag_days": 57
+},
+{
+"key": "COHR",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-09",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-09",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-07",
+"lag_days": 37
+},
+{
+"key": "COHR",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-20",
+"lag_days": 51
+},
+{
+"key": "COHR",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-09",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-09",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-10",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-29",
+"lag_days": 60
+},
+{
+"key": "COHR",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-09",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-08",
+"lag_days": 39
+},
+{
+"key": "COHR",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-10",
+"lag_days": 40
+},
+{
+"key": "COHR",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-18",
+"lag_days": 49
+},
+{
+"key": "COHR",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-07",
+"lag_days": 38
+},
+{
+"key": "COHR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-06",
+"lag_days": 37
+},
+{
+"key": "COHR",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-07",
+"lag_days": 37
+},
+{
+"key": "COHR",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-16",
+"lag_days": 47
+},
+{
+"key": "COHR",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-06",
+"lag_days": 37
+},
+{
+"key": "COHR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-05",
+"lag_days": 36
+},
+{
+"key": "COHR",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-07",
+"lag_days": 37
+},
+{
+"key": "COHR",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-15",
+"lag_days": 46
+},
+{
+"key": "COHR",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-05",
+"lag_days": 36
+},
+{
+"key": "COHR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-04",
+"lag_days": 35
+},
+{
+"key": "COHR",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-06",
+"lag_days": 36
+},
+{
+"key": "CR",
+"period_end": "2022-12-31",
+"filed_date": "2023-03-31",
+"lag_days": 90
+},
+{
+"key": "CR",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-10",
+"lag_days": 40
+},
+{
+"key": "CR",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "CR",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-01",
+"lag_days": 32
+},
+{
+"key": "CR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-26",
+"lag_days": 57
+},
+{
+"key": "CR",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-01",
+"lag_days": 31
+},
+{
+"key": "CR",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-31",
+"lag_days": 31
+},
+{
+"key": "CR",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-31",
+"lag_days": 31
+},
+{
+"key": "CR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-27",
+"lag_days": 58
+},
+{
+"key": "CR",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "CR",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-31",
+"lag_days": 31
+},
+{
+"key": "CR",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-29",
+"lag_days": 29
+},
+{
+"key": "CR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-26",
+"lag_days": 57
+},
+{
+"key": "CR",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+},
+{
+"key": "DE",
+"period_end": "2020-02-02",
+"filed_date": "2020-02-27",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2020-05-03",
+"filed_date": "2020-05-28",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2020-08-02",
+"filed_date": "2020-08-27",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2020-11-01",
+"filed_date": "2020-12-17",
+"lag_days": 46
+},
+{
+"key": "DE",
+"period_end": "2021-01-31",
+"filed_date": "2021-02-25",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2021-05-02",
+"filed_date": "2021-05-27",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2021-08-01",
+"filed_date": "2021-08-26",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2021-10-31",
+"filed_date": "2021-12-16",
+"lag_days": 46
+},
+{
+"key": "DE",
+"period_end": "2022-01-30",
+"filed_date": "2022-02-24",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2022-05-01",
+"filed_date": "2022-05-26",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2022-07-31",
+"filed_date": "2022-09-01",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2022-10-30",
+"filed_date": "2022-12-15",
+"lag_days": 46
+},
+{
+"key": "DE",
+"period_end": "2023-01-29",
+"filed_date": "2023-02-23",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2023-04-30",
+"filed_date": "2023-06-01",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2023-07-30",
+"filed_date": "2023-08-31",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2023-10-29",
+"filed_date": "2023-12-15",
+"lag_days": 47
+},
+{
+"key": "DE",
+"period_end": "2024-01-28",
+"filed_date": "2024-02-29",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2024-04-28",
+"filed_date": "2024-05-30",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2024-07-28",
+"filed_date": "2024-08-29",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2024-10-27",
+"filed_date": "2024-12-12",
+"lag_days": 46
+},
+{
+"key": "DE",
+"period_end": "2025-01-26",
+"filed_date": "2025-02-27",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2025-04-27",
+"filed_date": "2025-05-29",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2025-07-27",
+"filed_date": "2025-08-28",
+"lag_days": 32
+},
+{
+"key": "DE",
+"period_end": "2025-11-02",
+"filed_date": "2025-12-18",
+"lag_days": 46
+},
+{
+"key": "DE",
+"period_end": "2026-02-01",
+"filed_date": "2026-02-26",
+"lag_days": 25
+},
+{
+"key": "DE",
+"period_end": "2026-05-03",
+"filed_date": "2026-05-28",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2020-04-03",
+"filed_date": "2020-05-06",
+"lag_days": 33
+},
+{
+"key": "DHR",
+"period_end": "2020-07-03",
+"filed_date": "2020-07-23",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2020-10-02",
+"filed_date": "2020-10-22",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-25",
+"lag_days": 56
+},
+{
+"key": "DHR",
+"period_end": "2021-04-02",
+"filed_date": "2021-04-22",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2021-07-02",
+"filed_date": "2021-07-22",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2021-10-01",
+"filed_date": "2021-10-21",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-23",
+"lag_days": 54
+},
+{
+"key": "DHR",
+"period_end": "2022-04-01",
+"filed_date": "2022-04-21",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2022-07-01",
+"filed_date": "2022-07-21",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-20",
+"lag_days": 20
+},
+{
+"key": "DHR",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-22",
+"lag_days": 53
+},
+{
+"key": "DHR",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-25",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-25",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2023-09-29",
+"filed_date": "2023-10-24",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-21",
+"lag_days": 52
+},
+{
+"key": "DHR",
+"period_end": "2024-03-29",
+"filed_date": "2024-04-23",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2024-06-28",
+"filed_date": "2024-07-23",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2024-09-27",
+"filed_date": "2024-10-22",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-20",
+"lag_days": 51
+},
+{
+"key": "DHR",
+"period_end": "2025-03-28",
+"filed_date": "2025-04-22",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2025-06-27",
+"filed_date": "2025-07-22",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2025-09-26",
+"filed_date": "2025-10-21",
+"lag_days": 25
+},
+{
+"key": "DHR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-24",
+"lag_days": 55
+},
+{
+"key": "DHR",
+"period_end": "2026-03-27",
+"filed_date": "2026-04-21",
+"lag_days": 25
+},
+{
+"key": "EMR",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-24",
+"lag_days": 24
+},
+{
+"key": "EMR",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-05",
+"lag_days": 36
+},
+{
+"key": "EMR",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-16",
+"lag_days": 47
+},
+{
+"key": "EMR",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-03",
+"lag_days": 34
+},
+{
+"key": "EMR",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-05",
+"lag_days": 35
+},
+{
+"key": "EMR",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-04",
+"lag_days": 35
+},
+{
+"key": "EMR",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-15",
+"lag_days": 46
+},
+{
+"key": "EMR",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-02",
+"lag_days": 33
+},
+{
+"key": "EMR",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-04",
+"lag_days": 34
+},
+{
+"key": "EMR",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-09",
+"lag_days": 40
+},
+{
+"key": "EMR",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-14",
+"lag_days": 45
+},
+{
+"key": "EMR",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-08",
+"lag_days": 39
+},
+{
+"key": "EMR",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-03",
+"lag_days": 33
+},
+{
+"key": "EMR",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "EMR",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-13",
+"lag_days": 44
+},
+{
+"key": "EMR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-07",
+"lag_days": 38
+},
+{
+"key": "EMR",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-08",
+"lag_days": 38
+},
+{
+"key": "EMR",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-07",
+"lag_days": 38
+},
+{
+"key": "EMR",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-12",
+"lag_days": 43
+},
+{
+"key": "EMR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-05",
+"lag_days": 36
+},
+{
+"key": "EMR",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-07",
+"lag_days": 37
+},
+{
+"key": "EMR",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-06",
+"lag_days": 37
+},
+{
+"key": "EMR",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-10",
+"lag_days": 41
+},
+{
+"key": "EMR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-03",
+"lag_days": 34
+},
+{
+"key": "EMR",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-05",
+"lag_days": 35
+},
+{
+"key": "ETN",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-30",
+"lag_days": 30
+},
+{
+"key": "ETN",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-29",
+"lag_days": 29
+},
+{
+"key": "ETN",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-03",
+"lag_days": 34
+},
+{
+"key": "ETN",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-24",
+"lag_days": 55
+},
+{
+"key": "ETN",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-04",
+"lag_days": 34
+},
+{
+"key": "ETN",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-03",
+"lag_days": 34
+},
+{
+"key": "ETN",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-02",
+"lag_days": 33
+},
+{
+"key": "ETN",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-23",
+"lag_days": 54
+},
+{
+"key": "ETN",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-03",
+"lag_days": 33
+},
+{
+"key": "ETN",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-02",
+"lag_days": 33
+},
+{
+"key": "ETN",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-01",
+"lag_days": 32
+},
+{
+"key": "ETN",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-23",
+"lag_days": 54
+},
+{
+"key": "ETN",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-02",
+"lag_days": 32
+},
+{
+"key": "ETN",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-01",
+"lag_days": 32
+},
+{
+"key": "ETN",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-31",
+"lag_days": 31
+},
+{
+"key": "ETN",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-29",
+"lag_days": 60
+},
+{
+"key": "ETN",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-30",
+"lag_days": 30
+},
+{
+"key": "ETN",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-01",
+"lag_days": 32
+},
+{
+"key": "ETN",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-31",
+"lag_days": 31
+},
+{
+"key": "ETN",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-27",
+"lag_days": 58
+},
+{
+"key": "ETN",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-02",
+"lag_days": 32
+},
+{
+"key": "ETN",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-05",
+"lag_days": 36
+},
+{
+"key": "ETN",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-04",
+"lag_days": 35
+},
+{
+"key": "ETN",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-26",
+"lag_days": 57
+},
+{
+"key": "ETN",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-05",
+"lag_days": 35
+},
+{
+"key": "FAST",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-17",
+"lag_days": 17
+},
+{
+"key": "FAST",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-17",
+"lag_days": 17
+},
+{
+"key": "FAST",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-08",
+"lag_days": 39
+},
+{
+"key": "FAST",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-15",
+"lag_days": 15
+},
+{
+"key": "FAST",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-07",
+"lag_days": 38
+},
+{
+"key": "FAST",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-18",
+"lag_days": 18
+},
+{
+"key": "FAST",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-18",
+"lag_days": 18
+},
+{
+"key": "FAST",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-18",
+"lag_days": 18
+},
+{
+"key": "FAST",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-07",
+"lag_days": 38
+},
+{
+"key": "FAST",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-18",
+"lag_days": 18
+},
+{
+"key": "FAST",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-18",
+"lag_days": 18
+},
+{
+"key": "FAST",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-17",
+"lag_days": 17
+},
+{
+"key": "FAST",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-06",
+"lag_days": 37
+},
+{
+"key": "FAST",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-17",
+"lag_days": 17
+},
+{
+"key": "FAST",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-06",
+"lag_days": 37
+},
+{
+"key": "FAST",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-17",
+"lag_days": 17
+},
+{
+"key": "FAST",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-16",
+"lag_days": 16
+},
+{
+"key": "FAST",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-05",
+"lag_days": 36
+},
+{
+"key": "FAST",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-16",
+"lag_days": 16
+},
+{
+"key": "FLS",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-07",
+"lag_days": 37
+},
+{
+"key": "FLS",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-30",
+"lag_days": 30
+},
+{
+"key": "FLS",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-13",
+"lag_days": 44
+},
+{
+"key": "FLS",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-23",
+"lag_days": 54
+},
+{
+"key": "FLS",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-03",
+"lag_days": 33
+},
+{
+"key": "FLS",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-05",
+"lag_days": 36
+},
+{
+"key": "FLS",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-27",
+"lag_days": 27
+},
+{
+"key": "FLS",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-23",
+"lag_days": 54
+},
+{
+"key": "FLS",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-02",
+"lag_days": 32
+},
+{
+"key": "FLS",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-27",
+"lag_days": 27
+},
+{
+"key": "FLS",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-31",
+"lag_days": 31
+},
+{
+"key": "FLS",
+"period_end": "2022-12-31",
+"filed_date": "2023-03-07",
+"lag_days": 66
+},
+{
+"key": "FLS",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-01",
+"lag_days": 31
+},
+{
+"key": "FLS",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-01",
+"lag_days": 32
+},
+{
+"key": "FLS",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-25",
+"lag_days": 25
+},
+{
+"key": "FLS",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-20",
+"lag_days": 51
+},
+{
+"key": "FLS",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-29",
+"lag_days": 29
+},
+{
+"key": "FLS",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-29",
+"lag_days": 29
+},
+{
+"key": "FLS",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-28",
+"lag_days": 28
+},
+{
+"key": "FLS",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-26",
+"lag_days": 57
+},
+{
+"key": "FLS",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-29",
+"lag_days": 29
+},
+{
+"key": "FLS",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-30",
+"lag_days": 30
+},
+{
+"key": "FLS",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-28",
+"lag_days": 28
+},
+{
+"key": "FLS",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-17",
+"lag_days": 48
+},
+{
+"key": "FLS",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-29",
+"lag_days": 29
+},
+{
+"key": "FN",
+"period_end": "2020-03-27",
+"filed_date": "2020-05-05",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2020-06-26",
+"filed_date": "2020-08-18",
+"lag_days": 53
+},
+{
+"key": "FN",
+"period_end": "2020-09-25",
+"filed_date": "2020-11-03",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2020-12-25",
+"filed_date": "2021-02-02",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2021-03-26",
+"filed_date": "2021-05-04",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2021-06-25",
+"filed_date": "2021-08-17",
+"lag_days": 53
+},
+{
+"key": "FN",
+"period_end": "2021-09-24",
+"filed_date": "2021-11-02",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2021-12-24",
+"filed_date": "2022-02-01",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2022-03-25",
+"filed_date": "2022-05-03",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2022-06-24",
+"filed_date": "2022-08-16",
+"lag_days": 53
+},
+{
+"key": "FN",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-08",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2022-12-30",
+"filed_date": "2023-02-07",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-09",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-22",
+"lag_days": 53
+},
+{
+"key": "FN",
+"period_end": "2023-09-29",
+"filed_date": "2023-11-07",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2023-12-29",
+"filed_date": "2024-02-06",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2024-03-29",
+"filed_date": "2024-05-07",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2024-06-28",
+"filed_date": "2024-08-20",
+"lag_days": 53
+},
+{
+"key": "FN",
+"period_end": "2024-09-27",
+"filed_date": "2024-11-05",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2024-12-27",
+"filed_date": "2025-02-04",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2025-03-28",
+"filed_date": "2025-05-06",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2025-06-27",
+"filed_date": "2025-08-19",
+"lag_days": 53
+},
+{
+"key": "FN",
+"period_end": "2025-09-26",
+"filed_date": "2025-11-04",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2025-12-26",
+"filed_date": "2026-02-03",
+"lag_days": 39
+},
+{
+"key": "FN",
+"period_end": "2026-03-27",
+"filed_date": "2026-05-05",
+"lag_days": 39
+},
+{
+"key": "GE",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-29",
+"lag_days": 29
+},
+{
+"key": "GE",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-29",
+"lag_days": 29
+},
+{
+"key": "GE",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-28",
+"lag_days": 28
+},
+{
+"key": "GE",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-12",
+"lag_days": 43
+},
+{
+"key": "GE",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-27",
+"lag_days": 27
+},
+{
+"key": "GE",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-27",
+"lag_days": 27
+},
+{
+"key": "GE",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-26",
+"lag_days": 26
+},
+{
+"key": "GE",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-11",
+"lag_days": 42
+},
+{
+"key": "GE",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-26",
+"lag_days": 26
+},
+{
+"key": "GE",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-26",
+"lag_days": 26
+},
+{
+"key": "GE",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-25",
+"lag_days": 25
+},
+{
+"key": "GE",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-10",
+"lag_days": 41
+},
+{
+"key": "GE",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-25",
+"lag_days": 25
+},
+{
+"key": "GE",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-25",
+"lag_days": 25
+},
+{
+"key": "GE",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-24",
+"lag_days": 24
+},
+{
+"key": "GE",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-02",
+"lag_days": 33
+},
+{
+"key": "GE",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-23",
+"lag_days": 23
+},
+{
+"key": "GE",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-23",
+"lag_days": 23
+},
+{
+"key": "GE",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-22",
+"lag_days": 22
+},
+{
+"key": "GE",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-03",
+"lag_days": 34
+},
+{
+"key": "GE",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-22",
+"lag_days": 22
+},
+{
+"key": "GE",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-21",
+"lag_days": 21
+},
+{
+"key": "GE",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-21",
+"lag_days": 21
+},
+{
+"key": "GE",
+"period_end": "2025-12-31",
+"filed_date": "2026-01-29",
+"lag_days": 29
+},
+{
+"key": "GE",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-21",
+"lag_days": 21
+},
+{
+"key": "GLW",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-05",
+"lag_days": 35
+},
+{
+"key": "GLW",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-30",
+"lag_days": 30
+},
+{
+"key": "GLW",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-29",
+"lag_days": 29
+},
+{
+"key": "GLW",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-12",
+"lag_days": 43
+},
+{
+"key": "GLW",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-30",
+"lag_days": 30
+},
+{
+"key": "GLW",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-27",
+"lag_days": 27
+},
+{
+"key": "GLW",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-29",
+"lag_days": 29
+},
+{
+"key": "GLW",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-14",
+"lag_days": 45
+},
+{
+"key": "GLW",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-29",
+"lag_days": 29
+},
+{
+"key": "GLW",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-29",
+"lag_days": 29
+},
+{
+"key": "GLW",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-27",
+"lag_days": 27
+},
+{
+"key": "GLW",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-13",
+"lag_days": 44
+},
+{
+"key": "GLW",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-28",
+"lag_days": 28
+},
+{
+"key": "GLW",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "GLW",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-30",
+"lag_days": 30
+},
+{
+"key": "GLW",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-12",
+"lag_days": 43
+},
+{
+"key": "GLW",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-02",
+"lag_days": 32
+},
+{
+"key": "GLW",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-02",
+"lag_days": 33
+},
+{
+"key": "GLW",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-01",
+"lag_days": 32
+},
+{
+"key": "GLW",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-13",
+"lag_days": 44
+},
+{
+"key": "GLW",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-02",
+"lag_days": 32
+},
+{
+"key": "GLW",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-01",
+"lag_days": 32
+},
+{
+"key": "GLW",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-31",
+"lag_days": 31
+},
+{
+"key": "GLW",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-12",
+"lag_days": 43
+},
+{
+"key": "GLW",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-01",
+"lag_days": 31
+},
+{
+"key": "HON",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-01",
+"lag_days": 31
+},
+{
+"key": "HON",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-24",
+"lag_days": 24
+},
+{
+"key": "HON",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-30",
+"lag_days": 30
+},
+{
+"key": "HON",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-12",
+"lag_days": 43
+},
+{
+"key": "HON",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-23",
+"lag_days": 23
+},
+{
+"key": "HON",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-23",
+"lag_days": 23
+},
+{
+"key": "HON",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-22",
+"lag_days": 22
+},
+{
+"key": "HON",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-11",
+"lag_days": 42
+},
+{
+"key": "HON",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-29",
+"lag_days": 29
+},
+{
+"key": "HON",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-28",
+"lag_days": 28
+},
+{
+"key": "HON",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-27",
+"lag_days": 27
+},
+{
+"key": "HON",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-10",
+"lag_days": 41
+},
+{
+"key": "HON",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-27",
+"lag_days": 27
+},
+{
+"key": "HON",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "HON",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-26",
+"lag_days": 26
+},
+{
+"key": "HON",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-16",
+"lag_days": 47
+},
+{
+"key": "HON",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-25",
+"lag_days": 25
+},
+{
+"key": "HON",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-25",
+"lag_days": 25
+},
+{
+"key": "HON",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-24",
+"lag_days": 24
+},
+{
+"key": "HON",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-14",
+"lag_days": 45
+},
+{
+"key": "HON",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-29",
+"lag_days": 29
+},
+{
+"key": "HON",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-24",
+"lag_days": 24
+},
+{
+"key": "HON",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-23",
+"lag_days": 23
+},
+{
+"key": "HON",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-17",
+"lag_days": 48
+},
+{
+"key": "HON",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-23",
+"lag_days": 23
+},
+{
+"key": "HWM",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-07",
+"lag_days": 37
+},
+{
+"key": "HWM",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-07",
+"lag_days": 38
+},
+{
+"key": "HWM",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-09",
+"lag_days": 40
+},
+{
+"key": "HWM",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-16",
+"lag_days": 47
+},
+{
+"key": "HWM",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-06",
+"lag_days": 36
+},
+{
+"key": "HWM",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-04",
+"lag_days": 35
+},
+{
+"key": "HWM",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-04",
+"lag_days": 35
+},
+{
+"key": "HWM",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-14",
+"lag_days": 45
+},
+{
+"key": "HWM",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-03",
+"lag_days": 33
+},
+{
+"key": "HWM",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-04",
+"lag_days": 35
+},
+{
+"key": "HWM",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-31",
+"lag_days": 31
+},
+{
+"key": "HWM",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-14",
+"lag_days": 45
+},
+{
+"key": "HWM",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-02",
+"lag_days": 32
+},
+{
+"key": "HWM",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-01",
+"lag_days": 32
+},
+{
+"key": "HWM",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-02",
+"lag_days": 33
+},
+{
+"key": "HWM",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-13",
+"lag_days": 44
+},
+{
+"key": "HWM",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-02",
+"lag_days": 32
+},
+{
+"key": "HWM",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-30",
+"lag_days": 30
+},
+{
+"key": "HWM",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-07",
+"lag_days": 38
+},
+{
+"key": "HWM",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-14",
+"lag_days": 45
+},
+{
+"key": "HWM",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "HWM",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-31",
+"lag_days": 31
+},
+{
+"key": "HWM",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-30",
+"lag_days": 30
+},
+{
+"key": "HWM",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-12",
+"lag_days": 43
+},
+{
+"key": "HWM",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-07",
+"lag_days": 37
+},
+{
+"key": "IEX",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-24",
+"lag_days": 24
+},
+{
+"key": "IEX",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-24",
+"lag_days": 24
+},
+{
+"key": "IEX",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-28",
+"lag_days": 28
+},
+{
+"key": "IEX",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-25",
+"lag_days": 56
+},
+{
+"key": "IEX",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-28",
+"lag_days": 28
+},
+{
+"key": "IEX",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-28",
+"lag_days": 28
+},
+{
+"key": "IEX",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-27",
+"lag_days": 27
+},
+{
+"key": "IEX",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-24",
+"lag_days": 55
+},
+{
+"key": "IEX",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-27",
+"lag_days": 27
+},
+{
+"key": "IEX",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-27",
+"lag_days": 27
+},
+{
+"key": "IEX",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-26",
+"lag_days": 26
+},
+{
+"key": "IEX",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-23",
+"lag_days": 54
+},
+{
+"key": "IEX",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-27",
+"lag_days": 27
+},
+{
+"key": "IEX",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "IEX",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-26",
+"lag_days": 26
+},
+{
+"key": "IEX",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-22",
+"lag_days": 53
+},
+{
+"key": "IEX",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-24",
+"lag_days": 24
+},
+{
+"key": "IEX",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-01",
+"lag_days": 32
+},
+{
+"key": "IEX",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-30",
+"lag_days": 30
+},
+{
+"key": "IEX",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-20",
+"lag_days": 51
+},
+{
+"key": "IEX",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "IEX",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-30",
+"lag_days": 30
+},
+{
+"key": "IEX",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-29",
+"lag_days": 29
+},
+{
+"key": "IEX",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-19",
+"lag_days": 50
+},
+{
+"key": "IEX",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-29",
+"lag_days": 29
+},
+{
+"key": "IR",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-15",
+"lag_days": 45
+},
+{
+"key": "IR",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-04",
+"lag_days": 35
+},
+{
+"key": "IR",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-03",
+"lag_days": 34
+},
+{
+"key": "IR",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-26",
+"lag_days": 57
+},
+{
+"key": "IR",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-30",
+"lag_days": 30
+},
+{
+"key": "IR",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-30",
+"lag_days": 30
+},
+{
+"key": "IR",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-05",
+"lag_days": 36
+},
+{
+"key": "IR",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-25",
+"lag_days": 56
+},
+{
+"key": "IR",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-06",
+"lag_days": 36
+},
+{
+"key": "IR",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-05",
+"lag_days": 36
+},
+{
+"key": "IR",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-04",
+"lag_days": 35
+},
+{
+"key": "IR",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-21",
+"lag_days": 52
+},
+{
+"key": "IR",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-05",
+"lag_days": 35
+},
+{
+"key": "IR",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-04",
+"lag_days": 35
+},
+{
+"key": "IR",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-03",
+"lag_days": 34
+},
+{
+"key": "IR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-23",
+"lag_days": 54
+},
+{
+"key": "IR",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-03",
+"lag_days": 33
+},
+{
+"key": "IR",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-02",
+"lag_days": 33
+},
+{
+"key": "IR",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-01",
+"lag_days": 32
+},
+{
+"key": "IR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-19",
+"lag_days": 50
+},
+{
+"key": "IR",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-02",
+"lag_days": 32
+},
+{
+"key": "IR",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-31",
+"lag_days": 31
+},
+{
+"key": "IR",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-31",
+"lag_days": 31
+},
+{
+"key": "IR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-17",
+"lag_days": 48
+},
+{
+"key": "IR",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-29",
+"lag_days": 29
+},
+{
+"key": "ITT",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-01",
+"lag_days": 31
+},
+{
+"key": "ITT",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-31",
+"lag_days": 31
+},
+{
+"key": "ITT",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-30",
+"lag_days": 30
+},
+{
+"key": "ITT",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-19",
+"lag_days": 50
+},
+{
+"key": "ITT",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-07",
+"lag_days": 37
+},
+{
+"key": "ITT",
+"period_end": "2021-07-03",
+"filed_date": "2021-08-06",
+"lag_days": 34
+},
+{
+"key": "ITT",
+"period_end": "2021-10-02",
+"filed_date": "2021-11-04",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-16",
+"lag_days": 47
+},
+{
+"key": "ITT",
+"period_end": "2022-04-02",
+"filed_date": "2022-05-03",
+"lag_days": 31
+},
+{
+"key": "ITT",
+"period_end": "2022-07-02",
+"filed_date": "2022-08-04",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2022-10-01",
+"filed_date": "2022-11-03",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-15",
+"lag_days": 46
+},
+{
+"key": "ITT",
+"period_end": "2023-04-01",
+"filed_date": "2023-05-04",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2023-07-01",
+"filed_date": "2023-08-03",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-02",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-12",
+"lag_days": 43
+},
+{
+"key": "ITT",
+"period_end": "2024-03-30",
+"filed_date": "2024-05-02",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2024-06-29",
+"filed_date": "2024-08-01",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2024-09-28",
+"filed_date": "2024-10-29",
+"lag_days": 31
+},
+{
+"key": "ITT",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-10",
+"lag_days": 41
+},
+{
+"key": "ITT",
+"period_end": "2025-03-29",
+"filed_date": "2025-05-01",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2025-06-28",
+"filed_date": "2025-07-31",
+"lag_days": 33
+},
+{
+"key": "ITT",
+"period_end": "2025-09-27",
+"filed_date": "2025-10-29",
+"lag_days": 32
+},
+{
+"key": "ITT",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-09",
+"lag_days": 40
+},
+{
+"key": "ITT",
+"period_end": "2026-04-04",
+"filed_date": "2026-05-06",
+"lag_days": 32
+},
+{
+"key": "JCI",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-01",
+"lag_days": 31
+},
+{
+"key": "JCI",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-31",
+"lag_days": 31
+},
+{
+"key": "JCI",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-16",
+"lag_days": 47
+},
+{
+"key": "JCI",
+"period_end": "2020-12-31",
+"filed_date": "2021-01-29",
+"lag_days": 29
+},
+{
+"key": "JCI",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-30",
+"lag_days": 30
+},
+{
+"key": "JCI",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-30",
+"lag_days": 30
+},
+{
+"key": "JCI",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-15",
+"lag_days": 46
+},
+{
+"key": "JCI",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-02",
+"lag_days": 33
+},
+{
+"key": "JCI",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-04",
+"lag_days": 34
+},
+{
+"key": "JCI",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-04",
+"lag_days": 35
+},
+{
+"key": "JCI",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-15",
+"lag_days": 46
+},
+{
+"key": "JCI",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-01",
+"lag_days": 32
+},
+{
+"key": "JCI",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-05",
+"lag_days": 35
+},
+{
+"key": "JCI",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "JCI",
+"period_end": "2023-09-30",
+"filed_date": "2023-12-14",
+"lag_days": 75
+},
+{
+"key": "JCI",
+"period_end": "2023-12-31",
+"filed_date": "2024-01-30",
+"lag_days": 30
+},
+{
+"key": "JCI",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-01",
+"lag_days": 31
+},
+{
+"key": "JCI",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-31",
+"lag_days": 31
+},
+{
+"key": "JCI",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-19",
+"lag_days": 50
+},
+{
+"key": "JCI",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-05",
+"lag_days": 36
+},
+{
+"key": "JCI",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-07",
+"lag_days": 37
+},
+{
+"key": "JCI",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-06",
+"lag_days": 37
+},
+{
+"key": "JCI",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-14",
+"lag_days": 45
+},
+{
+"key": "JCI",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-04",
+"lag_days": 35
+},
+{
+"key": "JCI",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-06",
+"lag_days": 36
+},
+{
+"key": "KLAC",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-06",
+"lag_days": 36
+},
+{
+"key": "KLAC",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-07",
+"lag_days": 38
+},
+{
+"key": "KLAC",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-30",
+"lag_days": 30
+},
+{
+"key": "KLAC",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-04",
+"lag_days": 35
+},
+{
+"key": "KLAC",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-30",
+"lag_days": 30
+},
+{
+"key": "KLAC",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-06",
+"lag_days": 37
+},
+{
+"key": "KLAC",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-28",
+"lag_days": 28
+},
+{
+"key": "KLAC",
+"period_end": "2021-12-31",
+"filed_date": "2022-01-28",
+"lag_days": 28
+},
+{
+"key": "KLAC",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-29",
+"lag_days": 29
+},
+{
+"key": "KLAC",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-05",
+"lag_days": 36
+},
+{
+"key": "KLAC",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-28",
+"lag_days": 28
+},
+{
+"key": "KLAC",
+"period_end": "2022-12-31",
+"filed_date": "2023-01-27",
+"lag_days": 27
+},
+{
+"key": "KLAC",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-28",
+"lag_days": 28
+},
+{
+"key": "KLAC",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-04",
+"lag_days": 35
+},
+{
+"key": "KLAC",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-27",
+"lag_days": 27
+},
+{
+"key": "KLAC",
+"period_end": "2023-12-31",
+"filed_date": "2024-01-26",
+"lag_days": 26
+},
+{
+"key": "KLAC",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-26",
+"lag_days": 26
+},
+{
+"key": "KLAC",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-05",
+"lag_days": 36
+},
+{
+"key": "KLAC",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-31",
+"lag_days": 31
+},
+{
+"key": "KLAC",
+"period_end": "2024-12-31",
+"filed_date": "2025-01-31",
+"lag_days": 31
+},
+{
+"key": "KLAC",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "KLAC",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-08",
+"lag_days": 39
+},
+{
+"key": "KLAC",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-31",
+"lag_days": 31
+},
+{
+"key": "KLAC",
+"period_end": "2025-12-31",
+"filed_date": "2026-01-30",
+"lag_days": 30
+},
+{
+"key": "KLAC",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+},
+{
+"key": "LII",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-20",
+"lag_days": 20
+},
+{
+"key": "LII",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-20",
+"lag_days": 20
+},
+{
+"key": "LII",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-19",
+"lag_days": 19
+},
+{
+"key": "LII",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-16",
+"lag_days": 47
+},
+{
+"key": "LII",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-26",
+"lag_days": 26
+},
+{
+"key": "LII",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-26",
+"lag_days": 26
+},
+{
+"key": "LII",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-25",
+"lag_days": 25
+},
+{
+"key": "LII",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-15",
+"lag_days": 46
+},
+{
+"key": "LII",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-25",
+"lag_days": 25
+},
+{
+"key": "LII",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-28",
+"lag_days": 28
+},
+{
+"key": "LII",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-27",
+"lag_days": 27
+},
+{
+"key": "LII",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-21",
+"lag_days": 52
+},
+{
+"key": "LII",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-27",
+"lag_days": 27
+},
+{
+"key": "LII",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "LII",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-26",
+"lag_days": 26
+},
+{
+"key": "LII",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-13",
+"lag_days": 44
+},
+{
+"key": "LII",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-24",
+"lag_days": 24
+},
+{
+"key": "LII",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-24",
+"lag_days": 24
+},
+{
+"key": "LII",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-23",
+"lag_days": 23
+},
+{
+"key": "LII",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-11",
+"lag_days": 42
+},
+{
+"key": "LII",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-23",
+"lag_days": 23
+},
+{
+"key": "LII",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-23",
+"lag_days": 23
+},
+{
+"key": "LII",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-22",
+"lag_days": 22
+},
+{
+"key": "LII",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-17",
+"lag_days": 48
+},
+{
+"key": "LII",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-29",
+"lag_days": 29
+},
+{
+"key": "LITE",
+"period_end": "2020-03-28",
+"filed_date": "2020-05-05",
+"lag_days": 38
+},
+{
+"key": "LITE",
+"period_end": "2020-06-27",
+"filed_date": "2020-08-25",
+"lag_days": 59
+},
+{
+"key": "LITE",
+"period_end": "2020-09-26",
+"filed_date": "2020-11-02",
+"lag_days": 37
+},
+{
+"key": "LITE",
+"period_end": "2020-12-26",
+"filed_date": "2021-02-02",
+"lag_days": 38
+},
+{
+"key": "LITE",
+"period_end": "2021-04-03",
+"filed_date": "2021-05-12",
+"lag_days": 39
+},
+{
+"key": "LITE",
+"period_end": "2021-07-03",
+"filed_date": "2021-08-31",
+"lag_days": 59
+},
+{
+"key": "LITE",
+"period_end": "2021-10-02",
+"filed_date": "2021-11-04",
+"lag_days": 33
+},
+{
+"key": "LITE",
+"period_end": "2022-01-01",
+"filed_date": "2022-02-03",
+"lag_days": 33
+},
+{
+"key": "LITE",
+"period_end": "2022-04-02",
+"filed_date": "2022-05-04",
+"lag_days": 32
+},
+{
+"key": "LITE",
+"period_end": "2022-07-02",
+"filed_date": "2022-08-24",
+"lag_days": 53
+},
+{
+"key": "LITE",
+"period_end": "2022-10-01",
+"filed_date": "2022-11-08",
+"lag_days": 38
+},
+{
+"key": "LITE",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-09",
+"lag_days": 40
+},
+{
+"key": "LITE",
+"period_end": "2023-04-01",
+"filed_date": "2023-05-09",
+"lag_days": 38
+},
+{
+"key": "LITE",
+"period_end": "2023-07-01",
+"filed_date": "2023-08-23",
+"lag_days": 53
+},
+{
+"key": "LITE",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-08",
+"lag_days": 39
+},
+{
+"key": "LITE",
+"period_end": "2023-12-30",
+"filed_date": "2024-02-08",
+"lag_days": 40
+},
+{
+"key": "LITE",
+"period_end": "2024-03-30",
+"filed_date": "2024-05-07",
+"lag_days": 38
+},
+{
+"key": "LITE",
+"period_end": "2024-06-29",
+"filed_date": "2024-08-21",
+"lag_days": 53
+},
+{
+"key": "LITE",
+"period_end": "2024-09-28",
+"filed_date": "2024-11-08",
+"lag_days": 41
+},
+{
+"key": "LITE",
+"period_end": "2024-12-28",
+"filed_date": "2025-02-06",
+"lag_days": 40
+},
+{
+"key": "LITE",
+"period_end": "2025-03-29",
+"filed_date": "2025-05-07",
+"lag_days": 39
+},
+{
+"key": "LITE",
+"period_end": "2025-06-28",
+"filed_date": "2025-08-19",
+"lag_days": 52
+},
+{
+"key": "LITE",
+"period_end": "2025-09-27",
+"filed_date": "2025-11-05",
+"lag_days": 39
+},
+{
+"key": "LITE",
+"period_end": "2025-12-27",
+"filed_date": "2026-02-04",
+"lag_days": 39
+},
+{
+"key": "LITE",
+"period_end": "2026-03-28",
+"filed_date": "2026-05-06",
+"lag_days": 39
+},
+{
+"key": "OTIS",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-08",
+"lag_days": 38
+},
+{
+"key": "OTIS",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-31",
+"lag_days": 31
+},
+{
+"key": "OTIS",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-28",
+"lag_days": 28
+},
+{
+"key": "OTIS",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-05",
+"lag_days": 36
+},
+{
+"key": "OTIS",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-28",
+"lag_days": 28
+},
+{
+"key": "OTIS",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-28",
+"lag_days": 28
+},
+{
+"key": "OTIS",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-26",
+"lag_days": 26
+},
+{
+"key": "OTIS",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-04",
+"lag_days": 35
+},
+{
+"key": "OTIS",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-27",
+"lag_days": 27
+},
+{
+"key": "OTIS",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-28",
+"lag_days": 28
+},
+{
+"key": "OTIS",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-27",
+"lag_days": 27
+},
+{
+"key": "OTIS",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-03",
+"lag_days": 34
+},
+{
+"key": "OTIS",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-27",
+"lag_days": 27
+},
+{
+"key": "OTIS",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "OTIS",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-26",
+"lag_days": 26
+},
+{
+"key": "OTIS",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-02",
+"lag_days": 33
+},
+{
+"key": "OTIS",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-25",
+"lag_days": 25
+},
+{
+"key": "OTIS",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-25",
+"lag_days": 25
+},
+{
+"key": "OTIS",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-31",
+"lag_days": 31
+},
+{
+"key": "OTIS",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-04",
+"lag_days": 35
+},
+{
+"key": "OTIS",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-24",
+"lag_days": 24
+},
+{
+"key": "OTIS",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-24",
+"lag_days": 24
+},
+{
+"key": "OTIS",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-30",
+"lag_days": 30
+},
+{
+"key": "OTIS",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-05",
+"lag_days": 36
+},
+{
+"key": "OTIS",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-23",
+"lag_days": 23
+},
+{
+"key": "PCAR",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-04",
+"lag_days": 34
+},
+{
+"key": "PCAR",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-03",
+"lag_days": 34
+},
+{
+"key": "PCAR",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-02",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-17",
+"lag_days": 48
+},
+{
+"key": "PCAR",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-03",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-02",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-01",
+"lag_days": 32
+},
+{
+"key": "PCAR",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-23",
+"lag_days": 54
+},
+{
+"key": "PCAR",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-03",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-02",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-28",
+"lag_days": 28
+},
+{
+"key": "PCAR",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-22",
+"lag_days": 53
+},
+{
+"key": "PCAR",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-02",
+"lag_days": 32
+},
+{
+"key": "PCAR",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-02",
+"lag_days": 33
+},
+{
+"key": "PCAR",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-21",
+"lag_days": 52
+},
+{
+"key": "PCAR",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-02",
+"lag_days": 32
+},
+{
+"key": "PCAR",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-31",
+"lag_days": 31
+},
+{
+"key": "PCAR",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-30",
+"lag_days": 30
+},
+{
+"key": "PCAR",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-19",
+"lag_days": 50
+},
+{
+"key": "PCAR",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "PCAR",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-31",
+"lag_days": 31
+},
+{
+"key": "PCAR",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-30",
+"lag_days": 30
+},
+{
+"key": "PCAR",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-18",
+"lag_days": 49
+},
+{
+"key": "PCAR",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-29",
+"lag_days": 29
+},
+{
+"key": "ROK",
+"period_end": "2020-03-31",
+"filed_date": "2020-04-28",
+"lag_days": 28
+},
+{
+"key": "ROK",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-28",
+"lag_days": 28
+},
+{
+"key": "ROK",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-10",
+"lag_days": 41
+},
+{
+"key": "ROK",
+"period_end": "2020-12-31",
+"filed_date": "2021-01-26",
+"lag_days": 26
+},
+{
+"key": "ROK",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-28",
+"lag_days": 28
+},
+{
+"key": "ROK",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-27",
+"lag_days": 27
+},
+{
+"key": "ROK",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-09",
+"lag_days": 40
+},
+{
+"key": "ROK",
+"period_end": "2021-12-31",
+"filed_date": "2022-01-27",
+"lag_days": 27
+},
+{
+"key": "ROK",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-03",
+"lag_days": 33
+},
+{
+"key": "ROK",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-27",
+"lag_days": 27
+},
+{
+"key": "ROK",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-08",
+"lag_days": 39
+},
+{
+"key": "ROK",
+"period_end": "2022-12-31",
+"filed_date": "2023-01-26",
+"lag_days": 26
+},
+{
+"key": "ROK",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-27",
+"lag_days": 27
+},
+{
+"key": "ROK",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-01",
+"lag_days": 32
+},
+{
+"key": "ROK",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-08",
+"lag_days": 39
+},
+{
+"key": "ROK",
+"period_end": "2023-12-31",
+"filed_date": "2024-01-31",
+"lag_days": 31
+},
+{
+"key": "ROK",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-07",
+"lag_days": 37
+},
+{
+"key": "ROK",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-07",
+"lag_days": 38
+},
+{
+"key": "ROK",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-12",
+"lag_days": 43
+},
+{
+"key": "ROK",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-10",
+"lag_days": 41
+},
+{
+"key": "ROK",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-07",
+"lag_days": 37
+},
+{
+"key": "ROK",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-06",
+"lag_days": 37
+},
+{
+"key": "ROK",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-12",
+"lag_days": 43
+},
+{
+"key": "ROK",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-05",
+"lag_days": 36
+},
+{
+"key": "ROK",
+"period_end": "2026-03-31",
+"filed_date": "2026-05-05",
+"lag_days": 35
+},
+{
+"key": "RTX",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-07",
+"lag_days": 37
+},
+{
+"key": "RTX",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-29",
+"lag_days": 29
+},
+{
+"key": "RTX",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-27",
+"lag_days": 27
+},
+{
+"key": "RTX",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-08",
+"lag_days": 39
+},
+{
+"key": "RTX",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-27",
+"lag_days": 27
+},
+{
+"key": "RTX",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-27",
+"lag_days": 27
+},
+{
+"key": "RTX",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-26",
+"lag_days": 26
+},
+{
+"key": "RTX",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-11",
+"lag_days": 42
+},
+{
+"key": "RTX",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-26",
+"lag_days": 26
+},
+{
+"key": "RTX",
+"period_end": "2022-06-30",
+"filed_date": "2022-07-26",
+"lag_days": 26
+},
+{
+"key": "RTX",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-25",
+"lag_days": 25
+},
+{
+"key": "RTX",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-07",
+"lag_days": 38
+},
+{
+"key": "RTX",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-25",
+"lag_days": 25
+},
+{
+"key": "RTX",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-25",
+"lag_days": 25
+},
+{
+"key": "RTX",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-24",
+"lag_days": 24
+},
+{
+"key": "RTX",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-05",
+"lag_days": 36
+},
+{
+"key": "RTX",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-23",
+"lag_days": 23
+},
+{
+"key": "RTX",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-25",
+"lag_days": 25
+},
+{
+"key": "RTX",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-22",
+"lag_days": 22
+},
+{
+"key": "RTX",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-03",
+"lag_days": 34
+},
+{
+"key": "RTX",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-22",
+"lag_days": 22
+},
+{
+"key": "RTX",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-22",
+"lag_days": 22
+},
+{
+"key": "RTX",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-21",
+"lag_days": 21
+},
+{
+"key": "RTX",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-06",
+"lag_days": 37
+},
+{
+"key": "RTX",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-21",
+"lag_days": 21
+},
+{
+"key": "TDG",
+"period_end": "2020-03-28",
+"filed_date": "2020-05-05",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2020-06-27",
+"filed_date": "2020-08-04",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-12",
+"lag_days": 43
+},
+{
+"key": "TDG",
+"period_end": "2021-01-02",
+"filed_date": "2021-02-09",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2021-04-03",
+"filed_date": "2021-05-11",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2021-07-03",
+"filed_date": "2021-08-10",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-16",
+"lag_days": 47
+},
+{
+"key": "TDG",
+"period_end": "2022-01-01",
+"filed_date": "2022-02-08",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2022-04-02",
+"filed_date": "2022-05-10",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2022-07-02",
+"filed_date": "2022-08-09",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-10",
+"lag_days": 41
+},
+{
+"key": "TDG",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-07",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2023-04-01",
+"filed_date": "2023-05-09",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2023-07-01",
+"filed_date": "2023-08-08",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-09",
+"lag_days": 40
+},
+{
+"key": "TDG",
+"period_end": "2023-12-30",
+"filed_date": "2024-02-08",
+"lag_days": 40
+},
+{
+"key": "TDG",
+"period_end": "2024-03-30",
+"filed_date": "2024-05-07",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2024-06-29",
+"filed_date": "2024-08-06",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-07",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2024-12-28",
+"filed_date": "2025-02-04",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2025-03-29",
+"filed_date": "2025-05-06",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2025-06-28",
+"filed_date": "2025-08-05",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-12",
+"lag_days": 43
+},
+{
+"key": "TDG",
+"period_end": "2025-12-27",
+"filed_date": "2026-02-03",
+"lag_days": 38
+},
+{
+"key": "TDG",
+"period_end": "2026-03-28",
+"filed_date": "2026-05-05",
+"lag_days": 38
+},
+{
+"key": "TT",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-05",
+"lag_days": 35
+},
+{
+"key": "TT",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-29",
+"lag_days": 29
+},
+{
+"key": "TT",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-28",
+"lag_days": 28
+},
+{
+"key": "TT",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-09",
+"lag_days": 40
+},
+{
+"key": "TT",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-05",
+"lag_days": 35
+},
+{
+"key": "TT",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-04",
+"lag_days": 35
+},
+{
+"key": "TT",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-03",
+"lag_days": 34
+},
+{
+"key": "TT",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-07",
+"lag_days": 38
+},
+{
+"key": "TT",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-04",
+"lag_days": 34
+},
+{
+"key": "TT",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-03",
+"lag_days": 34
+},
+{
+"key": "TT",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-02",
+"lag_days": 33
+},
+{
+"key": "TT",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-10",
+"lag_days": 41
+},
+{
+"key": "TT",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-03",
+"lag_days": 33
+},
+{
+"key": "TT",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "TT",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-01",
+"lag_days": 32
+},
+{
+"key": "TT",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-08",
+"lag_days": 39
+},
+{
+"key": "TT",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-30",
+"lag_days": 30
+},
+{
+"key": "TT",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-31",
+"lag_days": 31
+},
+{
+"key": "TT",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-30",
+"lag_days": 30
+},
+{
+"key": "TT",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-06",
+"lag_days": 37
+},
+{
+"key": "TT",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-30",
+"lag_days": 30
+},
+{
+"key": "TT",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-30",
+"lag_days": 30
+},
+{
+"key": "TT",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-30",
+"lag_days": 30
+},
+{
+"key": "TT",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-05",
+"lag_days": 36
+},
+{
+"key": "TT",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+},
+{
+"key": "VRT",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-07",
+"lag_days": 37
+},
+{
+"key": "VRT",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-05",
+"lag_days": 36
+},
+{
+"key": "VRT",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-05",
+"lag_days": 36
+},
+{
+"key": "VRT",
+"period_end": "2020-12-31",
+"filed_date": "2021-03-01",
+"lag_days": 60
+},
+{
+"key": "VRT",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-03",
+"lag_days": 33
+},
+{
+"key": "VRT",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-02",
+"lag_days": 33
+},
+{
+"key": "VRT",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-01",
+"lag_days": 32
+},
+{
+"key": "VRT",
+"period_end": "2021-12-31",
+"filed_date": "2022-03-01",
+"lag_days": 60
+},
+{
+"key": "VRT",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-02",
+"lag_days": 32
+},
+{
+"key": "VRT",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-03",
+"lag_days": 34
+},
+{
+"key": "VRT",
+"period_end": "2022-09-30",
+"filed_date": "2022-10-31",
+"lag_days": 31
+},
+{
+"key": "VRT",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-27",
+"lag_days": 58
+},
+{
+"key": "VRT",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-28",
+"lag_days": 28
+},
+{
+"key": "VRT",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-02",
+"lag_days": 33
+},
+{
+"key": "VRT",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-27",
+"lag_days": 27
+},
+{
+"key": "VRT",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-23",
+"lag_days": 54
+},
+{
+"key": "VRT",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-26",
+"lag_days": 26
+},
+{
+"key": "VRT",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-26",
+"lag_days": 26
+},
+{
+"key": "VRT",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-25",
+"lag_days": 25
+},
+{
+"key": "VRT",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-18",
+"lag_days": 49
+},
+{
+"key": "VRT",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-23",
+"lag_days": 23
+},
+{
+"key": "VRT",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-30",
+"lag_days": 30
+},
+{
+"key": "VRT",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-22",
+"lag_days": 22
+},
+{
+"key": "VRT",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-13",
+"lag_days": 44
+},
+{
+"key": "VRT",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-22",
+"lag_days": 22
+},
+{
+"key": "WAB",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-06",
+"lag_days": 36
+},
+{
+"key": "WAB",
+"period_end": "2020-06-30",
+"filed_date": "2020-07-29",
+"lag_days": 29
+},
+{
+"key": "WAB",
+"period_end": "2020-09-30",
+"filed_date": "2020-10-29",
+"lag_days": 29
+},
+{
+"key": "WAB",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-19",
+"lag_days": 50
+},
+{
+"key": "WAB",
+"period_end": "2021-03-31",
+"filed_date": "2021-04-29",
+"lag_days": 29
+},
+{
+"key": "WAB",
+"period_end": "2021-06-30",
+"filed_date": "2021-07-29",
+"lag_days": 29
+},
+{
+"key": "WAB",
+"period_end": "2021-09-30",
+"filed_date": "2021-10-27",
+"lag_days": 27
+},
+{
+"key": "WAB",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-17",
+"lag_days": 48
+},
+{
+"key": "WAB",
+"period_end": "2022-03-31",
+"filed_date": "2022-04-27",
+"lag_days": 27
+},
+{
+"key": "WAB",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-05",
+"lag_days": 36
+},
+{
+"key": "WAB",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-01",
+"lag_days": 32
+},
+{
+"key": "WAB",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-15",
+"lag_days": 46
+},
+{
+"key": "WAB",
+"period_end": "2023-03-31",
+"filed_date": "2023-04-26",
+"lag_days": 26
+},
+{
+"key": "WAB",
+"period_end": "2023-06-30",
+"filed_date": "2023-07-27",
+"lag_days": 27
+},
+{
+"key": "WAB",
+"period_end": "2023-09-30",
+"filed_date": "2023-10-25",
+"lag_days": 25
+},
+{
+"key": "WAB",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-14",
+"lag_days": 45
+},
+{
+"key": "WAB",
+"period_end": "2024-03-31",
+"filed_date": "2024-04-24",
+"lag_days": 24
+},
+{
+"key": "WAB",
+"period_end": "2024-06-30",
+"filed_date": "2024-07-24",
+"lag_days": 24
+},
+{
+"key": "WAB",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-23",
+"lag_days": 23
+},
+{
+"key": "WAB",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-12",
+"lag_days": 43
+},
+{
+"key": "WAB",
+"period_end": "2025-03-31",
+"filed_date": "2025-04-23",
+"lag_days": 23
+},
+{
+"key": "WAB",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-24",
+"lag_days": 24
+},
+{
+"key": "WAB",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-22",
+"lag_days": 22
+},
+{
+"key": "WAB",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-13",
+"lag_days": 44
+},
+{
+"key": "WAB",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-22",
+"lag_days": 22
+},
+{
+"key": "WCC",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-01",
+"lag_days": 31
+},
+{
+"key": "WCC",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-17",
+"lag_days": 48
+},
+{
+"key": "WCC",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-09",
+"lag_days": 40
+},
+{
+"key": "WCC",
+"period_end": "2020-12-31",
+"filed_date": "2021-03-01",
+"lag_days": 60
+},
+{
+"key": "WCC",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-07",
+"lag_days": 37
+},
+{
+"key": "WCC",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-06",
+"lag_days": 37
+},
+{
+"key": "WCC",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-05",
+"lag_days": 36
+},
+{
+"key": "WCC",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-25",
+"lag_days": 56
+},
+{
+"key": "WCC",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-06",
+"lag_days": 36
+},
+{
+"key": "WCC",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-05",
+"lag_days": 36
+},
+{
+"key": "WCC",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-04",
+"lag_days": 35
+},
+{
+"key": "WCC",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-21",
+"lag_days": 52
+},
+{
+"key": "WCC",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-05",
+"lag_days": 35
+},
+{
+"key": "WCC",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-07",
+"lag_days": 38
+},
+{
+"key": "WCC",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-02",
+"lag_days": 33
+},
+{
+"key": "WCC",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-20",
+"lag_days": 51
+},
+{
+"key": "WCC",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-02",
+"lag_days": 32
+},
+{
+"key": "WCC",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-01",
+"lag_days": 32
+},
+{
+"key": "WCC",
+"period_end": "2024-09-30",
+"filed_date": "2024-10-31",
+"lag_days": 31
+},
+{
+"key": "WCC",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-14",
+"lag_days": 45
+},
+{
+"key": "WCC",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "WCC",
+"period_end": "2025-06-30",
+"filed_date": "2025-07-31",
+"lag_days": 31
+},
+{
+"key": "WCC",
+"period_end": "2025-09-30",
+"filed_date": "2025-10-30",
+"lag_days": 30
+},
+{
+"key": "WCC",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-13",
+"lag_days": 44
+},
+{
+"key": "WCC",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+},
+{
+"key": "WTS",
+"period_end": "2020-03-29",
+"filed_date": "2020-05-07",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2020-06-28",
+"filed_date": "2020-08-04",
+"lag_days": 37
+},
+{
+"key": "WTS",
+"period_end": "2020-09-27",
+"filed_date": "2020-11-05",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-18",
+"lag_days": 49
+},
+{
+"key": "WTS",
+"period_end": "2021-03-28",
+"filed_date": "2021-05-05",
+"lag_days": 38
+},
+{
+"key": "WTS",
+"period_end": "2021-06-27",
+"filed_date": "2021-08-05",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2021-09-26",
+"filed_date": "2021-11-04",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-22",
+"lag_days": 53
+},
+{
+"key": "WTS",
+"period_end": "2022-03-27",
+"filed_date": "2022-05-04",
+"lag_days": 38
+},
+{
+"key": "WTS",
+"period_end": "2022-06-26",
+"filed_date": "2022-08-04",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2022-09-25",
+"filed_date": "2022-11-03",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-21",
+"lag_days": 52
+},
+{
+"key": "WTS",
+"period_end": "2023-03-26",
+"filed_date": "2023-05-04",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2023-06-25",
+"filed_date": "2023-08-03",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2023-09-24",
+"filed_date": "2023-11-02",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-21",
+"lag_days": 52
+},
+{
+"key": "WTS",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-09",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-08",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2024-09-29",
+"filed_date": "2024-10-31",
+"lag_days": 32
+},
+{
+"key": "WTS",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-18",
+"lag_days": 49
+},
+{
+"key": "WTS",
+"period_end": "2025-03-30",
+"filed_date": "2025-05-08",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2025-06-29",
+"filed_date": "2025-08-07",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2025-09-28",
+"filed_date": "2025-11-06",
+"lag_days": 39
+},
+{
+"key": "WTS",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-23",
+"lag_days": 54
+},
+{
+"key": "WTS",
+"period_end": "2026-03-29",
+"filed_date": "2026-05-07",
+"lag_days": 39
+},
+{
+"key": "WWD",
+"period_end": "2020-03-31",
+"filed_date": "2020-05-11",
+"lag_days": 41
+},
+{
+"key": "WWD",
+"period_end": "2020-06-30",
+"filed_date": "2020-08-10",
+"lag_days": 41
+},
+{
+"key": "WWD",
+"period_end": "2020-09-30",
+"filed_date": "2020-11-20",
+"lag_days": 51
+},
+{
+"key": "WWD",
+"period_end": "2020-12-31",
+"filed_date": "2021-02-04",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2021-03-31",
+"filed_date": "2021-05-04",
+"lag_days": 34
+},
+{
+"key": "WWD",
+"period_end": "2021-06-30",
+"filed_date": "2021-08-04",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2021-09-30",
+"filed_date": "2021-11-19",
+"lag_days": 50
+},
+{
+"key": "WWD",
+"period_end": "2021-12-31",
+"filed_date": "2022-02-04",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2022-03-31",
+"filed_date": "2022-05-06",
+"lag_days": 36
+},
+{
+"key": "WWD",
+"period_end": "2022-06-30",
+"filed_date": "2022-08-05",
+"lag_days": 36
+},
+{
+"key": "WWD",
+"period_end": "2022-09-30",
+"filed_date": "2022-11-18",
+"lag_days": 49
+},
+{
+"key": "WWD",
+"period_end": "2022-12-31",
+"filed_date": "2023-02-03",
+"lag_days": 34
+},
+{
+"key": "WWD",
+"period_end": "2023-03-31",
+"filed_date": "2023-05-05",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2023-06-30",
+"filed_date": "2023-08-04",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2023-09-30",
+"filed_date": "2023-11-17",
+"lag_days": 48
+},
+{
+"key": "WWD",
+"period_end": "2023-12-31",
+"filed_date": "2024-02-02",
+"lag_days": 33
+},
+{
+"key": "WWD",
+"period_end": "2024-03-31",
+"filed_date": "2024-05-03",
+"lag_days": 33
+},
+{
+"key": "WWD",
+"period_end": "2024-06-30",
+"filed_date": "2024-08-02",
+"lag_days": 33
+},
+{
+"key": "WWD",
+"period_end": "2024-09-30",
+"filed_date": "2024-11-26",
+"lag_days": 57
+},
+{
+"key": "WWD",
+"period_end": "2024-12-31",
+"filed_date": "2025-02-04",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2025-03-31",
+"filed_date": "2025-05-01",
+"lag_days": 31
+},
+{
+"key": "WWD",
+"period_end": "2025-06-30",
+"filed_date": "2025-08-01",
+"lag_days": 32
+},
+{
+"key": "WWD",
+"period_end": "2025-09-30",
+"filed_date": "2025-11-25",
+"lag_days": 56
+},
+{
+"key": "WWD",
+"period_end": "2025-12-31",
+"filed_date": "2026-02-04",
+"lag_days": 35
+},
+{
+"key": "WWD",
+"period_end": "2026-03-31",
+"filed_date": "2026-04-30",
+"lag_days": 30
+}
+]
+}

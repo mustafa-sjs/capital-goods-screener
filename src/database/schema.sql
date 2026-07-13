@@ -150,6 +150,15 @@ CREATE TABLE IF NOT EXISTS raw_fundamentals (
     PRIMARY KEY (key, kind)
 );
 
+CREATE TABLE IF NOT EXISTS filing_dates (
+    key         TEXT NOT NULL,
+    period_end  DATE NOT NULL,
+    filed_date  DATE NOT NULL,
+    lag_days    INTEGER,
+    source      TEXT DEFAULT 'factiq_sec',
+    PRIMARY KEY (key, period_end)
+);
+
 -- Point-in-time estimate snapshots. FactIQ currently exposes NO consensus
 -- data, so this table stays empty by design; it exists so revisions become
 -- computable the day a consensus source is added, without a schema change.

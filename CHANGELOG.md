@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-07-13 — v2.4 Point-in-time layer (SEC filing dates)
+- Fetched 916 filing dates (10-K/10-Q, 2020->present) from FactIQ's SEC
+  filings table for 37 US names; persisted to data/raw/sec_filing_dates.json
+  and the new filing_dates table.
+- src/features/pit.py: fundamentals_asof(key, date) returns the latest period
+  that was PUBLIC on that date — the no-look-ahead primitive for honest
+  historical screens/backtests on the US half of the universe. Coverage gaps
+  (11 US lines absent from the feed; all European names) explicitly labelled
+  'pit_unavailable', never guessed.
+- Drill-down provenance now states each name's PIT status and filing lag.
+- 5 new tests incl. the critical between-filings look-ahead case. 44 total.
+
 ## 2026-07-13 — v2.3 Research OS: pipeline integrity + analyst workflow
 - Refresh split: daily = INCREMENTAL canonical update (1-month window, overlap
   reconciliation, automatic per-security full rebuild when new corporate

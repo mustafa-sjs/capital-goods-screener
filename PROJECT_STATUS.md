@@ -24,7 +24,7 @@
 
 ## Next three priorities (updated 2026-07-13)
 
-1. SEC filing dates -> point-in-time US fundamentals (docs/free_data_capability_matrix.md P1).
+1. ~~SEC filing dates~~ DONE v2.4 (916 filings, 37 US names, filing_dates table + pit.py). Next: use it — historical screen replay for US names.
 2. Normalised-fundamentals layer -> Quality & Capital Allocation page + quality-adjusted valuation (roadmap in current_state_audit).
 3. Accumulate snapshots -> price-only screen replay, then honest backtesting.
 

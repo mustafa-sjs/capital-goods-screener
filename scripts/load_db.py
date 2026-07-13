@@ -120,6 +120,18 @@ def load_fundamentals(db):
                      rows, ['key', 'kind'])
 
 
+def load_filing_dates(db):
+    p = os.path.join(RAW, 'sec_filing_dates.json')
+    if not os.path.exists(p):
+        return 0
+    d = json.load(open(p))
+    return db.upsert('filing_dates',
+                     ['key', 'period_end', 'filed_date', 'lag_days', 'source'],
+                     [(r['key'], r['period_end'], r['filed_date'], r['lag_days'],
+                       'factiq_sec') for r in d['rows']],
+                     ['key', 'period_end'])
+
+
 def load_canonical(db):
     import pandas as pd
     hist = os.path.join(ROOT, 'data', 'history')
@@ -232,6 +244,7 @@ def main():
         total += load_fx(db)
         total += load_fundamentals(db)
         total += load_canonical(db)
+        total += load_filing_dates(db)
     snap, n = load_features(db)
     total += n
     ev = detect_changes(db, snap)

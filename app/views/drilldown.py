@@ -43,6 +43,23 @@ st.info(f"**{D['names'][key]}** " + '; '.join(bits) +
         f". Consensus revisions unavailable. States — valuation: **{r['valuation_state']}**, "
 f"fundamentals: **{r['fundamental_state']}**, momentum: **{r['momentum_state']}** "
 f"(descriptive, not backtested).")
+try:
+    from src.features.pit import fundamentals_asof, median_filing_lag
+    pit = fundamentals_asof(key, D.get('generated', '2026-01-01'))
+    if pit['status'] == 'ok':
+        st.caption(f"**Point-in-time aware** (SEC filing dates): latest period "
+                   f"{pit['period_end']} became public {pit['filed_date']} "
+                   f"({pit['lag_days']} days after period end; median lag "
+                   f"{median_filing_lag(key)}d; {pit['periods_known']} filings "
+                   f"tracked since 2020). Historical screens for this name can "
+                   f"be reconstructed without look-ahead bias.")
+    else:
+        st.caption('Point-in-time filing dates unavailable for this name '
+                   '(non-US listing or not in the SEC filings feed) — '
+                   'historical fundamental analysis is approximate and '
+                   'labelled as such.')
+except Exception:
+    pass
 if d.get('flags'):
     st.warning('**Data-quality flags:** ' + ' · '.join(d['flags']))
 
