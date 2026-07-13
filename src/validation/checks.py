@@ -123,3 +123,65 @@ def run_checks(db, run_id):
     counts = {s: sum(1 for r in res if r[2] == s) for s in SEVERITIES}
     counts['total'] = len(res)
     return counts
+
+
+def run_candidate_checks(db, run_id):
+    """Candidate-vs-production gate: the NEW engine output must not regress
+    the live snapshot. CRITICAL findings block publication (refresh.py)."""
+    import json, os
+    from datetime import datetime, timezone, timedelta
+    ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    res = []
+    try:
+        cand = json.load(open(os.path.join(ROOT, 'data', 'computed',
+                                           'dashboard_data.json')))
+    except Exception as e:
+        _emit(db, run_id, res, 'candidate_missing', 'critical', 'payload', repr(e))
+        cand = None
+    if cand:
+        prod = db.fetchall('SELECT snapshot_date, payload FROM app_payload '
+                           'ORDER BY snapshot_date DESC LIMIT 1')
+        n_cand = len(cand.get('screener', []))
+        if prod:
+            p = json.loads(prod[0][1])
+            n_prod = len(p.get('screener', []))
+            if n_prod and n_cand < 0.9 * n_prod:
+                _emit(db, run_id, res, 'universe_coverage_drop', 'critical',
+                      'screener', f'candidate {n_cand} rows vs production {n_prod}')
+            if str(cand.get('generated', '')) < str(prod[0][0]):
+                _emit(db, run_id, res, 'snapshot_regression', 'warning',
+                      'generated', f"candidate {cand.get('generated')} older "
+                      f"than production {prod[0][0]}")
+        # feature date must not be ahead of canonical price data
+        latest_px = db.fetchall('SELECT max(session_date) FROM canonical_prices')
+        if latest_px and latest_px[0][0]:
+            if str(cand.get('generated', '')) > str(latest_px[0][0]):
+                _emit(db, run_id, res, 'feature_after_price', 'error',
+                      'generated', f"features {cand.get('generated')} vs "
+                      f"canonical {latest_px[0][0]}")
+    # canonical staleness: newest session older than 7 calendar days
+    latest = db.fetchall('SELECT max(session_date) FROM canonical_prices')
+    if latest and latest[0][0]:
+        age = (datetime.now(timezone.utc).date()
+               - datetime.strptime(str(latest[0][0])[:10], '%Y-%m-%d').date()).days
+        if age > 7:
+            _emit(db, run_id, res, 'canonical_stale', 'error', 'canonical_prices',
+                  f'newest session {latest[0][0]} is {age} days old')
+    # securities missing from canonical entirely
+    missing = db.fetchall("""SELECT s.key FROM securities s
+        WHERE s.active AND NOT EXISTS (SELECT 1 FROM canonical_prices c
+                                       WHERE c.key = s.key)""")
+    for (k,) in missing:
+        _emit(db, run_id, res, 'missing_canonical_history', 'error', k,
+              'no canonical price rows')
+    # one security, multiple currencies (unexplained)
+    for k, n in db.fetchall("""SELECT key, count(DISTINCT currency)
+                               FROM canonical_prices GROUP BY key
+                               HAVING count(DISTINCT currency) > 1"""):
+        _emit(db, run_id, res, 'multi_currency', 'error', k,
+              f'{n} currencies in canonical history')
+    db.upsert('validation_results',
+              ['run_id', 'check_name', 'severity', 'subject', 'message', 'created_at'],
+              res, ['run_id', 'check_name', 'subject'])
+    return {s: sum(1 for r in res if r[2] == s) for s in SEVERITIES} | \
+           {'total': len(res)}

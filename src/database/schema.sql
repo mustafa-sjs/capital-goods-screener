@@ -120,6 +120,17 @@ CREATE TABLE IF NOT EXISTS canonical_prices (
     PRIMARY KEY (key, session_date, source)
 );
 
+CREATE TABLE IF NOT EXISTS price_reconciliation (
+    key          TEXT NOT NULL,
+    session_date DATE NOT NULL,
+    stored       DOUBLE PRECISION,
+    fetched      DOUBLE PRECISION,
+    diff_pct     DOUBLE PRECISION,
+    run_id       TEXT,
+    status       TEXT DEFAULT 'open',
+    PRIMARY KEY (key, session_date)
+);
+
 CREATE TABLE IF NOT EXISTS corporate_actions (
     key          TEXT NOT NULL,
     action_date  DATE NOT NULL,

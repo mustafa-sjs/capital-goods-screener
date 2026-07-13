@@ -2,7 +2,7 @@ import json, os
 import pandas as pd
 import streamlit as st
 import yaml
-from components.data import payload, BASIS_BANNER
+from components.data import payload, BASIS_BANNER, get_db, q, ph
 from components.ui import style_table, df_show
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -44,6 +44,77 @@ if search:
           f['ticker'].str.lower().str.contains(s)]
 if dq_ok: f = f[f['data_quality'] == 'OK']
 
+with st.expander('Custom screen builder (AND conditions, saved to database)'):
+    NUM_COLS = ['prem_disc_vs_peers_pct', 'prem_disc_vs_sector_pct',
+                'ev_ebitda_ltm', 'pe_ltm', 'fcf_yield_pct', 'rev_growth_pct',
+                'ebitda_margin_pct', 'margin_chg_pp', 'nd_ebitda',
+                'rel_1m_pct', 'rel_3m_pct', 'rel_12m_pct', 'hist_percentile',
+                'hist_zscore', 'drawdown_52w_pct', 'mcap_usd_bn', 'hist_years']
+    STATE_COLS = {'momentum_state': sorted(df['momentum_state'].dropna().unique()),
+                  'valuation_state': sorted(df['valuation_state'].dropna().unique()),
+                  'fundamental_state': sorted(df['fundamental_state'].dropna().unique())}
+    db = get_db()
+    saved = {r[1]: (r[0], r[2]) for r in q(
+        'SELECT screen_id, name, definition FROM saved_screens ORDER BY name')}
+    pickd = st.selectbox('Load saved screen', ['—'] + list(saved))
+    conds = json.loads(saved[pickd][1]) if pickd != '—' else []
+    n_rows = st.number_input('Conditions', 1, 6,
+                             value=max(1, len(conds)), key='nconds')
+    new_conds = []
+    for i in range(int(n_rows)):
+        c1x, c2x, c3x = st.columns([2, 1, 2])
+        prev_c = conds[i] if i < len(conds) else {}
+        metric = c1x.selectbox(f'Metric {i+1}',
+                               NUM_COLS + list(STATE_COLS),
+                               index=(NUM_COLS + list(STATE_COLS)).index(
+                                   prev_c['metric']) if prev_c.get('metric') in
+                               NUM_COLS + list(STATE_COLS) else 0,
+                               key=f'm{i}')
+        if metric in STATE_COLS:
+            op = 'in'
+            val = c3x.multiselect(f'States {i+1}', STATE_COLS[metric],
+                                  default=[v for v in (prev_c.get('value') or [])
+                                           if v in STATE_COLS[metric]],
+                                  key=f'v{i}')
+            c2x.markdown('&nbsp;\n`in`')
+        else:
+            op = c2x.selectbox(f'Op {i+1}', ['<=', '>='],
+                               index=0 if prev_c.get('op', '<=') == '<=' else 1,
+                               key=f'o{i}')
+            val = c3x.number_input(f'Value {i+1}',
+                                   value=float(prev_c.get('value', 0)),
+                                   key=f'n{i}')
+        new_conds.append(dict(metric=metric, op=op, value=val))
+    apply_custom = st.checkbox('Apply custom screen')
+    if apply_custom:
+        for cnd in new_conds:
+            m, op, v = cnd['metric'], cnd['op'], cnd['value']
+            if m not in f.columns:
+                continue
+            if op == 'in':
+                if v:
+                    f = f[f[m].isin(v)]
+            else:
+                f = f[f[m].notna()]
+                f = f[f[m] <= v] if op == '<=' else f[f[m] >= v]
+        st.caption(f'{len(f)} names match the custom screen.')
+    sc1, sc2, sc3 = st.columns(3)
+    sname = sc1.text_input('Save as', value=pickd if pickd != '—' else '')
+    if sc2.button('Save screen') and sname:
+        import uuid as _uuid
+        from datetime import datetime as _dt, timezone as _tz
+        sid = saved.get(sname, (_uuid.uuid4().hex[:12],))[0]
+        db.upsert('saved_screens', ['screen_id', 'name', 'definition', 'created_at'],
+                  [(sid, sname, json.dumps(new_conds),
+                    _dt.now(_tz.utc).replace(tzinfo=None))], ['screen_id'])
+        st.success(f'saved "{sname}"'); st.cache_data.clear()
+    if pickd != '—' and sc3.button('Delete screen'):
+        db.execute(f'DELETE FROM saved_screens WHERE screen_id = {ph()}',
+                   [saved[pickd][0]])
+        st.cache_data.clear(); st.rerun()
+    st.download_button('Export definition (JSON)', json.dumps(new_conds, indent=1),
+                       'screen_definition.json')
+
 if preset != 'None' and preset in presets:
     rules = presets[preset].get('rules', {})
     st.info(f"**{preset.replace('_',' ').title()}** — "
@@ -73,7 +144,26 @@ NICE = {'company': 'Company', 'ticker': 'Ticker', 'price': 'Price',
         'valuation_state': 'Valuation', 'fundamental_state': 'Fundamentals',
         'momentum_state': 'Momentum', 'hist_years': 'Hist n',
         'data_quality': 'Data quality'}
-view = f[list(NICE)].rename(columns=NICE).sort_values('vs peers %')
+PRESET_COLS = {
+    'Standard': list(NICE.values()),
+    'Valuation': ['Company', 'Ticker', 'EV/EBITDA', 'EV/EBIT', 'P/E', 'EV/Rev',
+                  'FCF yld %', 'vs peers %', 'vs sector %', 'Hist %ile', 'Hist n',
+                  'Valuation'],
+    'Quality': ['Company', 'Ticker', 'Rev g %', 'Margin %', 'Dmargin pp',
+                'ND/EBITDA', 'FCF yld %', 'Fundamentals', 'Data quality'],
+    'Momentum': ['Company', 'Ticker', 'rel 1M', 'rel 3M', 'rel 12M', '52w dd %',
+                 'Momentum'],
+}
+layout = st.radio('Columns', list(PRESET_COLS) + ['Custom'], horizontal=True)
+view_all = f[list(NICE)].rename(columns=NICE)
+if layout == 'Custom':
+    cols_pick = st.multiselect('Choose columns', list(view_all.columns),
+                               default=PRESET_COLS['Standard'][:12])
+    cols_use = ['Company', 'Ticker'] + [c for c in cols_pick
+                                        if c not in ('Company', 'Ticker')]
+else:
+    cols_use = PRESET_COLS[layout]
+view = view_all[[c for c in cols_use if c in view_all.columns]]     .sort_values('vs peers %' if 'vs peers %' in cols_use else 'Company')
 sty = style_table(
     view,
     pct_cols=['vs peers %', 'vs sector %', 'rel 1M', 'rel 3M', 'rel 12M',

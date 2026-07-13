@@ -17,11 +17,18 @@
 | Unresolved securities | 0 (Crane NXT proxy flagged `medium`; VISN resolved, multiples NM) |
 | Database size | ~11 MB local (Supabase free limit 500 MB — ~2% when migrated) |
 | Known data-quality issues | VISN restructuring distortions; Crane proxy; captive-finance EV flags; sampled FactIQ price history pre-2026-06; GBp units; see `validation_results` |
+| Pipeline integrity | v2.3: incremental daily refresh + candidate publish gate + canonical publication + DB-first charts + provenance (docs/current_state_audit.md) |
 | Price engine | Canonical 5y daily history (98.8k sessions, TR/split/raw bases, corporate actions); session-aware returns replacing the defective monthly method (docs/price_data_audit.md) |
 | Current phase | Phase 2 complete (persistent + reliable updates); Phase 3 largely complete (screener/presets/changes/watchlists); Phase 4 (backtesting) roadmap only |
 | Limitations | LTM-only basis (no consensus feed); own-history percentiles on 3–6 annual obs; EU-close read-across uses full-session closes until intraday workflow accumulates snapshots |
 
-## Next three priorities
+## Next three priorities (updated 2026-07-13)
+
+1. SEC filing dates -> point-in-time US fundamentals (docs/free_data_capability_matrix.md P1).
+2. Normalised-fundamentals layer -> Quality & Capital Allocation page + quality-adjusted valuation (roadmap in current_state_audit).
+3. Accumulate snapshots -> price-only screen replay, then honest backtesting.
+
+## Previous priorities
 
 1. **User connects the free accounts** (GitHub push, Supabase, Streamlit) — exact steps in `docs/deployment.md`.
 2. Accumulate daily + intraday snapshots for 2–3 weeks, then activate the Daily-Changes review habit.

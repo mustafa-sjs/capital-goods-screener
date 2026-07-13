@@ -50,7 +50,7 @@ def ema_metrics(key, hist=None, pair=(20, 60)):
     flips = above.diff().fillna(0)
     cross_idx = flips[flips != 0].index
     last_cross = cross_idx[-1] if len(cross_idx) else None
-    sessions_since = (len(px) - 1 - last_cross) if last_cross is not None else None
+    sessions_since = (int(len(px) - 1 - last_cross)) if last_cross is not None else None
     g = gap.iloc[-1]
     slope5 = gap.iloc[-1] - gap.iloc[-6] if len(valid) > 6 else None
     slope5_prev = gap.iloc[-6] - gap.iloc[-11] if len(valid) > 11 else None

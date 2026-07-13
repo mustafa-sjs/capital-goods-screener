@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-07-13 — v2.3 Research OS: pipeline integrity + analyst workflow
+- Refresh split: daily = INCREMENTAL canonical update (1-month window, overlap
+  reconciliation, automatic per-security full rebuild when new corporate
+  actions land); full_refresh = complete 5y rebuild; repair mode for named keys.
+- Candidate-to-production gate: coverage-drop / snapshot-regression /
+  feature-vs-price-date / canonical-staleness / missing-history /
+  multi-currency checks run BEFORE features publish; CRITICAL blocks.
+- Canonical prices + corporate actions now published to production on every
+  ordinary refresh (previously only via manual migration).
+- Drill-down charts are database-first (canonical_prices) with a labelled
+  parquet fallback; source + latest-session caption displayed.
+- Provenance: run_id stamped through canonical rows; price_reconciliation
+  table; overlap conflicts recorded per run.
+- NEW Signal Change Tape page: typed deterministic events (state changes,
+  discount thresholds/moves, 52w highs, drawdowns, EMA crossovers, leverage/
+  sign flips, data-quality changes, universe entry/exit) with prev/current
+  values, consolidation (first/last/count), filters and CSV export.
+- Custom screen builder: flat-AND conditions over numeric + state metrics,
+  saved to the database, loadable/deletable/exportable; column-layout presets
+  (Standard/Valuation/Quality/Momentum/Custom) on the screener.
+- Watchlist thesis monitoring: thesis/bull/base/bear, catalyst + date,
+  invalidation, review date; thesis-change log; deterministic triggers
+  (catalyst approaching, review due, momentum/leverage conditions) labelled
+  "requires review", never advice.
+- docs/current_state_audit.md, docs/free_data_capability_matrix.md; 39 tests.
+
 ## 2026-07-13 — v2.2 Price engine & momentum
 - ROOT-CAUSE FIX: 1M-12M returns were computed against partial-month monthly
   samples (~10-day "1M"); 5D used a calendar stretch. Replaced by canonical

@@ -31,12 +31,29 @@ class DB:
             self.conn = duckdb.connect(DUCKDB_PATH)
             self.ph = '?'
 
+    MIGRATIONS = [
+        "ALTER TABLE canonical_prices ADD COLUMN IF NOT EXISTS run_id TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS thesis TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS bull_case TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS bear_case TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS base_case TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS catalyst TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS catalyst_date DATE",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS invalidation TEXT",
+        "ALTER TABLE watchlist_members ADD COLUMN IF NOT EXISTS review_date DATE",
+    ]
+
     def init_schema(self):
         raw = open(SCHEMA_PATH).read()
         sql = '\n'.join(l.split('--')[0] for l in raw.splitlines())
         for stmt in sql.split(';'):
             if stmt.strip():
                 self.execute(stmt)
+        for m in self.MIGRATIONS:
+            try:
+                self.execute(m)
+            except Exception:
+                pass   # older engines without IF NOT EXISTS support
 
     def execute(self, sql, params=None):
         if self.kind == 'postgres':

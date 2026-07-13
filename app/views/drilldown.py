@@ -56,8 +56,20 @@ with c1:
                      'as traded. 5y canonical daily history.')
     bcol = {'Total return': 'close_tr', 'Raw': 'close_raw',
             'Split-adjusted': 'close_split'}[basis]
-    hp = pd.read_parquet(_os.path.join(ROOT2, 'data', 'history', 'prices_daily.parquet'))
-    hp = hp[hp.key == key][['session_date', bcol]].rename(columns={bcol: 'px'})
+    rows_db = q(f'SELECT session_date, {bcol} FROM canonical_prices '
+                f'WHERE key = {ph()} ORDER BY session_date', [key])
+    if rows_db:
+        hp = pd.DataFrame(rows_db, columns=['session_date', 'px'])
+        hp['session_date'] = hp['session_date'].astype(str)
+        src_label = 'database (canonical_prices)'
+    else:
+        st.warning('Database has no canonical history — using the committed '
+                   'parquet fallback (development mode). Charts may be older '
+                   'than headline metrics.')
+        hp = pd.read_parquet(_os.path.join(ROOT2, 'data', 'history',
+                                           'prices_daily.parquet'))
+        hp = hp[hp.key == key][['session_date', bcol]].rename(columns={bcol: 'px'})
+        src_label = 'parquet fallback'
     hp['date'] = pd.to_datetime(hp['session_date'])
     hp['EMA 20'] = hp['px'].ewm(span=20, adjust=False, min_periods=20).mean()
     hp['EMA 60'] = hp['px'].ewm(span=60, adjust=False, min_periods=60).mean()
@@ -67,9 +79,15 @@ with c1:
                  tooltip=['date:T', alt.Tooltip('px:Q', format='.2f')]) +
              base.mark_line(color='#2a78d6', strokeWidth=1).encode(y='EMA 20:Q') +
              base.mark_line(color='#eda100', strokeWidth=1).encode(y='EMA 60:Q'))
-    acts = pd.read_parquet(_os.path.join(ROOT2, 'data', 'history',
-                                         'corporate_actions.parquet'))
-    acts = acts[acts.key == key].copy()
+    arows = q(f'SELECT action_date, kind, value FROM corporate_actions '
+              f'WHERE key = {ph()} ORDER BY action_date', [key])
+    if arows:
+        acts = pd.DataFrame(arows, columns=['action_date', 'kind', 'value'])
+        acts['action_date'] = acts['action_date'].astype(str)
+    else:
+        acts = pd.read_parquet(_os.path.join(ROOT2, 'data', 'history',
+                                             'corporate_actions.parquet'))
+        acts = acts[acts.key == key].copy()
     if len(acts):
         acts['date'] = pd.to_datetime(acts['action_date'])
         marks = alt.Chart(acts).mark_rule(color='#b07100', strokeDash=[3, 3],
@@ -79,6 +97,8 @@ with c1:
     st.altair_chart(lines.properties(height=320,
         title=f'{basis} price with 20/60-session EMAs; amber rules = '
               f'dividends/splits ({len(acts)})'), use_container_width=True)
+    st.caption(f'Price source: {src_label} · latest session '
+               f'{hp["session_date"].max()} · basis: {basis}')
 with c2:
     st.markdown('**EV/EBITDA vs own history** — annual, approximate')
     hist = pd.DataFrame(d['hist'], columns=['year', 'EV/EBITDA'])

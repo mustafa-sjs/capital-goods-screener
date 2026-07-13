@@ -17,7 +17,17 @@ Then reconciles overlapping dates against stored FactIQ raw prices and writes
 Nothing is deleted: FactIQ raws stay in raw_daily_prices; conflicts are
 reported, and the canonical selection reason is recorded per security.
 
-Usage: .venv/bin/python scripts/backfill_history.py [KEY ...]
+Usage:
+  backfill_history.py                 # FULL 5y rebuild, all securities
+  backfill_history.py KEY ...         # full rebuild, selected securities
+  backfill_history.py --recent        # INCREMENTAL: 1-month window + overlap
+                                      #   reconciliation; auto-detects new
+                                      #   corporate actions and full-rebuilds
+                                      #   only the affected securities (TR
+                                      #   scaling changes when a dividend
+                                      #   lands, so incremental TR would drift)
+  backfill_history.py --repair K1 K2  # full refetch for named securities
+  --run-id RID                        # stamp rows with a refresh run id
 """
 import json, os, sys, time, urllib.request
 from datetime import datetime, timezone
@@ -30,6 +40,14 @@ from src.utils.universe import load_universe
 UA = {'User-Agent': 'Mozilla/5.0'}
 HIST = os.path.join(ROOT, 'data', 'history')
 AUDIT = os.path.join(ROOT, 'data', 'audit')
+
+
+def fetch_range(symbol, rng='5y'):
+    url = (f'https://query1.finance.yahoo.com/v8/finance/chart/{symbol}'
+           f'?range={rng}&interval=1d&events=div%2Csplits')
+    with urllib.request.urlopen(urllib.request.Request(url, headers=UA),
+                                timeout=30) as r:
+        return json.load(r)['chart']['result'][0]
 
 
 def fetch_5y(symbol):
@@ -93,12 +111,66 @@ def rows_for(key, res):
     return prices, acts
 
 
+def incremental(run_id=None):
+    """1-month window per security: reconcile overlap, append new sessions,
+    detect new corporate actions -> schedule full rebuild for those keys."""
+    import pandas as pd
+    u = load_universe()
+    old = pd.read_parquet(f'{HIST}/prices_daily.parquet')
+    olda = pd.read_parquet(f'{HIST}/corporate_actions.parquet')
+    known_acts = {(r.key, r.action_date, r.kind) for r in olda.itertuples()}
+    new_rows, conflicts, needs_full, fails = [], [], [], []
+    for k, sym in u['yahoo'].items():
+        try:
+            p, a = rows_for(k, fetch_range(sym, '1mo'))
+        except Exception as e:
+            fails.append(k); print(f'{k}: FAILED {e!r}'); continue
+        fresh_acts = [x for x in a if (x['key'], x['action_date'], x['kind'])
+                      not in known_acts]
+        if fresh_acts:
+            needs_full.append(k)   # TR scale shifted; incremental would drift
+            print(f'{k}: {len(fresh_acts)} new corporate action(s) -> full rebuild queued')
+            continue
+        mine = old[old.key == k].set_index('session_date')['close_raw']
+        for row in p:
+            prev = mine.get(row['session_date'])
+            if prev is None:
+                row['run_id'] = run_id
+                new_rows.append(row)
+            elif prev and abs(row['close_raw'] / prev - 1) > 0.005:
+                conflicts.append(dict(key=k, date=row['session_date'],
+                                      stored=round(prev, 4),
+                                      fetched=round(row['close_raw'], 4),
+                                      diff_pct=round((row['close_raw']/prev-1)*100, 2),
+                                      run_id=run_id))
+        time.sleep(0.35)
+    if new_rows:
+        add = pd.DataFrame(new_rows)
+        # incremental TR: no new actions for these keys, so tr == raw scale
+        # continues; Yahoo 1mo adjclose is anchored consistently in-window
+        merged = pd.concat([old, add]).drop_duplicates(
+            ['key', 'session_date'], keep='first')
+        merged.sort_values(['key', 'session_date']).to_parquet(
+            f'{HIST}/prices_daily.parquet', compression='zstd', index=False)
+    if conflicts:
+        pd.DataFrame(conflicts).to_csv(
+            os.path.join(AUDIT, 'overlap_conflicts_latest.csv'), index=False)
+    print(f'incremental: +{len(new_rows)} sessions, {len(conflicts)} overlap '
+          f'conflicts, {len(needs_full)} securities need full rebuild, '
+          f'{len(fails)} fetch failures')
+    if needs_full:
+        sys.argv = [sys.argv[0]] + needs_full
+        main()          # targeted full rebuild for action-affected keys only
+    return len(fails)
+
+
 def main():
     import pandas as pd
     os.makedirs(HIST, exist_ok=True)
     os.makedirs(AUDIT, exist_ok=True)
     u = load_universe()
-    keys = sys.argv[1:] or list(u['yahoo'])
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    keys = args or list(u['yahoo'])
     all_p, all_a, fails = [], [], []
     for k in keys:
         try:
@@ -153,4 +225,13 @@ def main():
 
 
 if __name__ == '__main__':
+    rid = None
+    if '--run-id' in sys.argv:
+        i = sys.argv.index('--run-id'); rid = sys.argv[i + 1]
+        del sys.argv[i:i + 2]
+    if '--recent' in sys.argv:
+        sys.argv.remove('--recent')
+        sys.exit(1 if incremental(rid) > len(load_universe()['yahoo']) // 2 else 0)
+    if '--repair' in sys.argv:
+        sys.argv.remove('--repair')
     main()

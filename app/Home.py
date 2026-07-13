@@ -14,7 +14,7 @@ nav = st.navigation({
         st.Page('views/screener.py', title='Screener', icon='🔎'),
         st.Page('views/drilldown.py', title='Company Drill-Down', icon='🏢'),
         st.Page('views/scenarios.py', title='Scenarios', icon='⚖️'),
-        st.Page('views/daily_changes.py', title='Daily Changes', icon='🔔'),
+        st.Page('views/change_tape.py', title='Signal Change Tape', icon='🔔'),
     ],
     'Manage': [
         st.Page('views/watchlists.py', title='Watchlists', icon='⭐'),

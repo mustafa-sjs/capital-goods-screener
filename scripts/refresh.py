@@ -155,18 +155,28 @@ def main():
                 if fail > ok:
                     raise RuntimeError('majority of price fetches failed — aborting')
             if args.mode in ('daily', 'full_refresh'):
-                r = subprocess.run([PY, os.path.join(ROOT, 'scripts',
-                                    'backfill_history.py')],
-                                   capture_output=True, text=True, cwd=ROOT)
+                # daily = INCREMENTAL (overlap-reconciled, auto full-rebuild
+                # per security when a new corporate action lands);
+                # full_refresh = complete 5y rebuild.
+                cmd = [PY, os.path.join(ROOT, 'scripts', 'backfill_history.py'),
+                       '--run-id', run_id]
+                if args.mode == 'daily':
+                    cmd.append('--recent')
+                r = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)
                 if r.returncode != 0:
-                    raise RuntimeError('canonical backfill failed: ' + r.stderr[-300:])
-                notes.append('canonical 5y history rebuilt (TR adjustments current)')
+                    raise RuntimeError('canonical refresh failed: ' + r.stderr[-300:])
+                tail = [l for l in r.stdout.splitlines() if l.strip()][-1:]
+                notes.append('canonical: ' + (tail[0] if tail else 'ok'))
             if args.mode in ('daily', 'full_refresh', 'rebuild_features'):
                 rebuild_features()
                 notes.append('features rebuilt')
         # validation gate before publishing features to the DB
         counts = run_checks(db, run_id)
-        notes.append(f"validation: {counts}")
+        from src.validation.checks import run_candidate_checks
+        cand = run_candidate_checks(db, run_id)
+        for k2 in ('critical', 'error', 'warning'):
+            counts[k2] = counts.get(k2, 0) + cand.get(k2, 0)
+        notes.append(f"validation: {counts} (incl. candidate gate {cand})")
         if counts.get('critical'):
             status = 'failed'
             notes.append('CRITICAL validation findings — features NOT published')
@@ -176,9 +186,11 @@ def main():
             feats_only = args.mode == 'rebuild_features'
             if not feats_only:
                 inserted += load.load_prices(db) + load.load_quotes(db) + load.load_fx(db)
+                inserted += load.load_canonical(db)
             snap, n = load.load_features(db)
             inserted += n
-            ev = load.detect_changes(db, snap)
+            from src.screening.events import detect_and_store
+            ev = detect_and_store(db, snap)
             fill_intraday_later_prices(db)
             notes.append(f'published snapshot {snap} ({n} feature rows, {ev} change events)')
             if args.mode == 'full_refresh':
