@@ -25,6 +25,11 @@ KEYS = {
     'daily_change_events': ['snapshot_date', 'key', 'event_type'],
     'watchlists': ['watchlist_id'], 'watchlist_members': ['watchlist_id', 'key'],
     'saved_screens': ['screen_id'], 'refresh_runs': ['run_id'],
+    'canonical_prices': ['key', 'session_date', 'source'],
+    'corporate_actions': ['key', 'action_date', 'kind'],
+    'filing_dates': ['key', 'period_end'],
+    'momentum_backtest_results': ['run_date', 'fast', 'slow', 'confirm_days',
+                                  'test_window'],
     'validation_results': ['run_id', 'check_name', 'subject'],
 }
 
