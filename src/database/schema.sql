@@ -221,6 +221,21 @@ CREATE TABLE IF NOT EXISTS app_payload (
     payload       TEXT NOT NULL           -- full dashboard_data.json
 );
 
+CREATE TABLE IF NOT EXISTS momentum_backtest_results (
+    run_date TEXT NOT NULL,
+    fast INTEGER NOT NULL,
+    slow INTEGER NOT NULL,
+    confirm_days INTEGER NOT NULL,
+    test_window TEXT NOT NULL,
+    ann_return_pct DOUBLE PRECISION, excess_ann_pct DOUBLE PRECISION,
+    sharpe DOUBLE PRECISION, sortino DOUBLE PRECISION,
+    max_drawdown_pct DOUBLE PRECISION, n_trades INTEGER,
+    win_rate_pct DOUBLE PRECISION, turnover_ann DOUBLE PRECISION,
+    time_invested_pct DOUBLE PRECISION, stability DOUBLE PRECISION,
+    score DOUBLE PRECISION, cost_bps INTEGER,
+    PRIMARY KEY (run_date, fast, slow, confirm_days, test_window)
+);
+
 -- ============================ application ============================
 CREATE TABLE IF NOT EXISTS watchlists (
     watchlist_id TEXT PRIMARY KEY,
