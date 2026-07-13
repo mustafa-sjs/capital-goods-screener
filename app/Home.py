@@ -12,6 +12,7 @@ nav = st.navigation({
         st.Page('views/market_close.py', title='Market Close & Read-Across', icon='🌍'),
         st.Page('views/rerating.py', title='Sector Rerating', icon='📈'),
         st.Page('views/screener.py', title='Screener', icon='🔎'),
+        st.Page('views/momentum.py', title='Momentum', icon='🚀'),
         st.Page('views/drilldown.py', title='Company Drill-Down', icon='🏢'),
         st.Page('views/scenarios.py', title='Scenarios', icon='⚖️'),
         st.Page('views/change_tape.py', title='Signal Change Tape', icon='🔔'),

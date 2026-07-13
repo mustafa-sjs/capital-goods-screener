@@ -151,3 +151,82 @@ def full_momentum(key, peers=None, hist=None):
                                              / len(pos_h), 0) if pos_h else None),
                 risk=risk_metrics(key, hist),
                 validation_status='descriptive — not backtested')
+
+
+# ===== v2.5 additions: config-driven series primitives for the backtest =====
+import os as _os
+
+_CFG = {}
+
+
+def momentum_config():
+    if not _CFG:
+        import yaml
+        p = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.dirname(
+            _os.path.abspath(__file__)))), 'config', 'momentum.yaml')
+        _CFG.update(yaml.safe_load(open(p)))
+    return _CFG
+
+
+def ewma(px, span):
+    """The one true EWMA: recursive, full-span warm-up."""
+    return px.ewm(span=span, adjust=False, min_periods=span).mean()
+
+
+def cross_series(px, fast_n, slow_n):
+    """Per-session state & crossover events for one price series.
+
+    Returns DataFrame(state: +1 bullish / -1 bearish / 0 warm-up,
+                      cross: +1 bullish crossover, -1 bearish crossover, 0 none)
+    A crossover requires fast>slow now AND fast<=slow on the PREVIOUS valid
+    observation (never 'every day above slow is a new signal').
+    """
+    fast, slow = ewma(px, fast_n), ewma(px, slow_n)
+    state = pd.Series(0, index=px.index, dtype='int64')
+    valid = fast.notna() & slow.notna()
+    state[valid & (fast > slow)] = 1
+    state[valid & (fast <= slow)] = -1
+    prev = state.shift(1).fillna(0)
+    cross = pd.Series(0, index=px.index, dtype='int64')
+    cross[(state == 1) & (prev == -1)] = 1
+    cross[(state == -1) & (prev == 1)] = -1
+    return pd.DataFrame({'state': state, 'cross': cross,
+                         'fast': fast, 'slow': slow})
+
+
+def pair_features(key, pair, hist=None):
+    """Current-signal block for one security & pair (screener/heatmap-ready)."""
+    h = (hist or load_history()).get(key)
+    fast_n, slow_n = pair
+    if h is None or len(h) < slow_n + 10:
+        return dict(status='insufficient_data', pair=f'{fast_n}/{slow_n}')
+    px = pd.Series(h['close_tr'].values, dtype='float64')
+    px.index = range(len(px))
+    cs = cross_series(px, fast_n, slow_n)
+    if cs['state'].iloc[-1] == 0:
+        return dict(status='warm_up', pair=f'{fast_n}/{slow_n}')
+    crosses = cs.index[cs['cross'] != 0]
+    last_x = crosses[-1] if len(crosses) else None
+    spread = (cs['fast'].iloc[-1] / cs['slow'].iloc[-1] - 1) * 100
+    slope = lambda s, n: ((s.iloc[-1] / s.iloc[-1 - n] - 1) * 100
+                          if len(s.dropna()) > n and s.iloc[-1 - n] else None)
+    spread_ser = (cs['fast'] / cs['slow'] - 1) * 100
+    accel = None
+    sl5, sl5p = slope(spread_ser + 100, 5), None
+    if len(spread_ser.dropna()) > 11:
+        sl5p = ((spread_ser.iloc[-6] + 100) / (spread_ser.iloc[-11] + 100) - 1) * 100
+    if None not in (sl5, sl5p):
+        accel = round(sl5 - sl5p, 3)
+    return dict(status='ok', pair=f'{fast_n}/{slow_n}',
+                signal='bullish' if cs['state'].iloc[-1] == 1 else 'bearish',
+                spread_pct=round(float(spread), 2),
+                fast_slope_5s=slope(cs['fast'], 5),
+                slow_slope_5s=slope(cs['slow'], 5),
+                acceleration=accel,
+                cross_date=(h['session_date'].iloc[last_x] if last_x is not None else None),
+                cross_type=('bullish' if last_x is not None and cs['cross'][last_x] == 1
+                            else ('bearish' if last_x is not None else None)),
+                sessions_since_cross=(int(len(px) - 1 - last_x)
+                                      if last_x is not None else None),
+                dist_52w_high_pct=round(float(px.iloc[-1] / px.tail(252).max() - 1) * 100, 1),
+                dist_52w_low_pct=round(float(px.iloc[-1] / px.tail(252).min() - 1) * 100, 1))

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-07-13 — v2.5 Momentum screener & EWMA backtest
+- History deepened to 10 years (191k sessions, 1,982 corporate actions,
+  retry/backoff hardened backfill; coverage report in data/audit/).
+- New Momentum page: filter bar, 6 summary cards, cross-sectional percentile
+  heatmap, ranked screener with per-name signal history (sample sizes shown),
+  plotly detail chart (TR price, EMA overlays, crossover markers, log toggle),
+  collapsed OOS strategy comparison with apply-pair.
+- Backtest engine (src/screening/backtest.py): vectorised long-only crossover
+  strategy, confirmation windows, 25bps/side costs, next-close execution,
+  IS/OOS split, robust ranking with decay/dominance/turnover penalties.
+  Honest result: no pair beat buy-and-hold OOS; documented.
+- config/momentum.yaml single source (spans, pairs, costs, score weights);
+  momentum_backtest_results table; weekly backtest via Actions. 52 tests.
+
 ## 2026-07-13 — v2.4 Point-in-time layer (SEC filing dates)
 - Fetched 916 filing dates (10-K/10-Q, 2020->present) from FactIQ's SEC
   filings table for 37 US names; persisted to data/raw/sec_filing_dates.json

@@ -145,6 +145,26 @@ After refreshing, re-run `scripts/compute_metrics.py` and re-assemble the
 dashboard; the "Data as of" banner picks up the newest quote date
 automatically.
 
+### 5c. Momentum engine & EWMA backtest (v2.5)
+
+- History: 10-year canonical daily total-return series (191k sessions).
+- EWMA: `ewm(span=N, adjust=False, min_periods=N)`; spans/pairs in
+  config/momentum.yaml (single source for engine, backtest and UI).
+- Crossover: fast>slow now AND fast<=slow on the previous VALID observation.
+  Warm-up exits are not signals; days-above-slow are not new signals.
+- Backtest: long-only, confirmation 1/3/5 sessions, next-CLOSE execution
+  (no adjusted-open data — stated, slightly pessimistic), 25bps/side all-in,
+  gross and net reported; chronological 60/40 in/out-of-sample split.
+- 2026-07-13 finding, reported honestly: across 12 pairs x 3 confirmations,
+  NO pair beat buy-and-hold out of sample 2022-26 (best excess -14.4%/yr) —
+  timing cut max drawdown to -18.5% but this was a strong bull tape. Slow
+  pairs (150/300, 100/300) dominate fast ones. Confirmed bullish crossovers
+  were useful ENTRY markers: +21.1% mean 250-session forward TR, 71% positive
+  (n=205). Momentum score = transparent config-weighted percentiles (0-100),
+  components always visible. Universe = today's coverage: survivorship bias
+  applies to all backtest figures. Rerun: scripts/backtest_momentum.py
+  (also weekly via Actions); add a pair in config/momentum.yaml.
+
 ## 6. European close / post-close read-across
 
 FactIQ provides **no intraday or timestamped prices**, so the 16:30 UK

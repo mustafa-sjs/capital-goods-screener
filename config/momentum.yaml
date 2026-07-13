@@ -1,0 +1,47 @@
+# Momentum engine configuration — SINGLE SOURCE for spans, pairs,
+# execution assumptions, scoring weights and test windows.
+# Feature engine, backtest and UI all read this file; nothing is hard-coded
+# twice. Edit here, then rerun: python scripts/backtest_momentum.py
+
+ewma:
+  # pandas: series.ewm(span=N, adjust=False, min_periods=N).mean()
+  spans: [5, 10, 20, 30, 50, 100, 150, 200, 250, 300]
+  pairs:
+    - [5, 20]
+    - [10, 30]
+    - [10, 50]
+    - [20, 50]
+    - [20, 100]
+    - [30, 100]
+    - [50, 100]
+    - [50, 150]
+    - [50, 200]
+    - [100, 200]
+    - [100, 300]
+    - [150, 300]
+  default_pair: [150, 300]       # robust OOS universe winner, 2026-07-13 run
+                                  # (NOTE: no pair beat buy-and-hold OOS; see docs)
+
+backtest:
+  confirmation_days: [1, 3, 5]    # signal must persist N sessions before action
+  transaction_cost_bps: 15        # per side, conservative
+  slippage_bps: 10                # per side
+  execution: next_close           # signal at close t -> executed at close t+1
+                                  # (no reliable adjusted-open available; stated
+                                  # limitation, slightly pessimistic timing)
+  min_observations: 800           # ~3y+ before a security enters the backtest
+  min_trades: 6                   # below this, results are anecdotes
+  oos_split: 0.6                  # first 60% = selection, last 40% = untouched OOS
+  forward_horizons: [20, 60, 120, 250]
+  benchmark: universe_equal_weight   # daily mean TR return across the pack
+
+score:
+  # transparent 0-100 momentum score — percentile-weighted components
+  weights:
+    ret_3m_pctile: 0.20
+    ret_6m_pctile: 0.20
+    ret_12m_pctile: 0.15
+    rel_strength_pctile: 0.20
+    ewma_spread_pctile: 0.10
+    slow_slope_pctile: 0.10
+    acceleration_pctile: 0.05

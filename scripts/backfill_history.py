@@ -38,6 +38,7 @@ sys.path.insert(0, ROOT)
 from src.utils.universe import load_universe
 
 UA = {'User-Agent': 'Mozilla/5.0'}
+HIST_RANGE = '10y'   # supports 300-span EWMAs + honest out-of-sample windows
 HIST = os.path.join(ROOT, 'data', 'history')
 AUDIT = os.path.join(ROOT, 'data', 'audit')
 
@@ -50,9 +51,9 @@ def fetch_range(symbol, rng='5y'):
         return json.load(r)['chart']['result'][0]
 
 
-def fetch_5y(symbol):
+def fetch_5y(symbol):   # name kept; range from HIST_RANGE
     url = (f'https://query1.finance.yahoo.com/v8/finance/chart/{symbol}'
-           f'?range=5y&interval=1d&events=div%2Csplits')
+           f'?range={HIST_RANGE}&interval=1d&events=div%2Csplits')
     with urllib.request.urlopen(urllib.request.Request(url, headers=UA),
                                 timeout=30) as r:
         return json.load(r)['chart']['result'][0]
@@ -173,16 +174,27 @@ def main():
     keys = args or list(u['yahoo'])
     all_p, all_a, fails = [], [], []
     for k in keys:
-        try:
-            p, a = rows_for(k, fetch_5y(u['yahoo'][k]))
-            all_p += p
-            all_a += a
-            print(f'{k:6s} {len(p):5d} sessions, {len(a):3d} actions, '
-                  f'{p[0]["session_date"]} -> {p[-1]["session_date"]}')
-        except Exception as e:
-            fails.append(k)
-            print(f'{k}: FAILED {e!r}')
-        time.sleep(0.4)
+        p = None
+        for attempt in (1, 2, 3):
+            try:
+                p, a = rows_for(k, fetch_5y(u['yahoo'][k]))
+                break
+            except Exception as e:
+                if attempt == 3:
+                    fails.append(k)
+                    print(f'{k}: FAILED after 3 attempts {e!r}', flush=True)
+                else:
+                    time.sleep(6 * attempt)      # back off on throttling
+        time.sleep(0.7)
+        if p is None:
+            continue
+        all_p += p
+        all_a += a
+        print(f'{k:6s} {len(p):5d} sessions, {len(a):3d} actions, '
+              f'{p[0]["session_date"]} -> {p[-1]["session_date"]}', flush=True)
+    if not all_p:
+        sys.exit('No price data fetched at all — provider throttling? '
+                 'Wait a few minutes and rerun; existing files are untouched.')
     pdf = pd.DataFrame(all_p)
     adf = pd.DataFrame(all_a)
     if sys.argv[1:] and os.path.exists(f'{HIST}/prices_daily.parquet'):
