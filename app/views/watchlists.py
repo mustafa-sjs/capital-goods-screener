@@ -3,9 +3,11 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime, timezone
 from components.data import get_db, payload, q, ph, data_version
-from components.ui import style_table, df_show, group_header
+from components.ui import style_table, df_show, group_header, page_header
 
-st.title('Watchlists')
+page_header('Watchlists',
+            'Track ideas with theses, catalysts and review dates — '
+            'conditions are monitored deterministically.')
 
 db = get_db()
 D = payload(data_version())
@@ -75,8 +77,13 @@ for wl, k, cat, cd, rd, inv in allm:
         trig.append((k, 'catalyst approaching', f'{cat or "catalyst"} on {cd}'))
     if rd and _date.fromisoformat(str(rd)[:10]) <= _date.today():
         trig.append((k, 'review due', f'review date {rd} reached'))
-    if s2.get('momentum_state') in ('emerging breakdown', 'established downtrend'):
-        trig.append((k, 'momentum condition', f"state: {s2['momentum_state']} — requires review"))
+    if (s2.get('recent_signal') == 'New negative crossover'
+            or (s2.get('trend') == 'Downtrend'
+                and s2.get('momentum_change') == 'Strengthening')):
+        trig.append((k, 'price trend condition',
+                     f"trend: {s2.get('trend')}, "
+                     f"{(s2.get('momentum_change') or '').lower()} — "
+                     f"requires review"))
     if (s2.get('nd_ebitda') or 0) > 3:
         trig.append((k, 'leverage condition', f"ND/EBITDA {s2['nd_ebitda']}x > 3.0x"))
 if trig:
@@ -93,16 +100,23 @@ if rows:
         'Key': k, 'Company': D['names'].get(k, k), 'Note': note, 'Priority': prio,
         'Thesis': ts, 'Added': str(added)[:10],
         'EV/EBITDA': scr.get(k, {}).get('ev_ebitda_ltm'),
-        'vs peers %': scr.get(k, {}).get('prem_disc_vs_peers_pct'),
-        'rel 3M pp': scr.get(k, {}).get('rel_3m_pct')}
+        'vs direct peers': scr.get(k, {}).get('prem_disc_vs_peers_pct'),
+        '3M vs peers': scr.get(k, {}).get('rel_3m_pct'),
+        'Trend': scr.get(k, {}).get('trend')}
         for k, note, prio, ts, added in rows])
     edited = st.data_editor(df, hide_index=True, use_container_width=True,
                             disabled=[c for c in df.columns if c != 'Remove'],
                             column_config={
         'Remove': st.column_config.CheckboxColumn('Remove'),
         'EV/EBITDA': st.column_config.NumberColumn(format='%.1f x'),
-        'vs peers %': st.column_config.NumberColumn(format='%+.1f%%'),
-        'rel 3M pp': st.column_config.NumberColumn(format='%+.1f')})
+        'vs direct peers': st.column_config.NumberColumn(
+            format='%+.1f%%',
+            help='EV/EBITDA premium (+) or discount (−) to the direct-peer '
+                 'median.'),
+        '3M vs peers': st.column_config.NumberColumn(
+            format='%+.1f',
+            help='3-month total return minus the direct-peer average, in '
+                 'percentage points.')})
     to_rm = edited[edited['Remove']]['Key'].tolist()
     if to_rm and st.button(f'Remove {len(to_rm)} selected'):
         for k in to_rm:

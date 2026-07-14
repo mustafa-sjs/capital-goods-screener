@@ -1,6 +1,14 @@
 # PROJECT STATUS — Capital Goods Research Platform
 
-*Updated 2026-07-12 (update this file whenever the facts below change).*
+*Updated 2026-07-14 (update this file whenever the facts below change).*
+
+**v2.7 (2026-07-14):** product simplification refactor — five-page research
+navigation (Overview / Stock Screener / Compare Companies / Company Analysis
+/ Market & Peers) + Manage & Help (Watchlists / Data Status / Methodology /
+Legacy Dashboard); shared universe service and metric dictionary; unified
+Trend / Momentum change / Recent signal fields everywhere; core-coverage
+default universe controls both display and rankings; 89 tests. Calculations,
+database, refresh pipeline unchanged. See CHANGELOG v2.7.
 
 | Fact | Value |
 |---|---|

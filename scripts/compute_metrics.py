@@ -722,6 +722,22 @@ def momentum_state_of(k):
             _MOMO[k] = 'indeterminate'
     return _MOMO[k]
 
+# unified user-facing trend fields — SAME engine and SAME default pair as the
+# momentum screener (config/momentum.yaml), so every page shows one answer
+from src.features.momentum import (momentum_config as _mom_cfg,
+                                   pair_features as _pair_feats,
+                                   simple_momentum_fields as _smf)
+_DEFAULT_PAIR = tuple(_mom_cfg()['ewma']['default_pair'])
+_TREND = {}
+def trend_fields_of(k):
+    if k not in _TREND:
+        try:
+            _TREND[k] = _smf(_pair_feats(k, _DEFAULT_PAIR, _CHIST))
+        except Exception:
+            _TREND[k] = dict(trend='No clear trend', momentum_change=None,
+                             recent_signal=None)
+    return _TREND[k]
+
 # ------------------------------------------------------------------ output ---
 def r2(x, n=2): return None if x is None else round(x, n)
 def pctf(x, n=1): return None if x is None else round(100*x, n)
@@ -808,6 +824,9 @@ for sg, groups in SUBGROUPS:
                 valuation_state=valuation_state(k),
                 fundamental_state=fundamental_state(k),
                 momentum_state=momentum_state_of(k),
+                trend=trend_fields_of(k)['trend'],
+                momentum_change=trend_fields_of(k)['momentum_change'],
+                recent_signal=trend_fields_of(k)['recent_signal'],
                 classification=f'{valuation_state(k)} · {fundamental_state(k)} fundamentals',
                 data_quality='; '.join(flags.get(k) or []) or 'OK',
             ))

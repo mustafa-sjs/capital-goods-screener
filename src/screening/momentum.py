@@ -11,7 +11,8 @@ import numpy as np
 import pandas as pd
 
 from src.features.momentum import (momentum_config, pair_features,
-                                   cross_series, load_history)
+                                   cross_series, load_history,
+                                   simple_momentum_fields)
 from src.features.returns import ret_pct
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -71,14 +72,21 @@ def build_table(universe, names, subgroups_of, peers_of, pair=None, confirm=None
                     if None not in (r12, r1) else None)
         rel = (round(r['12M'] - bench_mean['12M'], 1)
                if r.get('12M') is not None and bench_mean['12M'] is not None else None)
+        rel3 = (round(r['3M'] - bench_mean['3M'], 1)
+                if r.get('3M') is not None and bench_mean['3M'] is not None else None)
         sh = signal_history_stats(k, pair, confirm, hist)
+        smf = simple_momentum_fields(pf)
         rows.append(dict(
             key=k, company=names.get(k, k), subgroup=subgroups_of.get(k, ''),
+            trend=smf['trend'], momentum_change=smf['momentum_change'],
+            recent_signal=smf['recent_signal'],
             ret_1m=r.get('1M'), ret_3m=r.get('3M'), ret_6m=r.get('6M'),
             ret_12m=r.get('12M'), mom_12_1=mom_12_1, rel_strength=rel,
+            rel_3m_universe=rel3,
             dist_52w_high=pf.get('dist_52w_high_pct'),
             dist_52w_low=pf.get('dist_52w_low_pct'),
             spread=pf.get('spread_pct'), slow_slope=pf.get('slow_slope_5s'),
+            dist_chg=pf.get('dist_chg_5s'),
             acceleration=pf.get('acceleration'),
             signal=pf.get('signal'), cross_type=pf.get('cross_type'),
             cross_date=pf.get('cross_date'),
@@ -118,13 +126,16 @@ def build_table(universe, names, subgroups_of, peers_of, pair=None, confirm=None
     return df.sort_values('momentum_score', ascending=False).reset_index(drop=True)
 
 
-HEATMAP_COLS = ['ret_1m', 'ret_3m', 'ret_6m', 'ret_12m', 'rel_strength',
-                'spread', 'momentum_score']
+# default heatmap: four columns an analyst actually scans; the expanded set
+# remains available behind a toggle (progressive disclosure, not deletion)
+HEATMAP_COLS_DEFAULT = ['rel_3m_universe', 'ret_6m', 'spread', 'dist_chg']
+HEATMAP_COLS = ['ret_1m', 'ret_3m', 'ret_6m', 'ret_12m', 'rel_3m_universe',
+                'rel_strength', 'spread', 'dist_chg', 'momentum_score']
 
 
-def heatmap_frame(df):
+def heatmap_frame(df, cols=None):
     """Percentile-rank frame for colouring; raw values shown in hover/table."""
     out = pd.DataFrame({'company': df['company']})
-    for c in HEATMAP_COLS:
+    for c in (cols or HEATMAP_COLS_DEFAULT):
         out[c] = _pctile(df[c]).round(0)
     return out.set_index('company')

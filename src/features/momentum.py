@@ -211,6 +211,10 @@ def pair_features(key, pair, hist=None):
     slope = lambda s, n: ((s.iloc[-1] / s.iloc[-1 - n] - 1) * 100
                           if len(s.dropna()) > n and s.iloc[-1 - n] else None)
     spread_ser = (cs['fast'] / cs['slow'] - 1) * 100
+    # 5-session change in the |fast-slow| distance (pp): the basis for the
+    # user-facing "Momentum change" (strengthening / stable / weakening)
+    dist_chg = (round(float(abs(spread_ser.iloc[-1]) - abs(spread_ser.iloc[-6])), 3)
+                if len(spread_ser.dropna()) > 6 else None)
     accel = None
     sl5, sl5p = slope(spread_ser + 100, 5), None
     if len(spread_ser.dropna()) > 11:
@@ -222,6 +226,8 @@ def pair_features(key, pair, hist=None):
                 spread_pct=round(float(spread), 2),
                 fast_slope_5s=slope(cs['fast'], 5),
                 slow_slope_5s=slope(cs['slow'], 5),
+                spread_slope_5s=(round(sl5, 3) if sl5 is not None else None),
+                dist_chg_5s=dist_chg,
                 acceleration=accel,
                 cross_date=(h['session_date'].iloc[last_x] if last_x is not None else None),
                 cross_type=('bullish' if last_x is not None and cs['cross'][last_x] == 1
@@ -230,3 +236,45 @@ def pair_features(key, pair, hist=None):
                                       if last_x is not None else None),
                 dist_52w_high_pct=round(float(px.iloc[-1] / px.tail(252).max() - 1) * 100, 1),
                 dist_52w_low_pct=round(float(px.iloc[-1] / px.tail(252).min() - 1) * 100, 1))
+
+
+# ---- user-facing trend fields (ONE definition, used by every page) ---------
+TREND_UP, TREND_DOWN, TREND_NONE = 'Uptrend', 'Downtrend', 'No clear trend'
+CHG_STRONGER, CHG_STABLE, CHG_WEAKER = 'Strengthening', 'Stable', 'Weakening'
+SIG_POS, SIG_NEG, SIG_NONE = ('New positive crossover',
+                              'New negative crossover', 'No recent crossover')
+RECENT_SESSIONS = 15        # "recent" window for a new crossover
+DIST_CHG_BAND = 0.10        # |distance change| below this (pp/5s) = Stable
+
+
+def simple_momentum_fields(pf, recent_sessions=RECENT_SESSIONS):
+    """Translate one pair_features() block into the three fields every page
+    shows: Trend, Momentum change, Recent signal.
+
+      Trend           : fast EWMA above (Uptrend) or below (Downtrend) the
+                        slow EWMA; warm-up / no data -> No clear trend.
+      Momentum change : the |fast - slow| distance widening (Strengthening),
+                        narrowing (Weakening) or flat (Stable) over the last
+                        5 sessions.
+      Recent signal   : a crossover within the recent window whose direction
+                        still holds today; otherwise no recent crossover.
+    """
+    if not pf or pf.get('status') != 'ok':
+        return dict(trend=TREND_NONE, momentum_change=None,
+                    recent_signal=None)
+    trend = TREND_UP if pf['signal'] == 'bullish' else TREND_DOWN
+    dc = pf.get('dist_chg_5s')
+    if dc is None:
+        chg = CHG_STABLE
+    elif dc > DIST_CHG_BAND:
+        chg = CHG_STRONGER
+    elif dc < -DIST_CHG_BAND:
+        chg = CHG_WEAKER
+    else:
+        chg = CHG_STABLE
+    sig = SIG_NONE
+    ssc = pf.get('sessions_since_cross')
+    if (ssc is not None and ssc <= recent_sessions
+            and pf.get('cross_type') == pf['signal']):
+        sig = SIG_POS if pf['cross_type'] == 'bullish' else SIG_NEG
+    return dict(trend=trend, momentum_change=chg, recent_signal=sig)

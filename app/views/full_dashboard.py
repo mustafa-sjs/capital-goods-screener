@@ -4,10 +4,11 @@ import streamlit.components.v1 as components
 from components.data import payload, data_version
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-st.title('Full dashboard (original rich view)')
-st.caption('The validated single-file dashboard, embedded unchanged and rebuilt '
-           'from the latest database snapshot — pixel-identical to the original '
-           'six-page product.')
+st.title('Legacy Dashboard')
+st.caption('The previous dashboard, retained for reference while the '
+           'reorganised pages bed in. It is rebuilt from the same latest '
+           'data snapshot as the rest of the app; once the new pages have '
+           'proven feature parity it will be retired.')
 
 tpl_path = os.path.join(ROOT, 'scripts', 'dashboard_template.html')
 html_path = os.path.join(ROOT, 'capital_goods_dashboard.html')

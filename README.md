@@ -19,7 +19,21 @@ identifiable catalysts.
 | Production database | Supabase Postgres (free tier) via `DATABASE_URL` |
 | Remote app | Streamlit Community Cloud (deploys `app/Home.py`) |
 | Scheduling | `.github/workflows/` (daily refresh, intraday EU-close, tests, backup) |
-| Rich original dashboard | `capital_goods_dashboard.html` (also embedded as app page 9) |
+| Legacy dashboard | `capital_goods_dashboard.html` (embedded: Manage & Help → Legacy Dashboard) |
+
+## App navigation (v2.7)
+
+**Research:** Overview (what moved / what changed / is the data current) ·
+Stock Screener (tabs: Overview, Valuation, Fundamentals, Price Trend, Risk —
+Price Trend is the consolidated momentum screener) · Compare Companies
+(2–5 names side by side) · Company Analysis (tabs: Summary, Valuation,
+Financials, Price Trend, Scenarios) · Market & Peers (peer read-across).
+**Manage & Help:** Watchlists · Data Status (plain-English warnings, change
+history, admin internals) · Methodology (metric dictionary + definitions) ·
+Legacy Dashboard. Shared services: `src/utils/universe.py`
+(universe/subgroups, hard-validated: exactly 30 core companies) and
+`src/utils/metrics.py` (every user-facing label and definition) — no page
+defines its own membership lists or metric labels.
 
 ## How it refreshes
 
@@ -55,7 +69,7 @@ they drift.
 
 ## Recover from a failed refresh
 
-1. App → Admin & Status → read the run's notes / failed items.
+1. App → Data Status → Administration → read the run's notes / failed items.
 2. Re-run: `python scripts/refresh.py --mode daily` (safe to repeat).
 3. Single names: `python scripts/refresh_prices.py KEY`.
 4. Source down? Latest stored data keeps serving (marked stale);
@@ -66,5 +80,5 @@ they drift.
 
 $0/month by design (GitHub Free private repo + Actions, Streamlit Community
 Cloud, Supabase Free, keyless Yahoo endpoint), excluding FactIQ/LLM tokens.
-Guards: Admin page Free-Tier panel, workflow timeouts/concurrency caps,
+Guards: Data Status free-tier panel, workflow timeouts/concurrency caps,
 7-day artifact retention. **No investment recommendations anywhere.**

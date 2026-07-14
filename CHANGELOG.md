@@ -1,5 +1,59 @@
 # Changelog
 
+## 2026-07-14 — v2.7 Product simplification & consistency refactor
+Incremental reorganisation — no calculation engine, database or refresh
+change beyond the additions below; charts were moved and retitled, not
+removed.
+- **Navigation simplified** to five research destinations (Overview, Stock
+  Screener, Compare Companies, Company Analysis, Market & Peers) plus
+  Manage & Help (Watchlists, Data Status, Methodology, Legacy Dashboard).
+  Former Momentum page → Stock Screener → Price Trend tab; Sector Rerating
+  + Scenarios + Drill-Down → Company Analysis tabs; Signal Change Tape →
+  Overview "Recent changes" + Data Status full history; Full Dashboard →
+  Legacy Dashboard (retained until feature parity is confirmed).
+- **Shared universe service** (`src/utils/universe.py: universe_service`)
+  with hard validation (exactly 30 core incl. Siemens & Schneider, one
+  primary listing and subgroup each); every page resolves membership
+  through it. Universe selector (Core coverage default) now controls both
+  display AND ranking populations — core ranks are calculated across core
+  only, never filtered from full-universe ranks.
+- **Central metric dictionary** (`src/utils/metrics.py`): display name,
+  plain-English definition, format, category, higher-is semantics for every
+  user-facing metric; all tables/filters/tooltips resolve through it. Raw
+  internal names (rel_3m_pct, Hist z, ρ30, c5, OOS…) no longer reach the UI.
+- **Momentum unified**: one engine (pair_features on canonical TR history,
+  config default pair) feeds engine payload, screener, heatmap, company
+  page and events. The overloaded "bullish" label is replaced by three
+  fields everywhere: **Trend** (Uptrend/Downtrend/No clear trend),
+  **Momentum change** (Strengthening/Stable/Weakening — 5-session change in
+  EWMA distance), **Recent signal** (confirmed crossover within 15
+  sessions). Heatmap defaults to 4 columns on core coverage (expanded view
+  optional). Backtest presented honestly: "best-tested trend setting",
+  did-not-beat-buy-and-hold caveat, sample sizes on all evidence.
+- **New pages**: Compare Companies (2–5 names side by side + indexed TR
+  chart + valuation-history overlay, reusing existing data), Methodology
+  (metric dictionary, trend definitions, score weights, full docs).
+- **Design system**: restrained page headers with one-line purpose,
+  compact data-status strip on every market page (market date, core
+  freshness, financials basis, updated time, ⓘ tooltip), colour semantics
+  split (green/red = performance/fundamentals only; blue = cheaper, orange
+  = more expensive; amber = warnings), chart titles rewritten as the
+  question each chart answers, quadrant explanation on the positioning map.
+- **Data Status** translates validation findings and change events into
+  plain English; run IDs/raw checks/DB tables moved into an Administration
+  expander. Overview shows consequences, not pipeline internals.
+- Tests 58 → 89: universe consistency (30 core, SIE/SU, one listing/
+  subgroup each, payload agreement), metric-registry completeness & no
+  internal labels in defaults, momentum consistency (payload == engine,
+  core-only ranks, controlled vocabularies, signal-date agreement), page
+  smoke tests for all nine pages via streamlit AppTest, cross-page price
+  consistency (screener == scenarios == market close).
+
+## 2026-07-13 — v2.6 Freshness: core-coverage momentum default + reliable price pipeline
+- Momentum universe defaults to core coverage; freshness validation gate
+  (stale core names block publication); prices_only rebuilds features so a
+  stale snapshot is never republished as new (see commit a07b88e).
+
 ## 2026-07-13 — v2.5 Momentum screener & EWMA backtest
 - History deepened to 10 years (191k sessions, 1,982 corporate actions,
   retry/backoff hardened backfill; coverage report in data/audit/).
