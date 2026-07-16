@@ -167,13 +167,52 @@ automatically.
 
 ## 6. European close / post-close read-across
 
-FactIQ provides **no intraday or timestamped prices**, so the 16:30 UK
-snapshot cannot be built. The dashboard substitutes the transparent
-fallback: *the completed full-session move of each market’s official close*.
-US and Tokyo closes land after Europe’s 16:30 UK close, so the US peer
-moves shown are the natural “overnight read-across” into the next European
-session — but they are **full-session moves, not moves since 16:30 UK**.
-This is labelled on the page. Peer-implied signals:
+**The 16:30 UK benchmark (v2.8).** The benchmark is always defined as 16:30
+in `Europe/London`; US session status uses `America/New_York` (both via
+zoneinfo — never a fixed UTC offset, so UK/US DST-mismatch weeks are
+handled). For each US peer the anchor is captured by the best available
+method, in order of precedence, and stored in `market_benchmark_snapshots`
+with its actual timestamp, source and quality — an exact 16:30 price is
+never fabricated from an older observation:
+
+1. `finnhub_candle` — completed 1-minute bar at 16:30 (needs paid
+   entitlement; a 403 is detected once and the method skipped);
+2. `finnhub_websocket` — last trade at/before 16:30 from a short capture
+   window opened just before the benchmark;
+3. `finnhub_quote` — REST quote taken around 16:30, dated by its own trade
+   timestamp;
+4. `yahoo_intraday_fallback` — the pre-existing 5-minute-bar mechanism.
+
+Anchor quality (thresholds configurable in `config/finnhub.yaml`):
+**exact** ≤ 60 s from target · **acceptable** ≤ 5 min · **stale** older ·
+**unavailable** no valid price. A recovery run may upgrade an anchor but a
+worse observation never overwrites a better one.
+`move_since_1630_pct = (latest_us_price / anchor_price − 1) × 100`, shown
+only where a usable anchor and a strictly later price both exist — closed
+markets show "–", never 0.0%. European names still capture their own 16:30
+snapshot into `eu_close_snapshots` (compatibility path retained).
+
+**Provider precedence (v2.8).** Current US intraday quote: Finnhub → Yahoo
+fallback → latest stored valid quote. 16:30 US benchmark: as the four
+methods above. Historical daily prices: existing canonical pipeline
+(unchanged). Fundamentals: FactIQ (unchanged). Momentum/EWMAs: internal
+calculations on canonical prices (unchanged). Finnhub and Yahoo quotes are
+cross-checked: prices observed within 60 s that differ > 1% raise a
+`cross_source_price_conflict` warning; larger timestamp gaps are reported
+as timestamp mismatches, not price conflicts.
+
+**Catalyst methodology (v2.8).** For material movers (|move since 16:30 UK|
+≥ 1%, plus the top 5 gainers/fallers), company-news *metadata* (headline,
+source, link, summary — never article bodies) is fetched from Finnhub and
+stored in `market_events`, deduplicated on provider event id (or a
+deterministic URL hash). The displayed item is ranked transparently:
+published after the benchmark, provider ties it to the ticker,
+company-news category, recency. It is labelled **"Possible catalyst"** or
+**"Latest company-specific update"** — the platform never asserts *"the
+stock moved because…"*; with no relevant article it states "No recent
+company-specific catalyst identified". No opaque AI-generated causality.
+
+Peer-implied signals:
 
 - Equal-weighted peer move = mean of peer 1-day moves.
 - Correlation-weighted move = Σ(move × max(corr30,0)) / Σ max(corr30,0),
@@ -220,7 +259,9 @@ readability); underlying tables always carry raw values.
 
 1. No consensus data → LTM basis everywhere; revisions/surprise/guidance
    modules disabled.
-2. No intraday prices → European-close module uses official closes.
+2. Intraday coverage is limited to the 16:30 UK benchmark layer (hybrid
+   Finnhub/Yahoo, indicative data, licensing-gated pilot); everything else
+   uses official closes.
 3. Sampled price history → returns/correlations are approximations with
    n_obs shown.
 4. Historical valuation series are annual and approximate (3–6 points).
