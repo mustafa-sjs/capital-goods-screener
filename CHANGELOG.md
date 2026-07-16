@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-07-17 — v2.8.3 Coverage rows show "vs basket"
+- Market & Peers: bold coverage-company rows now carry `rel_vs_basket_pct`
+  (own 1-day move minus the peer basket's equal-weight average; the basket
+  excludes the coverage name, so no self-dilution). Previously peer-only,
+  leaving bold rows blank — most visible in tiny baskets (Rexel, Epiroc).
+  `corr30` stays blank on coverage rows by design (self-correlation ≡ 1).
+
 ## 2026-07-17 — v2.8.2 Momentum backtest revamp & per-equity best setting
 - **New crossover set** (user-selected): 5/30, 10/40, 10/60, 20/60, 20/100,
   20/120, 40/150, 50/200. Fresh backtest run: universe winner **50/200,

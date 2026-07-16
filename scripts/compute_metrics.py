@@ -764,8 +764,11 @@ for sg, groups in SUBGROUPS:
                 m = mv.get(k) or {}
                 c30, n30 = corr(cov[0], k, 45) if k not in cov else (None, None)
                 c90, n90 = corr(cov[0], k, 130) if k not in cov else (None, None)
+                # vs basket for BOTH roles: for the coverage company this is
+                # its move minus its peer basket's equal-weighted average
+                # (the basket excludes the coverage name, so no self-dilution)
                 rel = None
-                if role == 'peer' and pm and m.get('chg1d') is not None and pm['eq'] is not None:
+                if pm and m.get('chg1d') is not None and pm['eq'] is not None:
                     rel = m['chg1d'] - pm['eq']
                 rows_close.append(dict(subgroup=sg, coverage_group=disp, role=role, key=k,
                     company=SEC[k]['name'], ticker=SEC[k]['sym'], ccy=SEC[k]['qccy'],
