@@ -24,9 +24,12 @@
 
 - Basis: **total-return** canonical series (dividends/specials reinvested);
   raw prices never drive momentum (see docs/price_data_audit.md, VISN case).
-- EMA pairs 10/30, 20/60, 50/200 sessions; `adjust=False`;
-  `min_periods = span`; missing sessions are absent rows on the security's
-  own exchange calendar (no forward-fill across halts).
+- Backtested EMA crossover set (user-selected 2026-07-17, in
+  `config/momentum.yaml`): 5/30, 10/40, 10/60, 20/60, 20/100, 20/120,
+  40/150, 50/200 sessions; `adjust=False`; `min_periods = span`; missing
+  sessions are absent rows on the security's own exchange calendar (no
+  forward-fill across halts). The descriptive state block additionally uses
+  the fixed 10/30, 20/60, 50/200 trio (state rules key off 20/60).
 - Derived per pair: gap %, 5-session gap slope, gap acceleration, crossover
   date & sessions-since, gap percentile & z-score vs own 5y distribution.
 - States (rules in `src/features/momentum.py` docstring, 20/60 pair):
@@ -37,7 +40,28 @@
   % of horizons positive. Volume confirmation deferred (volume quality
   uneven across lines).
 - Risk block: EW volatility (span 20/60, annualised √252), 52w drawdown,
-  max drawdown over the 5y window.
+  max drawdown over the stored history (peak-to-trough on the total-return
+  series; verified against independent recomputation 2026-07-17).
+
+## Backtest aggregation & reporting (v2.8.2)
+
+- Portfolio = equal weight across names **trading that day** (closed-market
+  days are excluded from the day's mean, not zero-filled — zero-filling
+  damped portfolio vol/drawdown; fixed 2026-07-17).
+- Every result window reports the strategy AND its buy-and-hold benchmark
+  over the *identical* dates, including `bench_max_drawdown_pct`, so
+  drawdown reduction is always shown against context. The OOS benchmark
+  starts after the warm-up tail, same as the strategy.
+- Portfolio drawdowns are diversified-basket numbers and are labelled as
+  such in the UI; per-share strategy evidence (all configured pairs ×
+  confirmations, full window) is published as `security_pairs` /
+  `security_best` in `momentum_backtest.json` and surfaced on Stock
+  Screener → Price Trend ("Selected company") and Company Analysis →
+  Price Trend (best-for-this-company preselection).
+- 2026-07-17 run: universe winner 50/200, confirm 5 (OOS Sharpe 1.31);
+  **no configured pair beat buy-and-hold out of sample** (excess −14 to
+  −20%/yr in a strongly rising 2024–26 window) — trend settings mainly
+  reduced drawdowns. Stated on-page; crossovers remain research prompts.
 
 ## Validation status & anti-overfitting stance
 

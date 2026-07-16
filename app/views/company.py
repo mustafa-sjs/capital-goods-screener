@@ -297,10 +297,29 @@ with tabs[3]:
     cfg = momentum_config()
     pairs = [tuple(p) for p in cfg['ewma']['pairs']]
     default_pair = tuple(cfg['ewma']['default_pair'])
+    from components.momentum_ui import (best_setting_for, security_best_line,
+                                        security_pairs_table)
+    sec_best, _ = best_setting_for(key)
+    best_pair = tuple(sec_best['pair']) if sec_best else None
+    start_pair = best_pair if best_pair in pairs else default_pair
+
+    def _pair_label(p):
+        tags = []
+        if p == best_pair:
+            tags.append('best for this company')
+        if p == default_pair:
+            tags.append('universe default')
+        return f'{p[0]}/{p[1]}' + (f" — {', '.join(tags)}" if tags else '')
+
     pair = st.selectbox('Trend setting (fast/slow average, days)', pairs,
-                        index=pairs.index(default_pair),
-                        format_func=lambda p: f'{p[0]}/{p[1]}'
-                        + (' — best-tested' if p == default_pair else ''))
+                        index=pairs.index(start_pair),
+                        format_func=_pair_label,
+                        help='Preselected to the setting that tested best on '
+                             'this share\'s own history (net of costs, '
+                             'minimum-trade guard) — historical evidence, '
+                             'not a prediction.')
+    security_best_line(key, svc['names'][key])
+    security_pairs_table(key, svc['names'][key])
     px = pd.Series(hp[bcol].values, index=pd.to_datetime(hp['session_date']),
                    dtype='float64')
     fast = px.ewm(span=pair[0], adjust=False, min_periods=pair[0]).mean()
@@ -352,7 +371,9 @@ with tabs[3]:
         st.caption(f"Risk context: 20-day volatility "
                    f"{risk.get('ewvol_20d_pct')}% annualised · distance from "
                    f"52-week high {risk.get('drawdown_52w_pct')}% · worst "
-                   f"drawdown in history {risk.get('max_drawdown_pct')}%.")
+                   f"peak-to-trough drawdown in the stored history (from "
+                   f"{str(hp['session_date'].min())[:4]}, total-return "
+                   f"basis) {risk.get('max_drawdown_pct')}%.")
 
     section('Return horizons — exact windows',
             'Session horizons count exact trading sessions; month horizons '

@@ -64,6 +64,9 @@ def _metrics(net, gross, pos, trades, bench_r):
     curve = (1 + net).cumprod()
     dd = (curve / curve.cummax() - 1).min()
     out['max_drawdown_pct'] = round(dd * 100, 1)
+    bcurve = (1 + bench_r).cumprod()
+    out['bench_max_drawdown_pct'] = round(
+        (bcurve / bcurve.cummax() - 1).min() * 100, 1)
     out['calmar'] = (round(out['ann_return_pct'] / abs(dd * 100), 2)
                      if dd else None)
     out['time_invested_pct'] = round(pos.mean() * 100, 0)
@@ -114,20 +117,28 @@ def run_pair(keys, pair, confirm, hist=None, window='full'):
             # measured only after the split point
         pos = position_series(px, pair[0], pair[1], confirm)
         gross, net, trades = strategy_returns(px, pos, cost)
+        bench_r = px.pct_change().fillna(0)
         if window == 'oos':
+            # warm-up tail is for EWMA state only — every measured series,
+            # INCLUDING the benchmark, starts after the split (a benchmark
+            # spanning the warm-up overstated buy-and-hold vs the strategy)
             net, gross = net.iloc[300:], gross.iloc[300:]
             pos, trades = pos.iloc[300:], trades.iloc[300:]
+            bench_r = bench_r.iloc[300:]
         per_sec_net[k] = net
-        bench_parts[k] = px.pct_change()
-        m = _metrics(net, gross, pos, trades,
-                     px.pct_change().fillna(0))
+        bench_parts[k] = bench_r
+        m = _metrics(net, gross, pos, trades, bench_r)
         if m:
             per_sec_meta[k] = m
     if not per_sec_net:
         return None
-    aligned = pd.DataFrame(per_sec_net).fillna(0)
-    port_net = aligned.mean(axis=1)
-    bench = pd.DataFrame(bench_parts).mean(axis=1).reindex(aligned.index).fillna(0)
+    # NaN = that security's market was closed that day; excluding it from the
+    # day's mean (skipna) keeps returns/vol/drawdown undiluted — zero-filling
+    # closed markets damped every portfolio statistic (fixed 2026-07-17)
+    aligned = pd.DataFrame(per_sec_net)
+    port_net = aligned.mean(axis=1).dropna()
+    bench = pd.DataFrame(bench_parts).mean(axis=1).reindex(port_net.index).fillna(0)
+    aligned = aligned.reindex(port_net.index)
     port_pos = pd.Series(1.0, index=aligned.index)   # portfolio-level proxies
     port_trades = pd.Series(0.0, index=aligned.index)
     m = _metrics(port_net, port_net, port_pos, port_trades, bench)

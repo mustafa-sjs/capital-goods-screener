@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-07-17 — v2.8.2 Momentum backtest revamp & per-equity best setting
+- **New crossover set** (user-selected): 5/30, 10/40, 10/60, 20/60, 20/100,
+  20/120, 40/150, 50/200. Fresh backtest run: universe winner **50/200,
+  confirm 5** (OOS Sharpe 1.31); no pair beat buy-and-hold out of sample —
+  stated plainly on-page against a buy-and-hold column.
+- **Per-equity evidence**: selecting a company (Stock Screener → Price
+  Trend, and Company Analysis → Price Trend) now shows the setting that
+  tested best on that share's own history (with apply/preselect) and a
+  full comparison of every setting on that share — strategy vs buy-and-hold
+  return AND drawdown, trades, win rate; min-trade guard flags anecdotes.
+- **Drawdown fixes**: max-drawdown maths verified correct per security
+  (three independent methods agree); the *portfolio* backtest previously
+  zero-filled closed-market days, damping vol/drawdown — now excluded from
+  the daily mean. OOS benchmark window aligned to the strategy window
+  (warm-up tail excluded). Benchmark drawdown now stored/displayed
+  everywhere a strategy drawdown is, and portfolio-level numbers are
+  labelled as diversified-basket figures.
+- **Strategy comparison rewritten** in plain English: what the strategy is,
+  what the split means, one row per setting with buy-and-hold context.
+- 128 tests (4 new: pair-set guard, benchmark drawdown, closed-market
+  aggregation, per-metric checks).
+
 ## 2026-07-17 — v2.8.1 Forced-refresh button
 - "Refresh data now" on Market & Peers and Data Status: dispatches the
   `us-intraday-market-data` workflow (plus optionally the daily price

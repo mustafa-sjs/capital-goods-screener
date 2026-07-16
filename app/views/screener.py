@@ -405,14 +405,19 @@ with tabs[3]:
               int((mdf['recent_signal'] == 'New negative crossover').sum()))
     if bt:
         ud = bt['universe_default']
-        st.caption(f"**Best-tested trend setting: {ud['pair'][0]}/{ud['pair'][1]}day "
-                   f"averages** (backtest of {bt['generated'][:10]}). This "
-                   f"setting reduced drawdowns but did **not** beat "
+        o0 = bt['ranked'][0]['oos']
+        beat = (o0['excess_ann_pct'] or 0) > 0
+        st.caption(f"**Best-tested trend setting: {ud['pair'][0]}/{ud['pair'][1]}-day "
+                   f"averages** (backtest of {bt['generated'][:10]}). Out of "
+                   f"sample it {'beat' if beat else 'did **not** beat'} "
                    f"buy-and-hold after costs "
-                   f"({bt['ranked'][0]['oos']['excess_ann_pct']}% annualised "
-                   f"vs buy-and-hold out of sample; max drawdown "
-                   f"{bt['ranked'][0]['oos']['max_drawdown_pct']}%). Treat "
-                   f"crossovers as research prompts, not trade signals.")
+                   f"({o0['excess_ann_pct']:+.1f}% a year vs holding; "
+                   f"portfolio-level worst drawdown "
+                   f"{o0['max_drawdown_pct']}% vs "
+                   f"{o0.get('bench_max_drawdown_pct', '?')}% for "
+                   f"buy-and-hold). Per-share evidence is under "
+                   f"\"Selected company\". Treat crossovers as research "
+                   f"prompts, not trade signals.")
 
     section('Ranked by price trend')
     MOM_IDS = ['company', 'subgroup', 'trend', 'momentum_change',
@@ -491,6 +496,11 @@ with tabs[3]:
                            '3-month return. Historical, not predictive.')
         else:
             p4.metric('After similar signals', 'Too few signals')
+        from components.momentum_ui import (security_best_line,
+                                            security_pairs_table)
+        security_best_line(sel, svc['names'].get(sel, sel),
+                           current_pair=pair, allow_apply=True)
+        security_pairs_table(sel, svc['names'].get(sel, sel))
         hp, src_label = price_history(sel, data_version())
         px = pd.Series(hp['close_tr'].values,
                        index=pd.to_datetime(hp['session_date']),
@@ -536,31 +546,50 @@ with tabs[3]:
                    f'{hp["session_date"].max()}. The full company picture '
                    f'is on Company Analysis → Price Trend.')
 
-    with st.expander('Historical strategy comparison (advanced)'):
+    with st.expander('How the settings compare across the whole universe '
+                     '(backtest)'):
         if not bt:
             st.info('Run `python scripts/backtest_momentum.py` to generate '
                     'results.')
         else:
+            st.markdown(
+                'Each setting was tested as an equal-weight, long-only '
+                'strategy across every covered share: **in the market when '
+                'the fast average is above the slow one, in cash otherwise**. '
+                'Settings were ranked on the first 60% of history; every '
+                'figure below comes from the **untouched final 40%** — data '
+                'the selection never saw. Compare each row against the '
+                'buy-and-hold column, not against zero.')
+            best_by_pair = {}
+            for r in bt['ranked']:     # ranked best-first; keep top per pair
+                best_by_pair.setdefault(tuple(r['pair']), r)
             rows = []
-            for i, r in enumerate(bt['ranked'][:5], 1):
+            for i, r in enumerate(best_by_pair.values(), 1):
                 o = r['oos']
                 rows.append({
                     'Rank': i,
-                    'Setting': f"{r['pair'][0]}/{r['pair'][1]} day averages",
-                    'Confirmation (days)': r['confirm'],
-                    'Annual return % (test period)': o['ann_return_pct'],
-                    'vs buy-and-hold %': o['excess_ann_pct'],
-                    'Worst drawdown %': o['max_drawdown_pct'],
-                    'Trades': o['n_trades'], 'Winning trades %': o['win_rate_pct']})
+                    'Setting (days)': f"{r['pair'][0]}/{r['pair'][1]}",
+                    'Confirmation': r['confirm'],
+                    'Strategy % a year': o['ann_return_pct'],
+                    'Buy-and-hold % a year': o.get('bench_ann_pct'),
+                    'Difference': o['excess_ann_pct'],
+                    'Worst drawdown (strategy)': o['max_drawdown_pct'],
+                    'Worst drawdown (buy-and-hold)': o.get('bench_max_drawdown_pct'),
+                    'Time invested %': o.get('time_invested_pct'),
+                    'Trades': o['n_trades'],
+                    'Winning trades %': o['win_rate_pct'],
+                    'Robustness score': r.get('score')})
             df_show(pd.DataFrame(rows))
-            st.caption('Selection used the first 60% of history; the figures '
-                       'above come from the untouched final 40% (out of '
-                       'sample). Next-close execution, 25bps per side all-in '
-                       'costs. The universe is today\'s coverage, so results '
-                       'carry survivorship bias — a stated limitation.')
+            st.caption('Drawdowns here are for the **diversified '
+                       f"{bt['ranked'][0]['oos'].get('n_securities', '~79')}-"
+                       'share portfolio**, so they are naturally shallower '
+                       'than any single share\'s — a single-share view is in '
+                       '"Selected company" above. Next-close execution, '
+                       '25bps per side all-in costs, total-return prices. '
+                       'Today\'s coverage universe = survivorship bias, a '
+                       'stated limitation. Historical, not predictive.')
             pick = st.selectbox('Apply a setting from the table',
-                                ['—'] + [f"{r['pair'][0]}/{r['pair'][1]}"
-                                         for r in bt['ranked'][:5]])
+                                ['—'] + [f'{p[0]}/{p[1]}' for p in best_by_pair])
             if pick != '—':
                 fp, sp = map(int, pick.split('/'))
                 if (fp, sp) != st.session_state['mom_pair']:

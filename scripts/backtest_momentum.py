@@ -56,18 +56,30 @@ for sg, groups in u['subgroups']:
     if sub_ranked:
         subgroup_best[sg] = sub_ranked[0]
 
-# per-security best pair (full window, min-trade guard; labelled historical)
-sec_best = {}
+# per-security results for EVERY tested config (full window) + the best one
+# (min-trade guard; labelled historical). Powers the per-equity comparison
+# on Stock Screener / Company Analysis -> Price Trend.
+sec_best, sec_pairs = {}, {}
 min_tr = cfg['backtest']['min_trades']
 for r in ranked:
     for k, m in (r.get('per_security') or {}).items():
+        row = dict(pair=r['pair'], confirm=r['confirm'],
+                   sharpe=m.get('sharpe'), n_trades=m.get('n_trades'),
+                   ann_return_pct=m.get('ann_return_pct'),
+                   bench_ann_pct=m.get('bench_ann_pct'),
+                   excess_ann_pct=m.get('excess_ann_pct'),
+                   max_drawdown_pct=m.get('max_drawdown_pct'),
+                   bench_max_drawdown_pct=m.get('bench_max_drawdown_pct'),
+                   win_rate_pct=m.get('win_rate_pct'),
+                   time_invested_pct=m.get('time_invested_pct'))
+        sec_pairs.setdefault(k, []).append(row)
         if (m.get('n_trades') or 0) >= min_tr:
             cur = sec_best.get(k)
-            cand = dict(pair=r['pair'], confirm=r['confirm'],
-                        sharpe=m.get('sharpe'), n_trades=m['n_trades'],
-                        ann_return_pct=m.get('ann_return_pct'))
-            if not cur or (cand['sharpe'] or -9) > (cur['sharpe'] or -9):
-                sec_best[k] = cand
+            if not cur or (row['sharpe'] or -9) > (cur['sharpe'] or -9):
+                sec_best[k] = row
+for k in sec_pairs:
+    sec_pairs[k].sort(key=lambda x: -(x['sharpe'] if x['sharpe'] is not None
+                                      else -9))
 
 fwd = forward_returns(keys, tuple(best['pair']), best['confirm'], hist)
 out = dict(
@@ -82,6 +94,7 @@ out = dict(
     ranked=[{k: v for k, v in r.items() if k != 'per_security'} for r in ranked],
     subgroup_best=subgroup_best,
     security_best=sec_best,
+    security_pairs=sec_pairs,
     forward_returns_winner=fwd,
 )
 os.makedirs(os.path.join(ROOT, 'data', 'computed'), exist_ok=True)

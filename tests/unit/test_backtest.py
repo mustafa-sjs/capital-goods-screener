@@ -94,3 +94,48 @@ def test_duplicate_dates_and_short_history_safe():
                             'close_tr': [100.0] * 50})}
     assert signal_history_stats('X', (10, 30), 1, h)['n_signals'] == 0
     assert signal_history_stats('MISSING', (10, 30), 1, h)['n_signals'] == 0
+
+
+def test_configured_pairs_are_the_selected_set():
+    """The crossover set is a product decision (chosen 2026-07-17) — guard
+    against accidental config edits."""
+    from src.features.momentum import momentum_config
+    cfg = momentum_config()
+    assert [tuple(p) for p in cfg['ewma']['pairs']] == [
+        (5, 30), (10, 40), (10, 60), (20, 60), (20, 100), (20, 120),
+        (40, 150), (50, 200)]
+    assert tuple(cfg['ewma']['default_pair']) in {(fp, sp) for fp, sp in
+                                                  cfg['ewma']['pairs']}
+
+
+def test_metrics_include_benchmark_drawdown():
+    px = _px(list(np.linspace(100, 150, 40)) + [110] + list(np.linspace(110, 160, 40)))
+    pos = pd.Series(1.0, index=px.index)
+    g, n, t = strategy_returns(px, pos, 0)
+    r = _metrics(n, g, pos, t, px.pct_change().fillna(0))
+    assert r['bench_max_drawdown_pct'] < -20      # the air pocket, both series
+    assert r['max_drawdown_pct'] == r['bench_max_drawdown_pct']  # fully invested
+
+
+def test_portfolio_skips_closed_market_days():
+    """A security's closed day must NOT dilute the portfolio return to half
+    (the pre-2026-07-17 zero-fill did exactly that)."""
+    from src.screening.backtest import run_pair
+    import numpy as np
+    idx_a = pd.bdate_range('2020-01-01', periods=900)
+    idx_b = idx_a[:850]                            # b's market closed later on
+    rng = np.random.RandomState(7)
+    walk = lambda n: 100 * np.cumprod(1 + rng.normal(0.0006, 0.01, n))
+    hist = {
+        'A': pd.DataFrame({'session_date': idx_a.strftime('%Y-%m-%d'),
+                           'close_tr': walk(900)}),
+        'B': pd.DataFrame({'session_date': idx_b.strftime('%Y-%m-%d'),
+                           'close_tr': walk(850)}),
+    }
+    m = run_pair(['A', 'B'], (5, 30), 1, hist, 'full')
+    assert m and m['n_securities'] == 2
+    # portfolio ann vol must sit near single-name vol, not half of it:
+    # with zero-fill, B's 50 missing days pulled the tail mean toward A/2
+    per = m['per_security']
+    assert m['ann_vol_pct'] > 0.4 * min(v['ann_vol_pct'] for v in per.values())
+    assert m['bench_max_drawdown_pct'] is not None
