@@ -26,7 +26,12 @@ on:
     - cron: '50 15 * * 1-5'
     - cron: '50 16 * * 1-5'
     - cron: '5 16-21 * * 1-5'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Run now even outside the scheduled window (app refresh button)'
+        type: boolean
+        default: true
 
 concurrency:
   group: us-intraday-market-data     # separate from the nightly 'refresh' group
@@ -43,8 +48,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Decide mode from London/New York time (no deps, <5s)
         id: guard
+        env:
+          FORCE_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.force && 'true' || 'false' }}
         run: |
           python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import os
           from datetime import datetime
           from zoneinfo import ZoneInfo
           lon = datetime.now(ZoneInfo('Europe/London'))
@@ -56,6 +64,8 @@ jobs:
               mode = 'finnhub_anchor'          # WebSocket window + recovery
           elif 16 * 60 + 41 <= lmin and us_open:
               mode = 'finnhub_intraday'        # recover anchors, quotes, catalysts
+          elif os.environ.get('FORCE_RUN') == 'true':
+              mode = 'finnhub_intraday'        # app refresh button: run regardless
           print(f'mode={mode}')
           print(f'note=London {lon:%H:%M} / New York {ny:%H:%M} us_open={us_open}',
                 flush=True)

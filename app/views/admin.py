@@ -251,8 +251,11 @@ with st.expander('Administration (pipeline internals, database, controls)'):
                                capture_output=True, text=True)
         st.code((r.stdout + r.stderr)[-1500:])
     if db.kind == 'postgres':
-        st.caption('In production, trigger refreshes from the GitHub Actions '
-                   'tab ("Run workflow") rather than inside the app.')
+        from components.manual_refresh import manual_refresh_button
+        manual_refresh_button()
+        st.caption('The button dispatches the GitHub Actions refresh '
+                   'workflows (shared 10-minute cooldown); heavy modes can '
+                   'still be run from the Actions tab ("Run workflow").')
 
     section('Versions')
     run = None

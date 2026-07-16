@@ -265,6 +265,12 @@ def capture_anchor(db, run_id, svc, cfg, adapter=None, keys=None,
     ks = active_keys(svc, cfg, keys)
     m = {'requested': len(ks), 'candle': 0, 'websocket': 0, 'quote': 0,
          'yahoo': 0, 'skipped_existing': 0, 'unusable': 0, 'errors': 0}
+    if datetime.now(timezone.utc) < target_utc and not ws_results:
+        # today's benchmark hasn't happened yet (e.g. a forced manual run
+        # in the morning) — there is nothing to anchor; quotes still update
+        m['skipped_pre_benchmark'] = True
+        m.update(anchor_coverage(db, obs_date))
+        return m
     existing = _existing_snaps(db, obs_date)
     candles_entitled = use_candles and adapter is not None
     for k in ks:

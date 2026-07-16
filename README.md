@@ -99,6 +99,16 @@ Requests stay well inside the free tier: a conservative 30 req/min limiter
 (`config/finnhub.yaml`), quotes only for the mapped US peers, news only for
 material movers (|move since 16:30 UK| ≥ 1% plus top 5 each way, capped).
 
+**Forced refresh from the app (optional):** Market & Peers and Data Status
+have a "Refresh data now" button that dispatches the refresh workflows via
+the GitHub API (the app itself never calls providers or holds the Finnhub
+key). Enable it by creating a **fine-grained** GitHub token scoped to this
+repository only, permission *Actions: read & write* and nothing else, and
+adding it to the Streamlit app secrets as `GH_ACTIONS_TOKEN`. A shared
+10-minute cooldown (`free_tier_usage` ledger) rate-limits the button across
+all users; pressing during cooldown shows a rate-limited message and
+dispatches nothing.
+
 ## Recover from a failed refresh
 
 1. App → Data Status → Administration → read the run's notes / failed items.

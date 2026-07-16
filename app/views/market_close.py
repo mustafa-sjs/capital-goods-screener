@@ -22,6 +22,8 @@ page_header('Market & Peers',
             'How each coverage company performed relative to its direct '
             'peers, basket by basket.')
 status_strip()
+from components.manual_refresh import manual_refresh_button
+manual_refresh_button()
 
 D = payload(data_version())
 svc = universe_service()

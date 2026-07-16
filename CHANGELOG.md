@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-07-17 — v2.8.1 Forced-refresh button
+- "Refresh data now" on Market & Peers and Data Status: dispatches the
+  `us-intraday-market-data` workflow (plus optionally the daily price
+  refresh) through the GitHub API using a fine-grained `GH_ACTIONS_TOKEN`
+  from Streamlit secrets — the app still never calls market-data providers
+  or holds the Finnhub key. Shared 10-minute cooldown recorded in
+  `free_tier_usage`; extra presses get an explicit "you are rate limited"
+  message. Workflow gained a `force` dispatch input (runs outside the
+  scheduled window); `capture_anchor` exits early when today's 16:30 UK
+  benchmark hasn't occurred yet. 124 tests (5 new, GitHub API mocked).
+
 ## 2026-07-16 — v2.8 Finnhub US intraday prices & catalyst context
 Focused addition to Market & Peers — historical prices, canonical pipeline,
 Yahoo daily refresh, peer baskets, fundamentals, momentum and the DB
