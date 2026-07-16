@@ -224,7 +224,9 @@ else:
                 '1D': r.get('move_1d_pct'), '5D': r.get('move_5d_pct'),
                 '1M': r.get('move_1m_pct'), '3M': r.get('move_3m_pct'),
                 '12M': r.get('move_12m_pct'),
-                '30-day correlation': r.get('corr30'),
+                '30-day correlation': r.get('corr30_display')
+                    or ('–' if r.get('corr30') is None
+                        else f"{r['corr30']:.2f}"),
                 'vs basket': r.get('rel_vs_basket_pct'),
                 'since 16:30 UK': us_moves.get(r['key'])
                                   if r['key'] in us_all else None})
@@ -233,13 +235,18 @@ else:
         df = pd.DataFrame(rows)
         bold = {i for i, r in enumerate(rows) if r['Company'].startswith('▮')}
         group_header(g['group'], g['subgroup'])
+        cov_names = ' / '.join(r['company'] for r in members
+                               if r['role'] == 'coverage')
         sty = style_table(df, pct_cols=MOVES + ['since 16:30 UK'],
-                          price_cols=['Close'],
-                          num_cols=['30-day correlation'], bold_rows=bold)
+                          price_cols=['Close'], bold_rows=bold)
         df_show(sty, help_map={
-            '30-day correlation': 'Correlation of daily returns with the '
-                                  'coverage company over the last 30 sessions '
-                                  '(1 = moves identically, 0 = unrelated).',
+            '30-day correlation': 'Correlation of daily returns over the '
+                                  'last 30 shared sessions (1 = moves '
+                                  'identically, 0 = unrelated). Order: '
+                                  f'{cov_names}. In two-company tables, '
+                                  'peers show "x / y" (one per coverage '
+                                  'name) and each bold row shows its '
+                                  'correlation to the other coverage name.',
             'vs basket': 'The company\'s 1-day move minus the equal-weighted '
                          'average move of its peer basket, in percentage points.',
             'since 16:30 UK': 'US move since the 16:30 UK benchmark (hybrid '

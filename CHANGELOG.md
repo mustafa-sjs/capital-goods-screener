@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-07-17 — v2.9.1 Per-coverage correlations in dual-coverage tables
+- Market & Peers: groups with two coverage companies (Nexans & Prysmian,
+  Alstom & Stadler, Daimler Truck & Traton, Kone & Schindler) previously
+  correlated every row against only the FIRST coverage name. Peer rows now
+  show "x / y" (one correlation per coverage name, listing order) and each
+  coverage row shows its correlation to the other coverage name (e.g.
+  NEX↔PRY 0.83). Column tooltip states the order per table.
+- Fixed time-of-day-dependent tests (capture tests now anchor to the most
+  recent past benchmark). 135 tests.
+
 ## 2026-07-17 — v2.9 Events calendar
 - **Overview gained an events calendar**: weekly view expandable to 2/4/8/13
   weeks. Three sources: (1) curated, IR-confirmed results dates for all 30

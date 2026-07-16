@@ -762,8 +762,16 @@ for sg, groups in SUBGROUPS:
         for role, ks in (('coverage', cov), ('peer', peers)):
             for k in ks:
                 m = mv.get(k) or {}
-                c30, n30 = corr(cov[0], k, 45) if k not in cov else (None, None)
-                c90, n90 = corr(cov[0], k, 130) if k not in cov else (None, None)
+                # correlation vs EACH coverage name in the group: peers in a
+                # dual-coverage table show "x / y" (listing order, e.g.
+                # Nexans / Prysmian); a coverage row shows its correlation to
+                # the OTHER coverage name; single-coverage rows show one value
+                others = [c for c in cov if c != k]
+                c30_all = [corr(c, k, 45) for c in others]
+                c30, n30 = c30_all[0] if c30_all else (None, None)
+                c90, n90 = corr(others[0], k, 130) if others else (None, None)
+                c30_disp = ' / '.join('–' if c is None else f'{c:.2f}'
+                                      for c, _ in c30_all)
                 # vs basket for BOTH roles: for the coverage company this is
                 # its move minus its peer basket's equal-weighted average
                 # (the basket excludes the coverage name, so no self-dilution)
@@ -780,6 +788,7 @@ for sg, groups in SUBGROUPS:
                     move_6m_pct=pctf(px_return(k, months=6),2),
                     move_12m_pct=pctf(px_return(k, months=12),2),
                     corr30=r2(c30), corr30_nobs=n30, corr90=r2(c90), corr90_nobs=n90,
+                    corr30_display=c30_disp, corr_vs=' / '.join(others),
                     rel_vs_basket_pct=pctf(rel,2),
                     big_move=abs(m.get('chg1d') or 0) > 0.03,
                     quote_time=m.get('asof')))

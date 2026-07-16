@@ -80,6 +80,18 @@ class MockFinnhub:
                 if date_from <= (e['published_at'] or '')[:10] <= date_to]
 
 
+def past_target():
+    """(obs_date, target) for the most recent benchmark already in the past —
+    keeps capture tests independent of the time of day they run (today's
+    16:30 UK is in the future when the suite runs in the morning, and the
+    engine rightly refuses to anchor a benchmark that hasn't happened)."""
+    now = datetime.now(timezone.utc)
+    obs, target = ui.benchmark_target()
+    if now >= target:
+        return obs, target
+    return ui.benchmark_target((now - timedelta(days=1)).date())
+
+
 def mk_quote(sym, price, ts, prev=None):
     return dict(symbol=sym, price=price, prev_close=prev, high=None, low=None,
                 open=None, quote_ts=ts.isoformat(),
@@ -208,12 +220,13 @@ def test_capture_anchor_candle_entitlement_fallback(monkeypatch):
     db = tmp_db(monkeypatch)
     no_yahoo(monkeypatch)
     monkeypatch.setenv('FINNHUB_USAGE_MODE', 'production')
-    obs, target = ui.benchmark_target()               # today, may be pre-16:30
+    obs, target = past_target()
     ad = MockFinnhub(
         quotes={'ETN': mk_quote('ETN', 340.0, target - timedelta(seconds=90)),
                 'GBX': mk_quote('GBX', 50.0, target - timedelta(seconds=200))},
         candle_error=FinnhubEntitlementError('/stock/candle: HTTP 403'))
-    m = ui.capture_anchor(db, 'run1', SVC, cfg(), ad, ws_results=None)
+    m = ui.capture_anchor(db, 'run1', SVC, cfg(), ad, ws_results=None,
+                          session_date=obs)
     assert ad.candle_calls == 1                       # plan-level: asked once
     assert m['quote'] == 2 and m['candle'] == 0
     snaps = ui._existing_snaps(db, obs)
@@ -225,11 +238,12 @@ def test_capture_anchor_websocket_and_candle(monkeypatch):
     db = tmp_db(monkeypatch)
     no_yahoo(monkeypatch)
     monkeypatch.setenv('FINNHUB_USAGE_MODE', 'production')
-    obs, target = ui.benchmark_target()
+    obs, target = past_target()
     ad = MockFinnhub(candles={'ETN': [(target - timedelta(seconds=90), 341.5)]})
     ws = {'GBX': {'before': (target - timedelta(seconds=3), 50.25),
                   'after': (target + timedelta(seconds=2), 50.30)}}
-    m = ui.capture_anchor(db, 'run1', SVC, cfg(), ad, ws_results=ws)
+    m = ui.capture_anchor(db, 'run1', SVC, cfg(), ad, ws_results=ws,
+                          session_date=obs)
     snaps = ui._existing_snaps(db, obs)
     assert snaps['ETN']['anchor_source'] == 'finnhub_candle'
     assert snaps['ETN']['anchor_quality'] == 'exact'  # bar closes 30s before
@@ -243,12 +257,13 @@ def test_capture_anchor_yahoo_fallback(monkeypatch):
     db = tmp_db(monkeypatch)
     monkeypatch.setattr(ui.time, 'sleep', lambda s: None)
     monkeypatch.setenv('FINNHUB_USAGE_MODE', 'production')
-    obs, target = ui.benchmark_target()
+    obs, target = past_target()
     from src.ingestion.yahoo_prices import YahooFinanceAdapter
     ts = (target - timedelta(seconds=150)).isoformat()
     monkeypatch.setattr(YahooFinanceAdapter, 'intraday_price_at',
                         lambda self, *a, **k: (339.9, ts, 'USD'))
-    m = ui.capture_anchor(db, 'run1', SVC, cfg(), adapter=None, keys=['ETN'])
+    m = ui.capture_anchor(db, 'run1', SVC, cfg(), adapter=None, keys=['ETN'],
+                          session_date=obs)
     assert m['yahoo'] == 1
     snap = ui._existing_snaps(db, obs)['ETN']
     assert snap['anchor_source'] == 'yahoo_intraday_fallback'
@@ -359,16 +374,17 @@ def test_integration_quote_to_basket_readacross(monkeypatch):
     db = tmp_db(monkeypatch)
     no_yahoo(monkeypatch)
     monkeypatch.setenv('FINNHUB_USAGE_MODE', 'production')
-    obs, target = ui.benchmark_target()
+    obs, target = past_target()
     ad = MockFinnhub(
         quotes={'ETN': mk_quote('ETN', 340.0, target - timedelta(seconds=30)),
                 'GBX': mk_quote('GBX', 50.0, target - timedelta(seconds=45))})
-    ui.capture_anchor(db, 'run1', SVC, cfg(), ad, use_candles=False)
+    ui.capture_anchor(db, 'run1', SVC, cfg(), ad, use_candles=False,
+                      session_date=obs)
     later = datetime.now(timezone.utc) if datetime.now(timezone.utc) > target \
         else target + timedelta(hours=1)
     ad.quotes = {'ETN': mk_quote('ETN', 346.12, later),
                  'GBX': mk_quote('GBX', 49.80, later)}
-    ui.update_quotes(db, 'run1', SVC, cfg(), ad)
+    ui.update_quotes(db, 'run1', SVC, cfg(), ad, session_date=obs)
     snaps = ui._existing_snaps(db, obs)
     moves = {k: ui.move_since_benchmark(s) for k, s in snaps.items()}
     assert round(moves['ETN'], 2) == 1.8 and round(moves['GBX'], 2) == -0.4

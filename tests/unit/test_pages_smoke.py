@@ -59,3 +59,20 @@ def test_no_raw_json_or_snapshot_ids_on_overview():
     assert 'No change events vs the previous snapshot' not in src
     # the replacement plain-English copy is present
     assert 'No material changes since the previous market update.' in src
+
+
+def test_dual_coverage_correlation_display():
+    """Groups with two coverage companies show per-coverage correlations
+    ('x / y') on peer rows and cross-correlation on coverage rows."""
+    d = json.load(open(os.path.join(ROOT, 'data', 'computed',
+                                    'dashboard_data.json')))
+    dual = [r for r in d['close_rows']
+            if r['coverage_group'] == 'Nexans & Prysmian']
+    for r in dual:
+        if r['role'] == 'peer':
+            assert '/' in r['corr30_display'], r['key']
+        else:
+            assert r['corr30_display'] and '/' not in r['corr30_display']
+    single = [r for r in d['close_rows']
+              if r['coverage_group'] == 'Legrand' and r['role'] == 'peer']
+    assert all('/' not in r['corr30_display'] for r in single)
