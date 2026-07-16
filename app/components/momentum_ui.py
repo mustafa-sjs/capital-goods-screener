@@ -93,6 +93,14 @@ def security_pairs_table(key, name):
                 '': flag})
         st.dataframe(pd.DataFrame(out), hide_index=True,
                      use_container_width=True)
+        st.info('**Reading this table:** "Setting 20/60" means: be in the '
+                'share when its 20-day average price is above its 60-day '
+                'average, be in cash otherwise. **"Confirmation 3" means the '
+                'crossover must hold for 3 consecutive sessions before the '
+                'trade happens** (at the next close) — it filters out '
+                'day-to-day flickers at the cost of a later entry. Each row '
+                'shows the confirmation (1, 3 or 5 days) that tested best '
+                'for that setting on this share.')
         st.caption('Same engine and assumptions as the universe backtest: '
                    'total-return prices, signal at one close acted on at the '
                    'next, 25bps per side all-in costs. "Difference" is the '
