@@ -90,3 +90,18 @@ def test_upcoming_events_without_db():
                for e in events)
     cats = {e['category'] for e in events}
     assert 'Coverage results' in cats                  # the July reporting wave
+
+
+def test_times_converted_to_uk():
+    assert ec.to_uk_time('07:20 CEST', date(2026, 7, 17)) == '06:20 UK'
+    assert ec.to_uk_time('08:30 ET', date(2026, 7, 22)) == '13:30 UK'
+    assert ec.to_uk_time('14:00 ET statement', date(2026, 7, 29)) == '19:00 UK statement'
+    assert ec.to_uk_time('08:30 EEST', date(2026, 7, 22)) == '06:30 UK'
+    assert ec.to_uk_time('~11:30 CEST', date(2026, 7, 17)) == '~10:30 UK'
+    assert ec.to_uk_time('10:00 ET', date(2026, 1, 4)) == '15:00 UK'   # winter
+    assert ec.to_uk_time('before open', date(2026, 7, 17)) == 'before open'
+    assert ec.to_uk_time(None, date(2026, 7, 17)) is None
+    svc = dict(names={'VOLVB': 'Volvo AB (B)'})
+    evs = ec.curated_events(date(2026, 7, 17), date(2026, 7, 17), svc)
+    volvo = next(e for e in evs if e['key'] == 'VOLVB')
+    assert volvo['detail'] == '06:20 UK'

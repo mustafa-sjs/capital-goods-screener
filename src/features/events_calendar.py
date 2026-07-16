@@ -14,11 +14,39 @@ Every event dict: date (iso), label, category ('Coverage results' |
 'Peer results' | 'Fed' | 'Macro' | 'Company event'), key (or None),
 confirmed (bool), detail (time hint / provider extras).
 """
-import json, os
+import json, os, re
 from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CFG_PATH = os.path.join(ROOT, 'config', 'events_calendar.yaml')
+
+# Issuer time hints are stored as published (CEST/EEST/ET…) and converted to
+# UK time for display. Mapping abbreviations to real zones keeps DST correct
+# on the event's own date.
+_TZ = {'CET': 'Europe/Paris', 'CEST': 'Europe/Paris',
+       'EET': 'Europe/Helsinki', 'EEST': 'Europe/Helsinki',
+       'ET': 'America/New_York', 'EST': 'America/New_York',
+       'EDT': 'America/New_York', 'GMT': 'Europe/London',
+       'BST': 'Europe/London', 'UK': 'Europe/London'}
+_TIME_RE = re.compile(r'(\d{1,2}):(\d{2})\s*(' + '|'.join(_TZ) + r')\b')
+
+
+def to_uk_time(detail, on_date):
+    """'07:20 CEST' -> '06:20 UK' (converted on the event's own date so DST
+    is right). Text without a recognisable clock time passes through."""
+    if not detail:
+        return detail
+    if isinstance(on_date, str):
+        on_date = datetime.strptime(on_date, '%Y-%m-%d').date()
+
+    def _conv(m):
+        hh, mm, tz = int(m.group(1)), int(m.group(2)), m.group(3)
+        src = datetime(on_date.year, on_date.month, on_date.day, hh, mm,
+                       tzinfo=ZoneInfo(_TZ[tz]))
+        return f'{src.astimezone(ZoneInfo("Europe/London")):%H:%M} UK'
+
+    return _TIME_RE.sub(_conv, detail)
 
 _CFG = {}
 
@@ -99,7 +127,7 @@ def macro_events(start, end, cfg=None):
                 out.append(dict(date=d.isoformat(), label=spec['label'],
                                 category='Macro', key=slug,
                                 confirmed=not spec.get('approximate', False),
-                                detail=spec.get('time')))
+                                detail=to_uk_time(spec.get('time'), d)))
     return out
 
 
@@ -114,7 +142,7 @@ def fomc_events(start, end, cfg=None):
                             label='FOMC decision + press conference '
                                   f'(meeting {d1:%d}–{d2:%d %b})',
                             category='Fed', key='fomc', confirmed=True,
-                            detail='14:00 ET statement'))
+                            detail=to_uk_time('14:00 ET statement', d2)))
     return out
 
 
@@ -130,7 +158,7 @@ def curated_events(start, end, svc=None, cfg=None):
                             label=f"{names.get(k, k)} — {spec['label']}",
                             category='Coverage results', key=k,
                             confirmed=bool(spec.get('confirmed', True)),
-                            detail=spec.get('time')))
+                            detail=to_uk_time(spec.get('time'), d)))
     for e in cfg.get('extra_events') or []:
         d = e['date'] if isinstance(e['date'], date) else \
             datetime.strptime(str(e['date']), '%Y-%m-%d').date()

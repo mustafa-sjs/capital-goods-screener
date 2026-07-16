@@ -75,11 +75,12 @@ else:
             'Event': mark + e['label']
                      + ('' if e['confirmed'] else ' (unconfirmed)'),
             'Type': e['category'],
-            'When': ('' if e['confirmed'] else '~ ') + (e['detail'] or '')})
+            'When (UK)': ('' if e['confirmed'] else '~ ') + (e['detail'] or '')})
     cal_df = pd.DataFrame(cal_rows)
     st.dataframe(cal_df, hide_index=True, use_container_width=True,
                  height=min(560, 38 * (len(cal_df) + 1) + 4))
-    st.caption('▮ = coverage company results · ▶ = today')
+    st.caption('▮ = coverage company results · ▶ = today · all times UK '
+               '(converted from issuer local time on the event date)')
     st.download_button('Download calendar (CSV)',
                        pd.DataFrame(events).to_csv(index=False),
                        'events_calendar.csv')
