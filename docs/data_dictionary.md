@@ -15,6 +15,7 @@ Metric definitions & methodology: `capital_goods_methodology.md`.
 | market_benchmark_snapshots | key, observation_date, benchmark_name | v2.8 US layer: 16:30 UK anchor + latest US price, each with source/quality/timestamps (UTC) |
 | intraday_quote_snapshots | key, quote_ts, source | small audit trail of periodic US quote updates (not a tick store) |
 | market_events | provider, provider_event_id | company-news metadata for catalyst display (headline/link/summary only) |
+| calendar_events | event_date, event_type, subject | provider-sourced calendar rows (Finnhub US peer earnings); curated/macro events render straight from config/events_calendar.yaml |
 | raw_fundamentals | key, kind | FactIQ/SEC statement payloads verbatim (JSON) |
 | raw_estimate_snapshots | key, snapshot_date, metric, period | EMPTY by design — no consensus source; ready for one |
 | feat_screener | snapshot_date, key | full screener row JSON + indexed columns; accumulates daily (point-in-time) |

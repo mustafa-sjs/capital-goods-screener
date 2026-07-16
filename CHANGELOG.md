@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-07-17 — v2.9 Events calendar
+- **Overview gained an events calendar**: weekly view expandable to 2/4/8/13
+  weeks. Three sources: (1) curated, IR-confirmed results dates for all 30
+  coverage companies (`config/events_calendar.yaml`, researched 16 Jul 2026;
+  estimated dates flagged "unconfirmed"), plus one-offs (Halma AGM, Legrand
+  Investor Day); (2) rule-generated macro releases — ISM Manufacturing/
+  Services (1st/3rd business day), US payrolls (~1st Friday), S&P flash
+  PMIs (~24th), AIA/ABI (~3rd Wednesday), China NBS PMI (~month-end) — and
+  the full federalreserve.gov FOMC 2026 schedule; approximate rules render
+  with "~"; (3) Finnhub earnings calendar for the mapped US peers
+  (`calendar_events` table, fetched at most daily by the intraday job or
+  `--mode finnhub_earnings`, never on page load).
+- Curated coverage dates always win over provider rows; CSV download;
+  coverage results bolded with ▮, today marked ▶.
+- New: `src/features/events_calendar.py`, `config/events_calendar.yaml`,
+  `calendar_events` table (DuckDB + Postgres). 133 tests (5 new).
+- Maintenance note: coverage results dates need re-curating each quarter as
+  companies confirm them (most publish 3–6 months ahead).
+
 ## 2026-07-17 — v2.8.3 Coverage rows show "vs basket"
 - Market & Peers: bold coverage-company rows now carry `rel_vs_basket_pct`
   (own 1-day move minus the peer basket's equal-weight average; the basket

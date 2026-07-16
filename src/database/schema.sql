@@ -169,6 +169,21 @@ CREATE TABLE IF NOT EXISTS market_events (
     PRIMARY KEY (provider, provider_event_id)
 );
 
+-- Events calendar (v2.9): provider-sourced rows only (Finnhub earnings for
+-- US peers). Curated coverage dates + rule-based macro events come straight
+-- from config/events_calendar.yaml at render time and are never stored.
+CREATE TABLE IF NOT EXISTS calendar_events (
+    event_date  DATE NOT NULL,
+    event_type  TEXT NOT NULL,             -- 'results' | 'macro' | 'fed' | 'company'
+    subject     TEXT NOT NULL,             -- security key or macro slug
+    title       TEXT,
+    source      TEXT,                      -- 'finnhub' | 'curated' | 'rule'
+    confirmed   BOOLEAN DEFAULT TRUE,
+    details     TEXT,                      -- e.g. 'before open', EPS estimate
+    updated_at  TIMESTAMP,
+    PRIMARY KEY (event_date, event_type, subject)
+);
+
 CREATE TABLE IF NOT EXISTS canonical_prices (
     key          TEXT NOT NULL,
     session_date DATE NOT NULL,

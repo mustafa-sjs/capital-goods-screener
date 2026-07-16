@@ -180,6 +180,18 @@ def run_finnhub(db, run_id, args):
             m = ui.fetch_catalysts(db, run_id, svc, cfg, adapter, targets)
             ui.record_metrics(db, run_id, 'news', m, adapter)
             notes.append(f'news for {len(targets)} movers: {m}')
+        if args.mode in ('finnhub_earnings', 'finnhub_intraday'):
+            # US peers' upcoming results dates — at most one sweep per day
+            # (the intraday job runs several times a session)
+            from src.features.events_calendar import fetch_finnhub_earnings
+            last = db.fetchall("SELECT max(updated_at) FROM calendar_events "
+                               "WHERE source = 'finnhub'")
+            age_h = ((now() - last[0][0]).total_seconds() / 3600
+                     if last and last[0][0] else 999)
+            if args.mode == 'finnhub_earnings' or age_h > 20:
+                m = fetch_finnhub_earnings(db, run_id, svc, adapter)
+                ui.record_metrics(db, run_id, 'earnings_calendar', m, adapter)
+                notes.append(f'earnings calendar: {m}')
     except fmd.FinnhubAuthError as e:
         return 'failed', notes + [f'auth: {e} — check the FINNHUB_API_KEY secret']
     return status, notes
@@ -217,7 +229,8 @@ def main():
                     choices=['daily', 'prices_only', 'intraday', 'fundamentals',
                              'estimates', 'full_refresh', 'rebuild_features',
                              'validate_only', 'finnhub_anchor', 'finnhub_quotes',
-                             'finnhub_news', 'finnhub_intraday'])
+                             'finnhub_news', 'finnhub_intraday',
+                             'finnhub_earnings'])
     ap.add_argument('--db-url', default=None)
     ap.add_argument('--keys', nargs='*', default=None)
     ap.add_argument('--universe', choices=['core', 'all'], default=None)

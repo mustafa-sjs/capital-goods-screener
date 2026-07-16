@@ -1,0 +1,64 @@
+# Events calendar — curated dates + macro rules (v2.9).
+# Coverage-company results dates are CONFIRMED from company IR calendars /
+# press releases (checked 2026-07-16 via web search); confirmed: false means
+# the date is estimated from the company's historical pattern and must be
+# re-checked. Keys match the coverage pack. US peer results dates are NOT
+# curated here — they come from the Finnhub earnings calendar at refresh
+# time. Update this file as companies confirm next quarter's dates.
+
+results:
+  ABBN:  {date: 2026-07-16, label: "Q2 2026 results", confirmed: true, time: "before open"}
+  ATCOA: {date: 2026-07-16, label: "Q2 2026 report", confirmed: true, time: "11:00 CEST"}
+  VOLVB: {date: 2026-07-17, label: "Q2 2026 report", confirmed: true, time: "07:20 CEST"}
+  SAND:  {date: 2026-07-17, label: "Q2 2026 interim report", confirmed: true, time: "11:30 CEST"}
+  EPIA:  {date: 2026-07-17, label: "Q2 2026 results", confirmed: true, time: "~11:30 CEST"}
+  ASSAB: {date: 2026-07-17, label: "Q2 2026 report", confirmed: true, time: "09:00 CEST"}
+  SKFB:  {date: 2026-07-17, label: "Q2 2026 report", confirmed: true, time: "07:30 CEST"}
+  SCHP:  {date: 2026-07-21, label: "H1 2026 interim report", confirmed: true}
+  KNEBV: {date: 2026-07-22, label: "H1 2026 financial report", confirmed: true, time: "08:30 EEST"}
+  ALO:   {date: 2026-07-22, label: "Q1 FY2026/27 orders & sales", confirmed: true, time: "18:00 CEST"}
+  OTIS:  {date: 2026-07-22, label: "Q2 2026 earnings", confirmed: true, time: "08:30 ET"}
+  8TRA:  {date: 2026-07-23, label: "Q2 2026 / half-year report (prelims 13 Jul)", confirmed: true}
+  METSO: {date: 2026-07-24, label: "H1 2026 half-year review", confirmed: true}
+  RXL:   {date: 2026-07-27, label: "H1 2026 results (moved from 28 Jul)", confirmed: true, time: "after close"}
+  PCAR:  {date: 2026-07-28, label: "Q2 2026 earnings", confirmed: true, time: "before open"}
+  LR:    {date: 2026-07-29, label: "H1 2026 results", confirmed: true}
+  NEX:   {date: 2026-07-29, label: "H1 2026 results", confirmed: true, time: "07:00 CEST"}
+  SU:    {date: 2026-07-30, label: "H1 2026 results", confirmed: true}
+  PRY:   {date: 2026-07-30, label: "H1 2026 results", confirmed: true}
+  RR:    {date: 2026-07-30, label: "H1 2026 results", confirmed: true}
+  WEIR:  {date: 2026-07-30, label: "H1 2026 interim results (date not yet confirmed — pattern: late Jul)", confirmed: false}
+  IMI:   {date: 2026-07-31, label: "H1 2026 results", confirmed: true}
+  MRO:   {date: 2026-07-31, label: "H1 2026 results", confirmed: true}
+  ROR:   {date: 2026-08-04, label: "H1 2026 interim results (ABB cash offer announced 16 Jul)", confirmed: true}
+  SIE:   {date: 2026-08-06, label: "Q3 FY2026 results", confirmed: true}
+  DTG:   {date: 2026-08-07, label: "Q2 2026 results", confirmed: true}
+  SPX:   {date: 2026-08-11, label: "H1 2026 results", confirmed: true}
+  SRAIL: {date: 2026-08-26, label: "H1 2026 report", confirmed: true}
+  SMIN:  {date: 2026-09-22, label: "FY2026 results (year ended 31 Jul)", confirmed: true}
+  HLMA:  {date: 2026-11-19, label: "H1 FY2026/27 results (date not yet confirmed — FY results were 11 Jun)", confirmed: false}
+
+extra_events:
+  - {date: 2026-07-23, label: "Halma AGM", key: HLMA, confirmed: true}
+  - {date: 2026-09-29, label: "Legrand Investor Day (Singapore)", key: LR, confirmed: true}
+
+# FOMC meetings 2026 (federalreserve.gov; decision + press conference on day 2)
+fomc:
+  - [2026-01-27, 2026-01-28]
+  - [2026-03-17, 2026-03-18]
+  - [2026-04-28, 2026-04-29]
+  - [2026-06-16, 2026-06-17]
+  - [2026-07-28, 2026-07-29]
+  - [2026-09-15, 2026-09-16]
+  - [2026-10-27, 2026-10-28]
+  - [2026-12-08, 2026-12-09]
+
+# Rule-based recurring macro releases. approximate: true events display a
+# "~" and should be confirmed near the date (exact days shift occasionally).
+macro_rules:
+  ism_manufacturing: {rule: first_business_day, label: "US ISM Manufacturing PMI", time: "10:00 ET", approximate: false}
+  ism_services:      {rule: third_business_day, label: "US ISM Services PMI", time: "10:00 ET", approximate: false}
+  payrolls:          {rule: first_friday, label: "US Nonfarm Payrolls", time: "08:30 ET", approximate: true}
+  flash_pmis:        {rule: day_24_weekday, label: "S&P Global Flash PMIs (US, Eurozone, UK)", approximate: true}
+  abi:               {rule: third_wednesday, label: "US AIA/Deltek Architecture Billings Index (ABI)", approximate: true}
+  china_pmi:         {rule: last_day, label: "China NBS official PMIs", approximate: true}

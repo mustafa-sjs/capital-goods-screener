@@ -37,6 +37,57 @@ if run and run[3] == 'failed':
     st.error('The last data update failed — details under Manage → Data '
              f'Status. Notes: {run[4]}')
 
+# ------------------------------------------------ events calendar (v2.9) ---
+section('Events calendar',
+        'Coverage results (bold), US peer results, Fed and macro releases. '
+        'Coverage dates are confirmed from company IR calendars; “~” marks '
+        'rule-based or unconfirmed dates to re-check near the day.')
+from datetime import date as _date, datetime as _dt
+from src.utils.universe import universe_service as _usvc
+from src.features.events_calendar import upcoming_events
+
+_wk1, _wk2 = st.columns([1, 3])
+weeks_label = _wk1.selectbox('Calendar range',
+                             ['This week', 'Next 2 weeks', 'Next 4 weeks',
+                              'Next 8 weeks', 'Next 13 weeks'], index=1,
+                             label_visibility='collapsed')
+weeks = {'This week': 1, 'Next 2 weeks': 2, 'Next 4 weeks': 4,
+         'Next 8 weeks': 8, 'Next 13 weeks': 13}[weeks_label]
+try:
+    from components.data import get_db
+    _db = get_db()
+except Exception:
+    _db = None
+events, cal_start, cal_end = upcoming_events(_db, _usvc(), weeks)
+if not events:
+    st.info('No calendar events in this window.')
+else:
+    _wk2.caption(f'{cal_start:%a %d %b} – {cal_end:%a %d %b %Y} · '
+                 f'{len(events)} events · coverage results in bold · '
+                 f'US peer dates via Finnhub where available')
+    _today = _date.today().isoformat()
+    cal_rows = []
+    for e in events:
+        d = _dt.strptime(e['date'], '%Y-%m-%d').date()
+        mark = '▮ ' if e['category'] == 'Coverage results' else ''
+        cal_rows.append({
+            'Date': f"{'▶ ' if e['date'] == _today else ''}{d:%a %d %b}",
+            'Event': mark + e['label']
+                     + ('' if e['confirmed'] else ' (unconfirmed)'),
+            'Type': e['category'],
+            'When': ('' if e['confirmed'] else '~ ') + (e['detail'] or '')})
+    cal_df = pd.DataFrame(cal_rows)
+    st.dataframe(cal_df, hide_index=True, use_container_width=True,
+                 height=min(560, 38 * (len(cal_df) + 1) + 4))
+    st.caption('▮ = coverage company results · ▶ = today')
+    st.download_button('Download calendar (CSV)',
+                       pd.DataFrame(events).to_csv(index=False),
+                       'events_calendar.csv')
+    st.caption('Sources: company IR calendars (checked 16 Jul 2026), '
+               'federalreserve.gov, issuer release conventions, Finnhub '
+               'earnings calendar for US peers. Rule-based macro dates can '
+               'shift around holidays — confirm before trading around them.')
+
 core_rows = [r for r in D['close_rows'] if r['role'] == 'coverage']
 seen_keys = set()
 core_rows = [r for r in core_rows
