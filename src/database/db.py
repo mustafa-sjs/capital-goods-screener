@@ -88,9 +88,17 @@ class DB:
         return self.conn.execute(sql, params or []).fetchall()
 
     def upsert(self, table, cols, rows, key_cols):
-        """Idempotent upsert: running twice never duplicates or corrupts."""
+        """Idempotent upsert: running twice never duplicates or corrupts.
+
+        Rows are de-duplicated on key_cols first (last occurrence wins).
+        Postgres batches inserts via execute_values, and ON CONFLICT DO
+        UPDATE raises CardinalityViolation if one batch touches the same
+        key twice (2026-07-16 daily-refresh outage); DuckDB's row-by-row
+        executemany silently kept the last row, so behaviour now matches."""
         if not rows:
             return 0
+        ki = [cols.index(k) for k in key_cols]
+        rows = list({tuple(r[i] for i in ki): tuple(r) for r in rows}.values())
         ph = ', '.join([self.ph] * len(cols))
         collist = ', '.join(cols)
         keylist = ', '.join(key_cols)

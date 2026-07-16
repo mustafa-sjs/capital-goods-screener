@@ -65,3 +65,20 @@ def test_mock_adapter_shape():
     q, bars = ad.get_quote_and_bars('TEST')
     assert q['symbol'] == 'TEST' and q['source'] == 'mock'
     assert bars[0]['close'] == 10.0
+
+
+def test_upsert_dedupes_batch_on_key(monkeypatch):
+    """One batch containing the same natural key twice must not fail on
+    Postgres (CardinalityViolation, 2026-07-16 outage) — upsert dedupes,
+    last occurrence wins, matching row-by-row semantics."""
+    d = _tmp_db(monkeypatch)
+    cols = ['run_id', 'check_name', 'severity', 'subject', 'message', 'created_at']
+    rows = [('r1', 'extreme_daily_move', 'warning', 'CAT:2026-07-16', 'factiq', None),
+            ('r1', 'extreme_daily_move', 'warning', 'CAT:2026-07-16', 'mixed', None),
+            ('r1', 'extreme_daily_move', 'warning', 'DE:2026-07-16', 'ok', None)]
+    n = d.upsert('validation_results', cols, rows,
+                 ['run_id', 'check_name', 'subject'])
+    assert n == 2                       # deduped before insert
+    got = d.fetchall("SELECT subject, message FROM validation_results "
+                     "ORDER BY subject")
+    assert got == [('CAT:2026-07-16', 'mixed'), ('DE:2026-07-16', 'ok')]
