@@ -16,6 +16,7 @@ from src.database.db import connect
 
 TABLES = ['securities', 'coverage_groups', 'coverage_members', 'raw_daily_prices',
           'raw_monthly_prices', 'raw_fx_rates', 'raw_quotes', 'eu_close_snapshots',
+          'market_benchmark_snapshots', 'market_events',
           'feat_screener', 'feat_valuation_history', 'daily_change_events',
           'watchlists', 'watchlist_members', 'saved_screens', 'refresh_runs',
           'validation_results']

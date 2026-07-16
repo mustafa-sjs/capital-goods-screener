@@ -11,7 +11,10 @@ Metric definitions & methodology: `capital_goods_methodology.md`.
 | raw_monthly_prices | key, price_date, source | month-end closes (FactIQ, ~8y) |
 | raw_quotes | key | latest close/prev/52w (refresh overwrites; history lives in daily) |
 | raw_fx_rates | pair, rate_date, source | vs-USD closes |
-| eu_close_snapshots | key, obs_date, benchmark_time | TRUE 16:30 UK price + later close; DST-aware |
+| eu_close_snapshots | key, obs_date, benchmark_time | TRUE 16:30 UK price + later close (European names; compatibility path) |
+| market_benchmark_snapshots | key, observation_date, benchmark_name | v2.8 US layer: 16:30 UK anchor + latest US price, each with source/quality/timestamps (UTC) |
+| intraday_quote_snapshots | key, quote_ts, source | small audit trail of periodic US quote updates (not a tick store) |
+| market_events | provider, provider_event_id | company-news metadata for catalyst display (headline/link/summary only) |
 | raw_fundamentals | key, kind | FactIQ/SEC statement payloads verbatim (JSON) |
 | raw_estimate_snapshots | key, snapshot_date, metric, period | EMPTY by design — no consensus source; ready for one |
 | feat_screener | snapshot_date, key | full screener row JSON + indexed columns; accumulates daily (point-in-time) |

@@ -1,0 +1,82 @@
+name: us-intraday-market-data
+# Finnhub US intraday layer: capture the 16:30 UK benchmark for US peers,
+# then keep their prices + catalysts fresh while the US session runs.
+#
+# Scheduling philosophy (mirrors intraday_refresh.yml): GitHub crons are
+# UTC and can start late, so no job depends on firing at exactly 16:30.
+# Dual crons cover BST/GMT; a dependency-free Python guard (zoneinfo,
+# Europe/London + America/New_York) decides in <5s whether a firing does
+# real work. The anchor job opens a short WebSocket window before 16:30 and
+# recovers via candle/quote/Yahoo afterwards; update runs are idempotent
+# (finnhub_intraday re-fills missing anchors but never downgrades quality).
+#
+# Required repository configuration (set manually — never committed):
+#   secret  FINNHUB_API_KEY      the rotated Finnhub key
+#   secret  DATABASE_URL         Supabase pooler URI (already exists)
+#   variable FINNHUB_ENABLED     'true' to activate this workflow's writes
+#   variable FINNHUB_USAGE_MODE  'pilot' until commercial use is confirmed
+
+on:
+  schedule:
+    # benchmark capture: starts ~16:26 London in both DST regimes
+    - cron: '26 15 * * 1-5'
+    - cron: '26 16 * * 1-5'
+    # recovery + US-session updates: ~:05 past each hour, both regimes;
+    # the guard drops firings outside 16:45-21:40 London / US session
+    - cron: '50 15 * * 1-5'
+    - cron: '50 16 * * 1-5'
+    - cron: '5 16-21 * * 1-5'
+  workflow_dispatch: {}
+
+concurrency:
+  group: us-intraday-market-data     # separate from the nightly 'refresh' group
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  us-intraday:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decide mode from London/New York time (no deps, <5s)
+        id: guard
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          lon = datetime.now(ZoneInfo('Europe/London'))
+          ny = datetime.now(ZoneInfo('America/New_York'))
+          lmin, nymin = lon.hour * 60 + lon.minute, ny.hour * 60 + ny.minute
+          us_open = ny.weekday() < 5 and 9 * 60 + 30 <= nymin < 16 * 60 + 20
+          mode = 'skip'
+          if 16 * 60 + 20 <= lmin <= 16 * 60 + 40:
+              mode = 'finnhub_anchor'          # WebSocket window + recovery
+          elif 16 * 60 + 41 <= lmin and us_open:
+              mode = 'finnhub_intraday'        # recover anchors, quotes, catalysts
+          print(f'mode={mode}')
+          print(f'note=London {lon:%H:%M} / New York {ny:%H:%M} us_open={us_open}',
+                flush=True)
+          EOF
+      - uses: actions/setup-python@v5
+        if: steps.guard.outputs.mode != 'skip'
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies (+ websockets for the anchor capture only)
+        if: steps.guard.outputs.mode != 'skip'
+        run: |
+          pip install -r requirements.txt
+          if [ "${{ steps.guard.outputs.mode }}" = "finnhub_anchor" ]; then
+            pip install 'websockets>=12'
+          fi
+      - name: Run Finnhub refresh (exits cleanly when disabled/keyless)
+        if: steps.guard.outputs.mode != 'skip'
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FINNHUB_ENABLED: ${{ vars.FINNHUB_ENABLED || 'false' }}
+          FINNHUB_USAGE_MODE: ${{ vars.FINNHUB_USAGE_MODE || 'pilot' }}
+        run: python scripts/refresh.py --mode ${{ steps.guard.outputs.mode }}

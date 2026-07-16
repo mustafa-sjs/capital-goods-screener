@@ -105,6 +105,70 @@ else:
     st.info('No changes recorded yet — the history fills as daily updates '
             'accumulate.')
 
+# ------------------------------------------------ Finnhub US intraday ------
+section('Finnhub US intraday layer',
+        'Status of the hybrid 16:30 UK benchmark, US quote updates and '
+        'catalyst feed (Market & Peers → "US since Europe closed").')
+import os as _os
+
+_enabled = _os.environ.get('FINNHUB_ENABLED', 'false').lower() in ('1', 'true',
+                                                                   'yes', 'on')
+_mode = _os.environ.get('FINNHUB_USAGE_MODE', 'pilot')
+c1, c2, c3 = st.columns(3)
+c1.metric('Finnhub', 'Enabled' if _enabled else 'Disabled')
+c2.metric('Usage mode', _mode + (' (provider evaluation)'
+                                 if _mode == 'pilot' else ''))
+fh_runs = q("""SELECT mode, max(finished_at) FROM refresh_runs
+               WHERE mode LIKE 'finnhub%' AND status IN ('success','partial')
+               GROUP BY mode""")
+last_by_mode = {m: t for m, t in fh_runs}
+last_q = max((t for m, t in last_by_mode.items()
+              if m in ('finnhub_quotes', 'finnhub_intraday')), default=None)
+last_n = max((t for m, t in last_by_mode.items()
+              if m in ('finnhub_news', 'finnhub_intraday')), default=None)
+c3.metric('Last quote refresh', str(last_q)[:16] if last_q else 'never')
+try:
+    from src.features.us_intraday import BENCHMARK_NAME, validate_mappings
+    from src.utils.universe import universe_service
+    _probs = validate_mappings(universe_service())
+    snap_q = q(f"""SELECT anchor_quality, count(*),
+                   sum(CASE WHEN anchor_source = 'yahoo_intraday_fallback'
+                       THEN 1 ELSE 0 END)
+                   FROM market_benchmark_snapshots
+                   WHERE benchmark_name = {ph()} AND observation_date =
+                     (SELECT max(observation_date)
+                      FROM market_benchmark_snapshots
+                      WHERE benchmark_name = {ph()})
+                   GROUP BY anchor_quality""",
+               [BENCHMARK_NAME, BENCHMARK_NAME])
+except Exception:
+    _probs, snap_q = [], []
+rows = [('Last catalyst refresh', str(last_n)[:16] if last_n else 'never'),
+        ('Symbol mappings needing attention',
+         ', '.join(f'{k} ({c})' for c, k, _ in _probs) or 'none')]
+if snap_q:
+    rows.append(('Latest benchmark quality',
+                 ' · '.join(f'{(a or "unavailable")}: {n}'
+                            for a, n, _ in snap_q)))
+    fb = sum(y or 0 for _, _, y in snap_q)
+    rows.append(('Yahoo fallback anchors', str(fb)))
+else:
+    rows.append(('Latest benchmark', 'no captures stored yet'))
+st.dataframe(pd.DataFrame(rows, columns=['Item', 'Status']), hide_index=True,
+             use_container_width=True)
+if not _enabled:
+    st.caption('Finnhub US intraday data is unavailable — Yahoo fallback or '
+               'the latest stored observation is shown on Market & Peers. '
+               'Enabling production use requires confirmed commercial-use '
+               'licensing (see README).')
+with st.expander('Finnhub run internals (advanced)'):
+    mrows = q("""SELECT run_id, item, message FROM refresh_run_items
+                 WHERE item LIKE 'finnhub%' ORDER BY run_id DESC LIMIT 12""")
+    st.dataframe(pd.DataFrame(mrows, columns=['Run', 'Stage', 'Metrics']),
+                 hide_index=True, use_container_width=True)
+    st.caption('Metrics include request counts, HTTP 429 responses, retries '
+               'and anchor coverage. The API key is never stored or shown.')
+
 # ------------------------------------------------ administration -----------
 with st.expander('Administration (pipeline internals, database, controls)'):
     section('Refresh history')

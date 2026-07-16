@@ -10,6 +10,15 @@
     python scripts/refresh.py --mode validate_only    # checks only
     python scripts/refresh.py --mode full_refresh     # daily + parquet archive
 
+Finnhub US intraday layer (no engine run, no feature publication — writes
+only the benchmark/quote/catalyst tables; exits cleanly when FINNHUB_API_KEY
+is absent or FINNHUB_ENABLED is false):
+
+    python scripts/refresh.py --mode finnhub_anchor   # capture/recover 16:30 UK anchor
+    python scripts/refresh.py --mode finnhub_quotes   # update current US quotes
+    python scripts/refresh.py --mode finnhub_news     # catalysts for material movers
+    python scripts/refresh.py --mode finnhub_intraday # anchor -> quotes -> news
+
 Incremental by construction: prices fetch ~1 month of bars and upsert on
 (key, price_date, source); history is never re-downloaded. Idempotent: any
 mode can run twice safely. A failed security never stops the others; a
@@ -123,6 +132,59 @@ def fill_intraday_later_prices(db):
           AND eu_close_snapshots.later_price IS NULL""")
 
 
+def run_finnhub(db, run_id, args):
+    """Finnhub US intraday modes. Deliberately outside the engine/publish
+    chain: idempotent DB upserts only, no backfills, no feature rebuild.
+    Returns (status, notes)."""
+    from src.ingestion import finnhub_market_data as fmd
+    from src.features import us_intraday as ui
+    from src.utils.universe import universe_service
+    if not fmd.enabled() or fmd.usage_mode() == 'disabled':
+        return 'success', ['finnhub disabled (FINNHUB_ENABLED/USAGE_MODE) — '
+                           'nothing to do; Yahoo + stored data keep serving']
+    if not fmd.api_key():
+        return 'success', ['FINNHUB_API_KEY not set — exiting cleanly; '
+                           'Yahoo + stored data keep serving']
+    svc = universe_service()
+    cfg = ui.load_cfg()
+    notes = [f'usage_mode={fmd.usage_mode()}']
+    problems = ui.validate_mappings(svc)
+    if problems:
+        ui._emit_checks(db, run_id, problems)
+        notes.append(f'{len(problems)} symbol-mapping warnings (see Data Status)')
+    adapter = fmd.FinnhubAdapter(
+        max_rpm=cfg['rate_limit']['max_requests_per_minute'])
+    keys = args.keys or None
+    status = 'success'
+    try:
+        if args.mode in ('finnhub_anchor', 'finnhub_intraday'):
+            ws = None
+            try:
+                ws = ui.ws_anchor_capture(svc, cfg, keys)   # None outside window
+            except Exception as e:
+                notes.append(f'websocket capture unavailable: {type(e).__name__}')
+            m = ui.capture_anchor(db, run_id, svc, cfg, adapter, keys,
+                                  ws_results=ws)
+            ui.record_metrics(db, run_id, 'anchor', m, adapter)
+            notes.append(f'anchor: {m}')
+        if args.mode in ('finnhub_quotes', 'finnhub_intraday'):
+            m = ui.update_quotes(db, run_id, svc, cfg, adapter, keys)
+            ui.record_metrics(db, run_id, 'quotes', m, adapter)
+            notes.append(f'quotes: {m}')
+            if m['requested'] and m['failed'] >= m['requested']:
+                status = 'partial'
+        if args.mode in ('finnhub_news', 'finnhub_intraday'):
+            movers, moves = ui.select_movers(db, svc, cfg, keys)
+            targets = movers if (args.movers_only or not keys) else \
+                [k for k in keys if k in svc['finnhub']]
+            m = ui.fetch_catalysts(db, run_id, svc, cfg, adapter, targets)
+            ui.record_metrics(db, run_id, 'news', m, adapter)
+            notes.append(f'news for {len(targets)} movers: {m}')
+    except fmd.FinnhubAuthError as e:
+        return 'failed', notes + [f'auth: {e} — check the FINNHUB_API_KEY secret']
+    return status, notes
+
+
 def rebuild_features():
     """Run the validated calculation engine and assemble the static HTML."""
     r = subprocess.run([PY, os.path.join(ROOT, 'scripts', 'compute_metrics.py')],
@@ -154,19 +216,38 @@ def main():
     ap.add_argument('--mode', default='daily',
                     choices=['daily', 'prices_only', 'intraday', 'fundamentals',
                              'estimates', 'full_refresh', 'rebuild_features',
-                             'validate_only'])
+                             'validate_only', 'finnhub_anchor', 'finnhub_quotes',
+                             'finnhub_news', 'finnhub_intraday'])
     ap.add_argument('--db-url', default=None)
     ap.add_argument('--keys', nargs='*', default=None)
     ap.add_argument('--universe', choices=['core', 'all'], default=None)
     ap.add_argument('--region', choices=['europe', 'uk', 'us', 'japan'],
                     default=None)
     ap.add_argument('--failed-only', action='store_true')
+    ap.add_argument('--movers-only', action='store_true',
+                    help='finnhub_news: restrict to material movers (default '
+                         'when no --keys are given)')
     args = ap.parse_args()
     db = connect(args.db_url)
     run_id = f'{args.mode}-{now().strftime("%Y%m%dT%H%M%S")}-{uuid.uuid4().hex[:6]}'
     db.upsert('refresh_runs', ['run_id', 'mode', 'started_at', 'status'],
               [(run_id, args.mode, now(), 'running')], ['run_id'])
     status, inserted, failed, notes = 'success', 0, 0, []
+    if args.mode.startswith('finnhub_'):
+        # US intraday layer: DB-only upserts, never the engine/publish chain
+        started = now()
+        try:
+            status, notes = run_finnhub(db, run_id, args)
+        except Exception as e:
+            status, notes = 'failed', notes + [repr(e)[:400]]
+        db.upsert('refresh_runs',
+                  ['run_id', 'mode', 'started_at', 'finished_at', 'status',
+                   'rows_inserted', 'items_failed', 'notes'],
+                  [(run_id, args.mode, started, now(), status, 0, 0,
+                    ' | '.join(notes))], ['run_id'])
+        print(f'[{run_id}] {status}: ' + ' | '.join(notes))
+        db.close()
+        sys.exit(0 if status in ('success', 'partial') else 1)
     try:
         if args.mode in ('fundamentals', 'estimates'):
             fundamentals_report(db)

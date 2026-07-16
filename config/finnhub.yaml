@@ -1,0 +1,44 @@
+# Finnhub US intraday & catalyst layer — operational configuration.
+# The API key is NEVER stored here: it is read only from the FINNHUB_API_KEY
+# environment variable (GitHub Actions secret / local .env). Enablement is
+# also environment-driven (FINNHUB_ENABLED, FINNHUB_USAGE_MODE) so a config
+# commit can never silently activate a licensed data source.
+
+benchmark:
+  # The business question: how have US names moved since Europe closed?
+  name: european_close_1630_uk
+  time_local: "16:30"          # always defined in Europe/London
+  timezone: Europe/London      # DST handled by zoneinfo, never a fixed offset
+
+# Anchor-quality thresholds (seconds relative to the 16:30 target).
+# Exact: |obs - target| <= exact_within_s.
+# Acceptable: observation earlier than target by <= acceptable_before_s.
+# Stale: older than acceptable_before_s. Unavailable: no valid price.
+quality:
+  exact_within_s: 60
+  acceptable_before_s: 300
+
+rate_limit:
+  # Finnhub's free plan lists 60 calls/min; run well inside it.
+  max_requests_per_minute: 30
+
+news:
+  # Catalysts are fetched only for material movers, never all 114 slots.
+  min_abs_move_pct: 1.0        # |move since 16:30 UK| that triggers a fetch
+  top_movers_each_side: 5      # always fetch for top N gainers + N fallers
+  fallback_lookback_days: 3    # widen the window when the session has no news
+  max_symbols_per_run: 20      # hard cap on news requests per cycle
+
+websocket:
+  # Method B: short-lived trade capture around the benchmark. Requires the
+  # optional `websockets` package (installed in the GitHub Actions job only —
+  # deliberately NOT in requirements.txt so Streamlit Cloud never carries it).
+  enabled: true
+  open_before_s: 240           # connect ~4 min before 16:30 UK
+  close_after_s: 90            # disconnect shortly after the benchmark
+  max_symbols: 50              # free-plan WebSocket entitlement
+
+pilot:
+  # FINNHUB_USAGE_MODE=pilot restricts every Finnhub job to this evaluation
+  # universe until commercial-use permission is confirmed (see README).
+  universe: [ETN, ROK, EMR, GE, VRT, HON, JCI, TT, CARR, OTIS]

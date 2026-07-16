@@ -43,6 +43,15 @@ defines its own membership lists or metric labels.
   upserts on `(key, price_date, source)`.
 - **Intraday (automated):** true 16:30 UK benchmark snapshots for European
   names from 5-minute bars — real "move since European close".
+- **US intraday (automated, v2.8, optional):** the Finnhub layer captures a
+  16:30 UK benchmark for the US peers (1-minute candle → WebSocket trade →
+  REST quote → Yahoo fallback, quality-tagged), refreshes their prices
+  through the US session and attaches the latest company-specific news to
+  material movers. Powers Market & Peers → "US since Europe closed".
+  Runs only when `FINNHUB_API_KEY` (Actions secret) and `FINNHUB_ENABLED`
+  (Actions variable) are set; without them every page keeps serving from
+  Yahoo + stored data. Modes: `finnhub_anchor`, `finnhub_quotes`,
+  `finnhub_news`, `finnhub_intraday` (see `scripts/refresh.py`).
 - **Fundamentals (manual, quarterly-ish):** FactIQ speaks only through an
   interactively-authenticated session — open Claude Code here and say
   *"run the quarterly FactIQ refresh"*. `--mode fundamentals` reports staleness.
@@ -66,6 +75,29 @@ its FactIQ statements fetched once (Claude session) into `data/raw/`. A new
 sector = a new coverage-pack YAML — no core rewrites. The engine keeps
 equivalent fallback literals; `tests/unit/test_db_and_config.py` fails if
 they drift.
+
+## Finnhub setup & licensing gate (v2.8)
+
+1. Create an API key at finnhub.io, then add it **manually** as the GitHub
+   Actions secret `FINNHUB_API_KEY` (repo Settings → Secrets → Actions).
+   Never commit a key, put it in YAML/source/tests, or paste it into chat —
+   if a key is ever exposed, rotate it immediately.
+2. Set Actions **variables** `FINNHUB_ENABLED=true` and
+   `FINNHUB_USAGE_MODE=pilot`. Pilot mode restricts every Finnhub job to the
+   evaluation universe in `config/finnhub.yaml` and labels the output as a
+   provider evaluation alongside Yahoo.
+3. `FINNHUB_USAGE_MODE=production` (full US universe) must stay off until
+   Finnhub confirms in writing that the agreement covers: internal business
+   use, display to the intended traders/analysts and user count, storage of
+   intraday observations, storage/display of company-news metadata, display
+   of derived peer-basket calculations, and the intended retention. Finnhub's
+   listed self-serve plans are marked personal-use.
+4. Everything is display-labelled *indicative market data* — it is not an
+   execution-grade or guaranteed real-time feed.
+
+Requests stay well inside the free tier: a conservative 30 req/min limiter
+(`config/finnhub.yaml`), quotes only for the mapped US peers, news only for
+material movers (|move since 16:30 UK| ≥ 1% plus top 5 each way, capped).
 
 ## Recover from a failed refresh
 

@@ -20,9 +20,26 @@ share.streamlit.io → the app → Reboot; or delete + recreate pointing at
 `app/Home.py` (2 minutes). Re-enter the `DATABASE_URL` secret.
 
 ## Reconnect secrets
-GitHub: repo Settings → Secrets → Actions → `DATABASE_URL`.
-Streamlit: app Settings → Secrets → `DATABASE_URL = "..."`.
+GitHub: repo Settings → Secrets → Actions → `DATABASE_URL`, plus
+`FINNHUB_API_KEY` and the Actions *variables* `FINNHUB_ENABLED` /
+`FINNHUB_USAGE_MODE` for the US intraday layer (rotate the Finnhub key at
+finnhub.io if it may have been exposed — it lives nowhere in the repo).
+Streamlit: app Settings → Secrets → `DATABASE_URL = "..."` (the app never
+needs the Finnhub key).
 Supabase password lost → Supabase dashboard → Settings → Database → reset.
+
+## Missed or bad 16:30 US benchmark
+The anchor self-heals: every later `us-intraday-market-data` run retries
+missing/low-quality anchors and never downgrades a stored one. Manual
+recovery (same day, or Actions → us-intraday-market-data → Run workflow):
+```bash
+python scripts/refresh.py --mode finnhub_anchor            # recover anchors
+python scripts/refresh.py --mode finnhub_intraday          # + quotes + news
+python scripts/refresh.py --mode finnhub_quotes --keys ETN ROK   # targeted
+```
+If Finnhub is down entirely the run falls back to Yahoo 5-minute bars
+(`yahoo_intraday_fallback`, quality-tagged); with no key at all the modes
+exit cleanly and Market & Peers shows its documented unavailable notice.
 
 ## Corrupted price update
 Nothing is deleted automatically, so bad rows sit in `raw_daily_prices`

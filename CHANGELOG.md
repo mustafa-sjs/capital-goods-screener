@@ -1,5 +1,47 @@
 # Changelog
 
+## 2026-07-16 — v2.8 Finnhub US intraday prices & catalyst context
+Focused addition to Market & Peers — historical prices, canonical pipeline,
+Yahoo daily refresh, peer baskets, fundamentals, momentum and the DB
+abstraction are all unchanged. Finnhub is a second, licensing-gated US
+market-data source, not a replacement.
+- **"US since Europe closed" view** on Market & Peers: per-basket US tables
+  (16:30 UK anchor price, current US price, move since 16:30, anchor
+  quality, latest company-specific update, updated time), equal-weight peer
+  summaries with best/weakest contributors, a coverage status strip, and
+  clickable catalyst links for material movers. European rows never show a
+  misleading 0.0% — closed markets show "–". Labelled *indicative market
+  data*. The classic view's "since 16:30 UK" column now shows genuine US
+  moves (previously it showed EU names' ~zero 16:30→close drift).
+- **Hybrid 16:30 UK benchmark** (`market_benchmark_snapshots`, portable
+  DuckDB/Postgres): finnhub_candle → finnhub_websocket → finnhub_quote →
+  yahoo_intraday_fallback, each stored with real timestamps, source and
+  quality (exact/acceptable/stale/unavailable, thresholds in
+  `config/finnhub.yaml`); recovery runs only ever upgrade quality.
+  `eu_close_snapshots` retained as the European compatibility path.
+- **Catalyst layer** (`market_events`): company-news metadata for movers
+  (≥1% since 16:30 or top 5 each way), deduplicated, transparently ranked,
+  displayed as "Possible catalyst" / "Latest company-specific update" —
+  never asserted causation; explicit "No recent company-specific catalyst
+  identified" state.
+- **Adapter & ops**: `src/ingestion/finnhub_market_data.py` (stdlib, token
+  in header only, 30 req/min limiter, backoff+jitter, 401/403/429 typed
+  handling), `src/features/us_intraday.py`, refresh modes `finnhub_anchor
+  / finnhub_quotes / finnhub_news / finnhub_intraday`, workflow
+  `us_intraday_refresh.yml` (DST-aware Python guards, own concurrency
+  group), Finnhub section in Data Status, `data_version()` invalidates on
+  new benchmark/catalyst data, cross-source Finnhub-vs-Yahoo checks.
+- **Safety/licensing**: runs only with the `FINNHUB_API_KEY` Actions secret
+  (never committed/logged; Streamlit never sees it) and `FINNHUB_ENABLED`;
+  `FINNHUB_USAGE_MODE=pilot` restricts to an evaluation universe until
+  commercial-use permission is confirmed. Without the key every page keeps
+  serving from Yahoo + stored data.
+- **Mapping**: `finnhub_symbol` added for all 48 US securities in the
+  coverage pack (MOG/A → `MOG.A`), validated for gaps/duplicates/exchange/
+  currency and surfaced in Data Status, never silently excluded.
+- **Tests**: 119 total (30 new, all Finnhub traffic mocked — CI never calls
+  the live API).
+
 ## 2026-07-14 — v2.7 Product simplification & consistency refactor
 Incremental reorganisation — no calculation engine, database or refresh
 change beyond the additions below; charts were moved and retitled, not

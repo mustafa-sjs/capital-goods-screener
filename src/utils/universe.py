@@ -5,6 +5,7 @@ Returns the exact shapes the engine and refresh scripts consume:
   SEC       {key: dict(name, qccy, rccy, exch, sym)}
   SUBGROUPS [(subgroup_name, [(display, [coverage_keys], [peer_keys]), ...])]
   YAHOO     {key: yahoo_symbol}
+  FINNHUB   {key: finnhub_symbol} (US securities only — the intraday layer)
 
 Falls back to None if PyYAML is unavailable so callers can keep their
 embedded literals as a last resort (documented fallback, not the norm).
@@ -32,13 +33,16 @@ def load_universe(path=DEFAULT_PACK):
                  for sg in cfg['subgroups']]
     yahoo = {k: v['yahoo_symbol'] for k, v in cfg['securities'].items()
              if v.get('yahoo_symbol')}
+    finnhub = {k: v['finnhub_symbol'] for k, v in cfg['securities'].items()
+               if v.get('finnhub_symbol')}
     # referential integrity: every key referenced by a group must exist
     for sg, groups in subgroups:
         for disp, cov, peers in groups:
             for k in cov + peers:
                 if k not in sec:
                     raise ValueError(f'{path}: group "{disp}" references unknown key {k}')
-    return dict(sec=sec, subgroups=subgroups, yahoo=yahoo, pack=cfg.get('pack'))
+    return dict(sec=sec, subgroups=subgroups, yahoo=yahoo, finnhub=finnhub,
+                pack=cfg.get('pack'))
 
 
 # ===== shared universe service ==============================================
@@ -71,7 +75,7 @@ def universe_service(path=DEFAULT_PACK, validate=True):
                    basket that uses them)
       role_of    : {key: 'coverage' | 'peer'}
       names, tickers, qccy, rccy, exch : {key: value}
-      sec, subgroups, yahoo, pack      : the load_universe() shapes
+      sec, subgroups, yahoo, finnhub, pack : the load_universe() shapes
     """
     ck = (os.path.abspath(path),)
     if ck in _svc_cache:
@@ -105,7 +109,7 @@ def universe_service(path=DEFAULT_PACK, validate=True):
         rccy={k: v['rccy'] for k, v in u['sec'].items()},
         exch={k: v['exch'] for k, v in u['sec'].items()},
         sec=u['sec'], subgroups=u['subgroups'], yahoo=u['yahoo'],
-        pack=u['pack'])
+        finnhub=u.get('finnhub', {}), pack=u['pack'])
     if validate:
         problems = validate_universe(svc)
         if problems:

@@ -1,6 +1,15 @@
 # PROJECT STATUS — Capital Goods Research Platform
 
-*Updated 2026-07-14 (update this file whenever the facts below change).*
+*Updated 2026-07-16 (update this file whenever the facts below change).*
+
+**v2.8 (2026-07-16):** Finnhub US intraday layer — hybrid 16:30 UK benchmark
+for the 48 US peers (candle → websocket → quote → Yahoo fallback, quality
+tagged), session quote updates, catalyst news for material movers, "US since
+Europe closed" view on Market & Peers, `us_intraday_refresh.yml` workflow.
+Licensing-gated: requires `FINNHUB_API_KEY` secret + `FINNHUB_ENABLED`
+variable; `FINNHUB_USAGE_MODE=pilot` until commercial use is confirmed
+(Finnhub self-serve plans are personal-use). 119 tests; live API never
+called from CI. Historical prices / fundamentals / momentum unchanged.
 
 **v2.7 (2026-07-14):** product simplification refactor — five-page research
 navigation (Overview / Stock Screener / Compare Companies / Company Analysis
@@ -28,7 +37,7 @@ database, refresh pipeline unchanged. See CHANGELOG v2.7.
 | Pipeline integrity | v2.3: incremental daily refresh + candidate publish gate + canonical publication + DB-first charts + provenance (docs/current_state_audit.md) |
 | Price engine | Canonical 5y daily history (98.8k sessions, TR/split/raw bases, corporate actions); session-aware returns replacing the defective monthly method (docs/price_data_audit.md) |
 | Current phase | Phase 2 complete (persistent + reliable updates); Phase 3 largely complete (screener/presets/changes/watchlists); Phase 4 (backtesting) roadmap only |
-| Limitations | LTM-only basis (no consensus feed); own-history percentiles on 3–6 annual obs; EU-close read-across uses full-session closes until intraday workflow accumulates snapshots |
+| Limitations | LTM-only basis (no consensus feed); own-history percentiles on 3–6 annual obs; US "since 16:30 UK" read-across needs the Finnhub layer enabled (pilot licensing gate) — otherwise Yahoo-fallback anchors only |
 
 ## Next three priorities (updated 2026-07-13)
 

@@ -42,9 +42,18 @@ def data_version():
         db = get_db()
         r = db.fetchall('SELECT max(snapshot_date) FROM app_payload')
         q = db.fetchall('SELECT max(refreshed_at) FROM raw_quotes')
-        return f'{r[0][0]}|{q[0][0]}'
+        ver = f'{r[0][0]}|{q[0][0]}'
     except Exception:
         return 'fallback'
+    # US intraday layer: a new benchmark/quote or catalyst refresh must
+    # invalidate Market & Peers promptly (tables may not exist mid-migration)
+    try:
+        b = db.fetchall('SELECT max(updated_at) FROM market_benchmark_snapshots')
+        e = db.fetchall('SELECT max(retrieved_at) FROM market_events')
+        ver += f'|{b[0][0]}|{e[0][0]}'
+    except Exception:
+        pass
+    return ver
 
 
 def freshness():
@@ -247,6 +256,12 @@ CHECK_LABELS = {
                                'possible unit or scale error',
     'stale_vs_market': 'Price is behind the latest date for its market',
     'core_coverage_stale': 'Several coverage companies have stale prices',
+    'missing_symbol_mapping': 'A US peer has no Finnhub symbol configured',
+    'duplicate_finnhub_symbol': 'Two securities map to the same Finnhub symbol',
+    'unexpected_exchange': 'A Finnhub mapping exists for a non-US listing',
+    'cross_source_timestamp_gap': 'Finnhub and Yahoo prices differ but were '
+                                  'observed at different times — market '
+                                  'movement, not a provider conflict',
 }
 
 

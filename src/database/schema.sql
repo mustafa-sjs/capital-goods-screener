@@ -106,6 +106,69 @@ CREATE TABLE IF NOT EXISTS eu_close_snapshots (
     PRIMARY KEY (key, obs_date, benchmark_time)
 );
 
+-- Generalised intraday benchmark (v2.8): successor to eu_close_snapshots for
+-- the US read-across. One row per security/session/benchmark carrying the
+-- 16:30 UK anchor AND the latest observed price, each with source + quality.
+-- eu_close_snapshots is retained as the compatibility read path for the
+-- European capture until this table is validated (see CHANGELOG v2.8).
+-- All TIMESTAMP columns store UTC.
+CREATE TABLE IF NOT EXISTS market_benchmark_snapshots (
+    key                     TEXT NOT NULL,
+    observation_date        DATE NOT NULL,        -- US session date
+    benchmark_name          TEXT NOT NULL,        -- 'european_close_1630_uk'
+    target_ts               TIMESTAMP,            -- 16:30 Europe/London in UTC
+    anchor_price            DOUBLE PRECISION,
+    anchor_ts               TIMESTAMP,
+    latest_price            DOUBLE PRECISION,
+    latest_ts               TIMESTAMP,
+    currency                TEXT,
+    anchor_source           TEXT,                 -- finnhub_candle | finnhub_websocket |
+                                                  -- finnhub_quote | yahoo_intraday_fallback | manual
+    latest_source           TEXT,
+    anchor_quality          TEXT,                 -- exact | acceptable | stale | unavailable
+    observation_age_seconds INTEGER,              -- target minus anchor observation
+    run_id                  TEXT,
+    updated_at              TIMESTAMP,
+    PRIMARY KEY (key, observation_date, benchmark_name)
+);
+
+-- Periodic US intraday quote observations (audit trail of updates — a few
+-- rows per name per session, never a tick store).
+CREATE TABLE IF NOT EXISTS intraday_quote_snapshots (
+    key            TEXT NOT NULL,
+    quote_ts       TIMESTAMP NOT NULL,            -- provider's own quote time (UTC)
+    price          DOUBLE PRECISION,
+    previous_close DOUBLE PRECISION,
+    currency       TEXT,
+    source         TEXT NOT NULL,
+    quality        TEXT DEFAULT 'ok',
+    run_id         TEXT,
+    ingested_at    TIMESTAMP,
+    PRIMARY KEY (key, quote_ts, source)
+);
+
+-- Company-specific news / catalyst metadata (headline + link only, never
+-- article bodies). Unique on provider + provider event id; when the provider
+-- returns no reliable id the ingester substitutes a deterministic URL hash.
+CREATE TABLE IF NOT EXISTS market_events (
+    provider          TEXT NOT NULL,
+    provider_event_id TEXT NOT NULL,
+    key               TEXT,
+    symbol            TEXT,
+    published_at      TIMESTAMP,
+    headline          TEXT,
+    summary           TEXT,
+    source_name       TEXT,
+    article_url       TEXT,
+    category          TEXT,
+    related_symbol    TEXT,
+    retrieved_at      TIMESTAMP,
+    event_date        DATE,
+    after_1630_uk     BOOLEAN,
+    relevance_score   DOUBLE PRECISION,
+    PRIMARY KEY (provider, provider_event_id)
+);
+
 CREATE TABLE IF NOT EXISTS canonical_prices (
     key          TEXT NOT NULL,
     session_date DATE NOT NULL,
