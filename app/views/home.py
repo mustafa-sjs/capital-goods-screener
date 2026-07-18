@@ -39,19 +39,20 @@ if run and run[3] == 'failed':
 
 # ------------------------------------------------ events calendar (v2.9) ---
 section('Events calendar',
-        'Coverage results (bold), US peer results, Fed and macro releases. '
-        'Coverage dates are confirmed from company IR calendars; “~” marks '
-        'rule-based or unconfirmed dates to re-check near the day.')
+        'Coverage results (bold), US peer results and ex-dividend dates, '
+        'Fed and macro releases — from today onwards; passed days roll off '
+        'and provider dates refresh daily. “~” marks rule-based or '
+        'unconfirmed dates to re-check near the day.')
 from datetime import date as _date, datetime as _dt
 from src.utils.universe import universe_service as _usvc
 from src.features.events_calendar import upcoming_events
 
 _wk1, _wk2 = st.columns([1, 3])
 weeks_label = _wk1.selectbox('Calendar range',
-                             ['This week', 'Next 2 weeks', 'Next 4 weeks',
+                             ['Next 7 days', 'Next 2 weeks', 'Next 4 weeks',
                               'Next 8 weeks', 'Next 13 weeks'], index=1,
                              label_visibility='collapsed')
-weeks = {'This week': 1, 'Next 2 weeks': 2, 'Next 4 weeks': 4,
+weeks = {'Next 7 days': 1, 'Next 2 weeks': 2, 'Next 4 weeks': 4,
          'Next 8 weeks': 8, 'Next 13 weeks': 13}[weeks_label]
 try:
     from components.data import get_db
@@ -62,9 +63,9 @@ events, cal_start, cal_end = upcoming_events(_db, _usvc(), weeks)
 if not events:
     st.info('No calendar events in this window.')
 else:
-    _wk2.caption(f'{cal_start:%a %d %b} – {cal_end:%a %d %b %Y} · '
-                 f'{len(events)} events · coverage results in bold · '
-                 f'US peer dates via Finnhub where available')
+    _wk2.caption(f'Today – {cal_end:%a %d %b %Y} · {len(events)} events · '
+                 f'coverage results marked ▮ · US peer earnings and '
+                 f'ex-dividend dates via Finnhub where available')
     _today = _date.today().isoformat()
     cal_rows = []
     for e in events:

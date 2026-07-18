@@ -192,6 +192,13 @@ def run_finnhub(db, run_id, args):
                 m = fetch_finnhub_earnings(db, run_id, svc, adapter)
                 ui.record_metrics(db, run_id, 'earnings_calendar', m, adapter)
                 notes.append(f'earnings calendar: {m}')
+                from src.features.events_calendar import fetch_finnhub_dividends
+                md = fetch_finnhub_dividends(db, run_id, svc, adapter)
+                ui.record_metrics(db, run_id, 'dividend_calendar', md, adapter)
+                notes.append(f'ex-dividends: {md}'
+                             + ('' if md['entitled'] else
+                                ' (dividends endpoint not in the current '
+                                'Finnhub plan — calendar continues without)'))
     except fmd.FinnhubAuthError as e:
         return 'failed', notes + [f'auth: {e} — check the FINNHUB_API_KEY secret']
     return status, notes

@@ -80,16 +80,45 @@ def test_finnhub_earnings_fetch_and_merge(monkeypatch):
     assert dates == sorted(dates)
 
 
-def test_upcoming_events_without_db():
+def test_upcoming_events_rolls_off_past_days():
     svc = dict(names={})
     events, start, end = ec.upcoming_events(None, svc, weeks=2,
-                                            start=date(2026, 7, 16))
-    assert start == date(2026, 7, 13)                  # Monday of that week
-    assert end == date(2026, 7, 26)
+                                            start=date(2026, 7, 18))
+    assert start == date(2026, 7, 18)                  # from today, not Monday
+    assert end == date(2026, 7, 31)
     assert all(start.isoformat() <= e['date'] <= end.isoformat()
                for e in events)
+    # the 16-17 Jul reporting cluster has rolled off; late-July wave remains
+    assert not any(e['date'] < '2026-07-18' for e in events)
     cats = {e['category'] for e in events}
-    assert 'Coverage results' in cats                  # the July reporting wave
+    assert 'Coverage results' in cats
+
+
+def test_dividends_fetch_entitlement_and_merge(monkeypatch):
+    from src.ingestion.finnhub_market_data import FinnhubEntitlementError
+    db = tmp_db(monkeypatch)
+    svc = dict(finnhub={'ETN': 'ETN', 'CAT': 'CAT'},
+               names={'ETN': 'Eaton', 'CAT': 'Caterpillar'})
+
+    class Divs:
+        def dividends(self, sym, a, b):
+            return [dict(symbol=sym, ex_date='2026-08-14', amount=1.04,
+                         currency='USD', pay_date='2026-08-28',
+                         record_date=None, provider='finnhub')] \
+                if sym == 'ETN' else []
+
+    m = ec.fetch_finnhub_dividends(db, 'r1', svc, Divs())
+    assert m['entitled'] and m['events'] == 1
+    events, *_ = ec.upcoming_events(db, svc, weeks=8, start=date(2026, 7, 18))
+    exd = [e for e in events if e['category'] == 'Ex-dividend']
+    assert len(exd) == 1 and exd[0]['label'] == 'Eaton — Ex-dividend 1.04 USD'
+
+    class NotEntitled:
+        def dividends(self, sym, a, b):
+            raise FinnhubEntitlementError('/stock/dividend: HTTP 403')
+
+    m2 = ec.fetch_finnhub_dividends(db, 'r2', svc, NotEntitled())
+    assert not m2['entitled'] and m2['requested'] == 1   # stopped at first 403
 
 
 def test_times_converted_to_uk():

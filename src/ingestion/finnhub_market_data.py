@@ -187,6 +187,27 @@ class FinnhubAdapter:
         return [(datetime.fromtimestamp(t, tz=timezone.utc), float(c))
                 for t, c in zip(d['t'], d['c']) if c and c > 0]
 
+    def dividends(self, symbol, date_from, date_to):
+        """Declared dividends incl. ex-dates between two ISO dates. Plan
+        entitlement varies — FinnhubEntitlementError propagates so callers
+        degrade cleanly (same pattern as candles)."""
+        raw = self._get('/stock/dividend', {'symbol': symbol,
+                                            'from': date_from, 'to': date_to})
+        if not isinstance(raw, list):
+            raise FinnhubDataError(f'/stock/dividend: unexpected payload for {symbol}')
+        out = []
+        for d in raw:
+            ex = d.get('date') or d.get('exDate')
+            if not ex:
+                continue
+            out.append(dict(symbol=symbol, ex_date=ex,
+                            amount=d.get('amount'),
+                            currency=d.get('currency'),
+                            pay_date=d.get('payDate'),
+                            record_date=d.get('recordDate'),
+                            provider=PROVIDER))
+        return out
+
     def company_news(self, symbol, date_from, date_to):
         """Company news metadata (headline/summary/link only — never article
         bodies) between two ISO dates, deduplicated, newest first."""

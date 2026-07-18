@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-07-18 — v2.9.2 Calendar: ex-dividend dates + self-maintaining window
+- **Ex-dividend dates** for all mapped US names via Finnhub's dividends
+  endpoint (`ex_dividend` rows in calendar_events; amount + pay date kept).
+  Plan entitlement varies: a 403 stops the sweep cleanly, is reported in
+  the run notes/Data Status, and the calendar continues without.
+- **Rolling window**: the calendar now starts from TODAY (passed days roll
+  off at render); macro/rule dates regenerate on every load; Finnhub
+  earnings + dividends refresh once a day inside the US intraday workflow —
+  no manual attention needed. Range selector relabelled "Next 7 days…".
+  The only remaining manual step is quarterly re-curation of coverage
+  results dates as companies confirm them.
+- 136 tests.
+
 ## 2026-07-17 — v2.9.1 Per-coverage correlations in dual-coverage tables
 - Market & Peers: groups with two coverage companies (Nexans & Prysmian,
   Alstom & Stadler, Daimler Truck & Traton, Kone & Schindler) previously

@@ -213,19 +213,59 @@ def fetch_finnhub_earnings(db, run_id, svc, adapter, weeks_ahead=9):
     return m
 
 
+def fetch_finnhub_dividends(db, run_id, svc, adapter, weeks_ahead=9):
+    """Upcoming ex-dividend dates for all mapped US names into
+    calendar_events. Entitlement varies by plan: the first 403 stops the
+    sweep and is reported, everything else keeps working."""
+    from src.ingestion import finnhub_market_data as fmd
+    start = date.today()
+    end = start + timedelta(weeks=weeks_ahead)
+    m = {'requested': 0, 'events': 0, 'failed': 0, 'entitled': True}
+    rows = []
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    for k, sym in sorted(svc['finnhub'].items()):
+        m['requested'] += 1
+        try:
+            divs = adapter.dividends(sym, start.isoformat(), end.isoformat())
+        except fmd.FinnhubAuthError:
+            raise
+        except fmd.FinnhubEntitlementError:
+            m['entitled'] = False        # plan-level: stop asking
+            break
+        except fmd.FinnhubError:
+            m['failed'] += 1
+            continue
+        for dv in divs:
+            amt = dv.get('amount')
+            ccy = dv.get('currency') or ''
+            title = ('Ex-dividend'
+                     + (f" {amt} {ccy}".rstrip() if amt else ''))
+            rows.append((dv['ex_date'], 'ex_dividend', k, title, 'finnhub',
+                         True, json.dumps(dict(pay_date=dv.get('pay_date'),
+                                               amount=amt, currency=ccy)),
+                         now))
+    m['events'] = db.upsert('calendar_events',
+                            ['event_date', 'event_type', 'subject', 'title',
+                             'source', 'confirmed', 'details', 'updated_at'],
+                            rows, ['event_date', 'event_type', 'subject'])
+    return m
+
+
 def provider_events(db, start, end, svc):
-    """Stored provider rows (Finnhub US peer earnings) as event dicts."""
+    """Stored provider rows (Finnhub US earnings + ex-dividend dates) as
+    event dicts."""
     names = svc.get('names', {})
     try:
         rows = db.fetchall(
-            f'SELECT event_date, subject, title, confirmed, details '
-            f'FROM calendar_events WHERE event_type = {db.ph} '
-            f'AND event_date >= {db.ph} AND event_date <= {db.ph}',
-            ['results', start.isoformat(), end.isoformat()])
+            f'SELECT event_date, event_type, subject, title, confirmed, '
+            f'details FROM calendar_events WHERE event_type IN '
+            f'({db.ph}, {db.ph}) AND event_date >= {db.ph} '
+            f'AND event_date <= {db.ph}',
+            ['results', 'ex_dividend', start.isoformat(), end.isoformat()])
     except Exception:
         return []
     out = []
-    for d, k, title, conf, details in rows:
+    for d, etype, k, title, conf, details in rows:
         hint = None
         try:
             hint = (json.loads(details) or {}).get('hour')
@@ -233,29 +273,32 @@ def provider_events(db, start, end, svc):
             pass
         out.append(dict(date=str(d)[:10],
                         label=f'{names.get(k, k)} — {title}',
-                        category='Peer results', key=k,
-                        confirmed=bool(conf), detail=hint))
+                        category=('Ex-dividend' if etype == 'ex_dividend'
+                                  else 'Peer results'),
+                        key=k, confirmed=bool(conf), detail=hint))
     return out
 
 
 # ============================= merged view ==================================
 
 def upcoming_events(db, svc, weeks=1, start=None):
-    """Every event from the Monday of the current week to N weeks out,
-    merged and sorted. Pure config/rule events need no database or network;
-    provider rows are added when present."""
+    """Every event from TODAY to N weeks out, merged and sorted — passed
+    days roll off automatically at render time, and macro/rule events are
+    regenerated on every load, so the calendar needs no manual upkeep
+    (curated coverage dates aside, which are refreshed quarterly). Pure
+    config/rule events need no database or network; provider rows
+    (earnings, ex-dividends) are added when present."""
     today = start or date.today()
-    monday = today - timedelta(days=today.weekday())
-    end = monday + timedelta(weeks=weeks, days=-1)
+    end = today + timedelta(weeks=weeks, days=-1)
     cfg = calendar_config()
-    events = (curated_events(monday, end, svc, cfg)
-              + fomc_events(monday, end, cfg)
-              + macro_events(monday, end, cfg))
+    events = (curated_events(today, end, svc, cfg)
+              + fomc_events(today, end, cfg)
+              + macro_events(today, end, cfg))
     if db is not None:
-        prov = provider_events(db, monday, end, svc)
+        prov = provider_events(db, today, end, svc)
         have = {(e['date'], e['key']) for e in events}
         events += [e for e in prov if (e['date'], e['key']) not in have]
     order = {'Coverage results': 0, 'Peer results': 1, 'Fed': 2,
-             'Company event': 3, 'Macro': 4}
+             'Company event': 3, 'Ex-dividend': 4, 'Macro': 5}
     events.sort(key=lambda e: (e['date'], order.get(e['category'], 9)))
-    return events, monday, end
+    return events, today, end
