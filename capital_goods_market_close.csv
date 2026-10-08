@@ -1,115 +1,115 @@
 subgroup,coverage_group,role,key,company,ticker,ccy,close_px,prev_close,move_1d_pct,move_5d_pct,move_1m_pct,move_3m_pct,move_6m_pct,move_12m_pct,corr30,corr30_nobs,corr90,corr90_nobs,corr30_display,corr_vs,rel_vs_basket_pct,big_move,quote_time
-Automation & Electrical Equipment,ABB,coverage,ABBN,ABB Ltd,ABBN SW,CHF,79.88,82.58,-3.27,-3.77,2.7,17.1,37.68,76.31,,,,,,,-1.2,True,2026-10-07
-Automation & Electrical Equipment,ABB,peer,ETN,Eaton Corp plc,ETN US,USD,431.33,445.09,-3.09,2.2,8.47,1.06,25.51,13.88,0.75,29,0.65,84,0.75,ABBN,-1.02,True,2026-10-07
-Automation & Electrical Equipment,ABB,peer,ROK,Rockwell Automation,ROK US,USD,441.9,450.74,-1.96,0.09,7.28,19.22,15.0,36.87,0.59,29,0.57,84,0.59,ABBN,0.11,False,2026-10-07
-Automation & Electrical Equipment,ABB,peer,GE,GE Aerospace,GE US,USD,303.62,309.39,-1.86,-4.83,12.73,16.51,11.72,42.25,0.28,29,0.47,84,0.28,ABBN,0.2,False,2026-10-07
-Automation & Electrical Equipment,ABB,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.52,29,0.54,84,0.52,ABBN,0.72,False,2026-10-07
-Automation & Electrical Equipment,Alstom & Stadler,coverage,ALO,Alstom SA,ALO FP,EUR,16.05,16.18,-0.86,-5.57,-5.74,-31.63,-40.32,-23.74,0.4,32,0.41,87,0.40,SRAIL,2.27,False,2026-10-07
-Automation & Electrical Equipment,Alstom & Stadler,coverage,SRAIL,Stadler Rail AG,SRAIL SW,CHF,30.06,30.78,-2.34,-6.64,5.23,11.89,18.54,12.0,0.4,32,0.41,87,0.40,ALO,0.79,False,2026-10-07
-Automation & Electrical Equipment,Alstom & Stadler,peer,WAB,Wabtec,WAB US,USD,282.44,291.16,-2.99,-0.37,1.83,-2.27,16.39,22.2,0.08,29,0.08,85,0.08 / 0.38,ALO / SRAIL,0.14,False,2026-10-07
-Automation & Electrical Equipment,Alstom & Stadler,peer,GBX,Greenbrier,GBX US,USD,38.78,40.09,-3.27,-0.5,0.7,-9.3,-1.17,-14.71,0.27,29,-0.03,85,0.27 / 0.08,ALO / SRAIL,-0.14,True,2026-10-07
-Automation & Electrical Equipment,Legrand,coverage,LR,Legrand SA,LR FP,EUR,141.15,148.4,-4.89,-2.62,4.27,-5.43,9.6,22.53,,,,,,,-2.77,True,2026-10-07
-Automation & Electrical Equipment,Legrand,peer,ETN,Eaton Corp plc,ETN US,USD,431.33,445.09,-3.09,2.2,8.47,1.06,25.51,13.88,0.58,29,0.52,85,0.58,LR,-0.97,True,2026-10-07
-Automation & Electrical Equipment,Legrand,peer,TT,Trane Technologies,TT US,USD,467.27,476.39,-1.91,0.33,6.81,3.0,25.67,10.4,0.46,29,0.56,85,0.46,LR,0.2,False,2026-10-07
-Automation & Electrical Equipment,Legrand,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.45,29,0.5,85,0.45,LR,0.77,False,2026-10-07
-Automation & Electrical Equipment,Nexans & Prysmian,coverage,NEX,Nexans SA,NEX FP,EUR,127.4,133.4,-4.5,-5.24,-8.29,3.24,7.99,20.98,0.83,32,0.71,89,0.83,PRY,-2.52,True,2026-10-07
-Automation & Electrical Equipment,Nexans & Prysmian,coverage,PRY,Prysmian SpA,PRY IM,EUR,124.3,130.4,-4.68,-6.91,-7.33,11.4,54.55,118.25,0.83,32,0.71,89,0.83,NEX,-2.7,True,2026-10-07
-Automation & Electrical Equipment,Nexans & Prysmian,peer,ATKR,Atkore,ATKR US,USD,94.85,94.72,0.14,4.38,-5.1,6.5,7.18,-5.13,0.51,29,0.41,85,0.51 / 0.55,NEX / PRY,2.11,False,2026-10-07
-Automation & Electrical Equipment,Nexans & Prysmian,peer,BDC,Belden,BDC US,USD,109.41,113.21,-3.36,-7.32,1.07,-16.87,-6.22,-13.45,0.63,29,0.34,85,0.63 / 0.77,NEX / PRY,-1.38,True,2026-10-07
-Automation & Electrical Equipment,Nexans & Prysmian,peer,VISN,Vistance Networks,VISN US,USD,6.07,6.15,-1.3,2.8,3.48,-34.16,-32.49,58.91,0.39,29,0.34,85,0.39 / 0.58,NEX / PRY,0.68,False,2026-10-07
-Automation & Electrical Equipment,Nexans & Prysmian,peer,GLW,Corning,GLW US,USD,163.25,168.97,-3.39,-3.0,13.51,11.48,123.97,265.27,0.58,29,0.46,85,0.58 / 0.65,NEX / PRY,-1.41,True,2026-10-07
-Automation & Electrical Equipment,Rexel,coverage,RXL,Rexel SA,RXL FP,EUR,34.4,35.52,-3.15,0.62,6.7,4.8,14.83,48.15,,,,,,,0.15,True,2026-10-07
-Automation & Electrical Equipment,Rexel,peer,FAST,Fastenal,FAST US,USD,49.83,50.81,-1.93,-4.34,1.0,-5.45,10.74,6.73,0.34,29,0.42,85,0.34,RXL,1.37,False,2026-10-07
-Automation & Electrical Equipment,Rexel,peer,WCC,WESCO International,WCC US,USD,366.12,384.09,-4.68,8.81,0.25,10.38,24.4,66.46,0.66,29,0.6,85,0.66,RXL,-1.37,True,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,coverage,SU,Schneider Electric SE,SU FP,EUR,254.55,260.5,-2.28,-3.52,1.23,3.17,12.62,19.25,,,,,,,-0.11,False,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,peer,ETN,Eaton Corp plc,ETN US,USD,431.33,445.09,-3.09,2.2,8.47,1.06,25.51,13.88,0.77,29,0.57,85,0.77,SU,-0.92,True,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,peer,VRT,Vertiv Holdings,VRT US,USD,246.49,253.14,-2.63,6.1,13.48,8.05,94.93,164.13,0.74,29,0.57,85,0.74,SU,-0.45,False,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,peer,HON,Honeywell,HON US,USD,208.11,212.87,-2.24,-1.5,4.86,-8.15,4.1,-3.26,0.36,29,0.4,85,0.36,SU,-0.06,False,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.62,29,0.56,85,0.62,SU,0.82,False,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,peer,JCI,Johnson Controls,JCI US,USD,155.93,158.76,-1.78,1.46,2.48,0.2,28.83,34.31,0.55,29,0.55,85,0.55,SU,0.39,False,2026-10-07
-Automation & Electrical Equipment,Schneider Electric,peer,ROK,Rockwell Automation,ROK US,USD,441.9,450.74,-1.96,0.09,7.28,19.22,15.0,36.87,0.67,29,0.63,85,0.67,SU,0.21,False,2026-10-07
-Automation & Electrical Equipment,Siemens,coverage,SIE,Siemens AG,SIE GY,EUR,271.2,279.0,-2.8,-3.37,2.87,18.98,3.95,21.99,,,,,,,-0.96,False,2026-10-07
-Automation & Electrical Equipment,Siemens,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.5,29,0.5,85,0.50,SIE,0.49,False,2026-10-07
-Automation & Electrical Equipment,Siemens,peer,HON,Honeywell,HON US,USD,208.11,212.87,-2.24,-1.5,4.86,-8.15,4.1,-3.26,0.3,29,0.4,85,0.30,SIE,-0.4,False,2026-10-07
-Automation & Electrical Equipment,Siemens,peer,GE,GE Aerospace,GE US,USD,303.62,309.39,-1.86,-4.83,12.73,16.51,11.72,42.25,0.26,29,0.51,85,0.26,SIE,-0.03,False,2026-10-07
-Automation & Electrical Equipment,Siemens,peer,JCI,Johnson Controls,JCI US,USD,155.93,158.76,-1.78,1.46,2.48,0.2,28.83,34.31,0.51,29,0.46,85,0.51,SIE,0.06,False,2026-10-07
-Automation & Electrical Equipment,Siemens,peer,ROK,Rockwell Automation,ROK US,USD,441.9,450.74,-1.96,0.09,7.28,19.22,15.0,36.87,0.57,29,0.57,85,0.57,SIE,-0.12,False,2026-10-07
-Trucks & Elevators,Daimler Truck & Traton,coverage,DTG,Daimler Truck Holding AG,DTG GY,EUR,40.68,40.91,-0.56,-4.05,0.74,-4.2,4.51,2.01,0.81,32,0.82,89,0.81,8TRA,2.24,False,2026-10-07
-Trucks & Elevators,Daimler Truck & Traton,coverage,8TRA,TRATON SE,8TRA GY,EUR,33.26,33.9,-1.89,-2.37,1.94,4.66,12.11,15.55,0.81,32,0.82,89,0.81,DTG,0.92,False,2026-10-07
-Trucks & Elevators,Daimler Truck & Traton,peer,CMI,Cummins,CMI US,USD,517.32,535.31,-3.36,2.15,7.21,9.71,22.43,98.79,0.37,29,0.44,85,0.37 / 0.61,DTG / 8TRA,-0.56,True,2026-10-07
-Trucks & Elevators,Daimler Truck & Traton,peer,PCAR,PACCAR Inc,PCAR US,USD,106.86,109.32,-2.25,4.24,9.28,-2.06,4.86,25.55,0.37,29,0.43,85,0.37 / 0.69,DTG / 8TRA,0.56,False,2026-10-07
-Trucks & Elevators,Paccar,coverage,PCAR,PACCAR Inc,PCAR US,USD,106.86,109.32,-2.25,4.24,9.28,-2.06,4.86,25.55,,,,,,,0.76,False,2026-10-07
-Trucks & Elevators,Paccar,peer,CMI,Cummins,CMI US,USD,517.32,535.31,-3.36,2.15,7.21,9.71,22.43,98.79,0.64,32,0.69,91,0.64,PCAR,-0.35,True,2026-10-07
-Trucks & Elevators,Paccar,peer,OSK,Oshkosh,OSK US,USD,128.61,132.13,-2.66,2.55,15.27,-3.59,-2.74,15.57,0.61,32,0.58,91,0.61,PCAR,0.35,False,2026-10-07
-Trucks & Elevators,Volvo,coverage,VOLVB,Volvo AB (B),VOLVB SS,SEK,312.4,315.0,-0.83,-2.07,6.41,4.59,9.08,22.82,,,,,,,2.31,False,2026-10-07
-Trucks & Elevators,Volvo,peer,CMI,Cummins,CMI US,USD,517.32,535.31,-3.36,2.15,7.21,9.71,22.43,98.79,0.64,29,0.55,84,0.64,VOLVB,-0.22,True,2026-10-07
-Trucks & Elevators,Volvo,peer,DE,Deere & Co,DE US,USD,656.87,682.79,-3.8,-5.54,4.79,-3.0,20.24,13.03,0.65,29,0.43,84,0.65,VOLVB,-0.66,True,2026-10-07
-Trucks & Elevators,Volvo,peer,PCAR,PACCAR Inc,PCAR US,USD,106.86,109.32,-2.25,4.24,9.28,-2.06,4.86,25.55,0.66,29,0.54,84,0.66,VOLVB,0.89,False,2026-10-07
-Trucks & Elevators,Kone & Schindler,coverage,KNEBV,KONE Oyj (B),KNEBV FH,EUR,52.36,51.96,0.77,-1.94,1.85,-14.95,-20.12,-10.92,0.54,31,0.64,86,0.54,SCHP,2.2,False,2026-10-07
-Trucks & Elevators,Kone & Schindler,coverage,SCHP,Schindler Holding (PC),SCHP SW,CHF,259.6,261.4,-0.69,-2.51,0.38,-3.65,-12.95,-11.37,0.54,31,0.64,86,0.54,KNEBV,0.74,False,2026-10-07
-Trucks & Elevators,Kone & Schindler,peer,JCI,Johnson Controls,JCI US,USD,155.93,158.76,-1.78,1.46,2.48,0.2,28.83,34.31,-0.01,29,0.1,84,-0.01 / 0.02,KNEBV / SCHP,-0.36,False,2026-10-07
-Trucks & Elevators,Kone & Schindler,peer,OTIS,Otis Worldwide Corp,OTIS US,USD,65.74,66.45,-1.07,-0.07,4.92,-8.58,-19.03,-26.88,0.35,29,0.31,84,0.35 / 0.34,KNEBV / SCHP,0.36,False,2026-10-07
-Trucks & Elevators,Otis,coverage,OTIS,Otis Worldwide Corp,OTIS US,USD,65.74,66.45,-1.07,-0.07,4.92,-8.58,-19.03,-26.88,,,,,,,0.8,False,2026-10-07
-Trucks & Elevators,Otis,peer,JCI,Johnson Controls,JCI US,USD,155.93,158.76,-1.78,1.46,2.48,0.2,28.83,34.31,0.25,32,0.24,91,0.25,OTIS,0.09,False,2026-10-07
-Trucks & Elevators,Otis,peer,CARR,Carrier Global,CARR US,USD,55.0,56.1,-1.96,-1.04,2.02,9.47,23.27,-9.68,0.43,32,0.42,91,0.43,OTIS,-0.09,False,2026-10-07
-UK Industrials,Halma,coverage,HLMA,Halma plc,HLMA LN,GBp,3478.0,3558.0,-2.25,-7.99,-7.8,-12.98,-1.1,11.75,,,,,,,-1.42,False,2026-10-07
-UK Industrials,Halma,peer,COHR,Coherent,COHR US,USD,334.56,338.36,-1.12,-2.66,-8.53,5.53,82.24,246.24,0.18,29,0.32,85,0.18,HLMA,-0.3,False,2026-10-07
-UK Industrials,Halma,peer,FN,Fabrinet,FN US,USD,497.99,489.16,1.81,-5.7,-18.81,-28.85,5.34,62.88,0.19,29,0.3,85,0.19,HLMA,2.63,False,2026-10-07
-UK Industrials,Halma,peer,LITE,Lumentum,LITE US,USD,1111.07,1133.4,-1.97,10.12,-6.01,-10.62,128.22,765.91,0.05,29,0.16,85,0.05,HLMA,-1.15,False,2026-10-07
-UK Industrials,Halma,peer,AME,AMETEK,AME US,USD,248.62,253.72,-2.01,-0.27,5.5,-0.4,11.08,28.96,0.01,29,0.25,85,0.01,HLMA,-1.19,False,2026-10-07
-UK Industrials,IMI,coverage,IMI,IMI plc,IMI LN,GBp,3052.0,3148.0,-3.05,-3.11,-1.47,0.43,7.09,31.46,,,,,,,-0.77,True,2026-10-07
-UK Industrials,IMI,peer,WTS,Watts Water,WTS US,USD,348.26,362.45,-3.92,-4.39,12.45,16.39,22.59,36.49,0.49,29,0.39,85,0.49,IMI,-1.63,True,2026-10-07
-UK Industrials,IMI,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.45,29,0.39,85,0.45,IMI,0.93,False,2026-10-07
-UK Industrials,IMI,peer,BMI,Badger Meter,BMI US,USD,124.07,123.73,0.27,-1.16,12.26,-7.12,-17.43,-39.85,0.5,29,0.12,85,0.50,IMI,2.56,False,2026-10-07
-UK Industrials,IMI,peer,FLS,Flowserve,FLS US,USD,70.52,73.34,-3.85,-2.57,-3.27,-16.47,-4.07,30.18,0.4,29,0.37,85,0.40,IMI,-1.56,True,2026-10-07
-UK Industrials,IMI,peer,CR,Crane Co (Crane NXT line),CR US,USD,203.55,208.92,-2.57,0.66,11.97,16.24,8.15,17.25,0.37,29,0.42,85,0.37,IMI,-0.29,False,2026-10-07
-UK Industrials,Rotork,coverage,ROR,Rotork plc,ROR LN,GBp,490.2,488.4,0.37,-3.4,-5.04,-11.95,-13.37,-9.14,,,,,,,3.14,False,2026-10-07
-UK Industrials,Rotork,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.29,29,0.28,85,0.29,ROR,1.43,False,2026-10-07
-UK Industrials,Rotork,peer,ITT,ITT Inc,ITT US,USD,200.39,207.31,-3.34,4.39,5.84,-10.1,7.11,23.76,0.34,29,0.19,85,0.34,ROR,-0.56,True,2026-10-07
-UK Industrials,Rotork,peer,FLS,Flowserve,FLS US,USD,70.52,73.34,-3.85,-2.57,-3.27,-16.47,-4.07,30.18,0.28,29,0.22,85,0.28,ROR,-1.07,True,2026-10-07
-UK Industrials,Rotork,peer,CR,Crane Co (Crane NXT line),CR US,USD,203.55,208.92,-2.57,0.66,11.97,16.24,8.15,17.25,0.13,29,0.25,85,0.13,ROR,0.21,False,2026-10-07
-UK Industrials,Smiths Group,coverage,SMIN,Smiths Group plc,SMIN LN,GBp,2762.0,2847.0,-2.99,-3.86,-1.19,-0.99,1.76,8.2,,,,,,,-0.65,False,2026-10-07
-UK Industrials,Smiths Group,peer,LII,Lennox International,LII US,USD,358.43,365.63,-1.97,-3.16,9.36,9.25,4.11,-10.59,0.32,29,0.38,85,0.32,SMIN,0.37,False,2026-10-07
-UK Industrials,Smiths Group,peer,CARR,Carrier Global,CARR US,USD,55.0,56.1,-1.96,-1.04,2.02,9.47,23.27,-9.68,0.21,29,0.35,85,0.21,SMIN,0.38,False,2026-10-07
-UK Industrials,Smiths Group,peer,EMR,Emerson Electric,EMR US,USD,159.22,161.4,-1.35,-0.12,1.29,-3.4,-3.69,-1.27,0.27,29,0.4,85,0.27,SMIN,0.99,False,2026-10-07
-UK Industrials,Smiths Group,peer,FLS,Flowserve,FLS US,USD,70.52,73.34,-3.85,-2.57,-3.27,-16.47,-4.07,30.18,0.22,29,0.37,85,0.22,SMIN,-1.51,True,2026-10-07
-UK Industrials,Smiths Group,peer,CR,Crane Co (Crane NXT line),CR US,USD,203.55,208.92,-2.57,0.66,11.97,16.24,8.15,17.25,0.23,29,0.47,85,0.23,SMIN,-0.23,False,2026-10-07
-UK Industrials,Spirax Group,coverage,SPX,Spirax Group plc,SPX LN,GBp,7140.0,7360.0,-2.99,-2.54,-4.04,-10.85,-6.84,5.74,,,,,,,-1.37,False,2026-10-07
-UK Industrials,Spirax Group,peer,DHR,Danaher,DHR US,USD,218.49,215.61,1.34,0.57,8.4,4.98,-16.5,-3.14,0.36,29,0.19,85,0.36,SPX,2.96,False,2026-10-07
-UK Industrials,Spirax Group,peer,IR,Ingersoll Rand,IR US,USD,77.24,79.21,-2.49,-2.16,11.88,-7.65,-7.79,-11.09,0.54,29,0.45,85,0.54,SPX,-0.86,False,2026-10-07
-UK Industrials,Spirax Group,peer,WTS,Watts Water,WTS US,USD,348.26,362.45,-3.92,-4.39,12.45,16.39,22.59,36.49,0.59,29,0.45,85,0.59,SPX,-2.29,True,2026-10-07
-UK Industrials,Spirax Group,peer,IEX,IDEX,IEX US,USD,232.91,236.28,-1.43,-0.74,3.57,10.48,20.28,19.81,0.59,29,0.46,85,0.59,SPX,0.2,False,2026-10-07
-UK Industrials,Weir Group,coverage,WEIR,Weir Group plc,WEIR LN,GBp,2560.0,2662.0,-3.83,-4.81,2.24,-22.81,-21.58,-8.55,,,,,,,0.33,True,2026-10-07
-UK Industrials,Weir Group,peer,ITT,ITT Inc,ITT US,USD,200.39,207.31,-3.34,4.39,5.84,-10.1,7.11,23.76,0.41,29,0.4,85,0.41,WEIR,0.83,True,2026-10-07
-UK Industrials,Weir Group,peer,KMT,Kennametal,KMT US,USD,32.27,33.41,-3.41,0.33,0.9,-13.51,9.34,35.76,0.28,29,0.34,85,0.28,WEIR,0.75,True,2026-10-07
-UK Industrials,Weir Group,peer,CAT,Caterpillar,CAT US,USD,813.83,863.44,-5.75,-1.15,11.24,20.46,54.21,133.25,0.42,29,0.32,85,0.42,WEIR,-1.58,True,2026-10-07
-Nordic Industrial Machinery,Assa Abloy,coverage,ASSAB,Assa Abloy AB (B),ASSAB SS,SEK,340.0,353.3,-3.76,-2.85,-0.39,-8.81,-8.28,9.17,,,,,,,0.93,True,2026-10-07
-Nordic Industrial Machinery,Assa Abloy,peer,ALLE,Allegion plc,ALLE US,USD,147.91,155.2,-4.7,-2.81,5.63,-5.65,-16.02,-9.83,0.65,29,0.45,84,0.65,ASSAB,0.0,True,2026-10-07
-Nordic Industrial Machinery,Atlas Copco,coverage,ATCOA,Atlas Copco AB (A),ATCOA SS,SEK,206.7,213.4,-3.14,-2.95,1.64,5.41,4.19,17.65,,,,,,,-1.37,True,2026-10-07
-Nordic Industrial Machinery,Atlas Copco,peer,AMAT,Applied Materials,AMAT US,USD,520.65,530.27,-1.81,-0.09,21.22,50.82,100.05,204.25,0.61,29,0.49,84,0.61,ATCOA,-0.04,False,2026-10-07
-Nordic Industrial Machinery,Atlas Copco,peer,EBARA,Ebara Corp,6361 JP,JPY,4715.0,4834.0,-2.46,1.06,16.37,19.57,38.93,120.67,0.17,30,0.31,80,0.17,ATCOA,-0.69,False,2026-10-08
-Nordic Industrial Machinery,Atlas Copco,peer,IR,Ingersoll Rand,IR US,USD,77.24,79.21,-2.49,-2.16,11.88,-7.65,-7.79,-11.09,0.45,29,0.49,84,0.45,ATCOA,-0.72,False,2026-10-07
-Nordic Industrial Machinery,Atlas Copco,peer,KLAC,KLA Corp,KLAC US,USD,196.83,197.46,-0.32,-1.71,8.41,33.27,65.37,149.32,0.55,29,0.43,84,0.55,ATCOA,1.45,False,2026-10-07
-Nordic Industrial Machinery,Epiroc,coverage,EPIA,Epiroc AB (A),EPIA SS,SEK,261.4,269.1,-2.86,-4.55,-4.69,-0.08,14.47,17.59,,,,,,,2.88,False,2026-10-07
-Nordic Industrial Machinery,Epiroc,peer,CAT,Caterpillar,CAT US,USD,813.83,863.44,-5.75,-1.15,11.24,20.46,54.21,133.25,0.57,29,0.53,84,0.57,EPIA,0.0,True,2026-10-07
-Nordic Industrial Machinery,Metso,coverage,METSO,Metso Oyj,METSO FH,EUR,16.68,17.28,-3.47,-3.81,2.43,-7.39,-2.41,30.97,,,,,,,1.73,True,2026-10-07
-Nordic Industrial Machinery,Metso,peer,CAT,Caterpillar,CAT US,USD,813.83,863.44,-5.75,-1.15,11.24,20.46,54.21,133.25,0.46,29,0.47,84,0.46,METSO,-0.55,True,2026-10-07
-Nordic Industrial Machinery,Metso,peer,TEX,Terex,TEX US,USD,54.13,56.77,-4.65,-1.01,13.38,6.79,13.02,26.35,0.36,29,0.48,84,0.36,METSO,0.55,True,2026-10-07
-Nordic Industrial Machinery,Sandvik,coverage,SAND,Sandvik AB,SAND SS,SEK,355.5,369.0,-3.66,-4.25,2.83,-1.99,21.24,69.48,,,,,,,0.92,True,2026-10-07
-Nordic Industrial Machinery,Sandvik,peer,CAT,Caterpillar,CAT US,USD,813.83,863.44,-5.75,-1.15,11.24,20.46,54.21,133.25,0.63,29,0.54,84,0.63,SAND,-1.17,True,2026-10-07
-Nordic Industrial Machinery,Sandvik,peer,KMT,Kennametal,KMT US,USD,32.27,33.41,-3.41,0.33,0.9,-13.51,9.34,35.76,0.54,29,0.55,84,0.54,SAND,1.17,True,2026-10-07
-Nordic Industrial Machinery,SKF,coverage,SKFB,SKF AB (B),SKFB SS,SEK,267.9,280.2,-4.39,-1.63,9.21,9.21,4.93,16.5,,,,,,,-1.26,True,2026-10-07
-Nordic Industrial Machinery,SKF,peer,NSK,NSK Ltd,6471 JP,JPY,1083.0,1117.0,-3.04,-2.2,5.27,-1.15,10.6,68.44,0.43,30,0.46,80,0.43,SKFB,0.08,True,2026-10-08
-Nordic Industrial Machinery,SKF,peer,NTN,NTN Corp,6472 JP,JPY,380.2,389.8,-2.46,-4.57,-5.52,12.62,5.26,62.68,0.25,30,0.36,80,0.25,SKFB,0.66,False,2026-10-08
-Nordic Industrial Machinery,SKF,peer,TKR,Timken,TKR US,USD,114.91,119.54,-3.87,-1.33,3.72,28.63,50.61,74.76,0.38,29,0.56,84,0.38,SKFB,-0.75,True,2026-10-07
-Aerospace & Defence,Rolls-Royce,coverage,RR,Rolls-Royce Holdings plc,RR/ LN,GBp,1404.4,1438.2,-2.35,-5.89,8.21,11.5,8.46,43.26,,,,,,,0.81,False,2026-10-07
-Aerospace & Defence,Rolls-Royce,peer,GE,GE Aerospace,GE US,USD,303.62,309.39,-1.86,-4.83,12.73,16.51,11.72,42.25,0.4,29,0.72,85,0.40,RR,1.29,False,2026-10-07
-Aerospace & Defence,Rolls-Royce,peer,RTX,RTX Corp,RTX US,USD,180.26,183.29,-1.65,-1.67,10.44,-2.79,3.94,33.83,0.21,29,0.46,85,0.21,RR,1.5,False,2026-10-07
-Aerospace & Defence,Rolls-Royce,peer,CMI,Cummins,CMI US,USD,517.32,535.31,-3.36,2.15,7.21,9.71,22.43,98.79,0.25,29,0.45,85,0.25,RR,-0.2,True,2026-10-07
-Aerospace & Defence,Rolls-Royce,peer,CAT,Caterpillar,CAT US,USD,813.83,863.44,-5.75,-1.15,11.24,20.46,54.21,133.25,0.28,29,0.47,85,0.28,RR,-2.59,True,2026-10-07
-Aerospace & Defence,Melrose Industries,coverage,MRO,Melrose Industries plc,MRO LN,GBp,450.0,461.0,-2.39,-5.96,1.66,-10.71,-27.19,-11.95,,,,,,,0.31,False,2026-10-07
-Aerospace & Defence,Melrose Industries,peer,HWM,Howmet Aerospace,HWM US,USD,222.75,231.6,-3.82,0.16,8.56,7.2,24.09,51.71,0.25,29,0.55,85,0.25,MRO,-1.12,True,2026-10-07
-Aerospace & Defence,Melrose Industries,peer,TDG,TransDigm,TDG US,USD,1096.21,1103.33,-0.65,-4.24,6.52,6.97,-7.24,-16.12,0.47,29,0.5,85,0.47,MRO,2.06,False,2026-10-07
-Aerospace & Defence,Melrose Industries,peer,WWD,Woodward,WWD US,USD,324.25,332.56,-2.5,-2.78,10.65,4.61,26.22,65.0,0.18,29,0.48,85,0.18,MRO,0.2,False,2026-10-07
-Aerospace & Defence,Melrose Industries,peer,MOGA,Moog Inc (A),MOG/A US,USD,360.39,375.74,-4.09,-2.47,6.54,30.47,49.32,121.98,-0.21,29,0.36,85,-0.21,MRO,-1.38,True,2026-10-07
-Aerospace & Defence,Melrose Industries,peer,HXL,Hexcel,HXL US,USD,83.9,86.01,-2.45,-0.16,8.28,18.61,22.79,66.44,0.15,29,0.45,85,0.15,MRO,0.25,False,2026-10-07
+Automation & Electrical Equipment,ABB,coverage,ABBN,ABB Ltd,ABBN SW,CHF,78.8,79.88,-1.35,-1.03,-2.69,-4.32,12.41,33.7,,,,,,,-0.66,False,2026-10-08
+Automation & Electrical Equipment,ABB,peer,ETN,Eaton Corp plc,ETN US,USD,424.51,431.33,-1.58,-2.92,4.23,6.24,10.1,12.69,0.74,21,0.74,49,0.74,ABBN,-0.89,False,2026-10-08
+Automation & Electrical Equipment,ABB,peer,ROK,Rockwell Automation,ROK US,USD,434.14,441.9,-1.76,-1.88,-8.04,-6.36,11.33,24.71,0.56,21,0.57,49,0.56,ABBN,-1.06,False,2026-10-08
+Automation & Electrical Equipment,ABB,peer,GE,GE Aerospace,GE US,USD,305.62,303.62,0.66,-2.17,-8.75,-14.16,-0.79,1.01,0.43,22,0.32,51,0.43,ABBN,1.35,False,2026-10-08
+Automation & Electrical Equipment,ABB,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,0.48,21,0.5,49,0.48,ABBN,0.59,False,2026-10-08
+Automation & Electrical Equipment,Alstom & Stadler,coverage,ALO,Alstom SA,ALO FP,EUR,15.78,16.05,-1.65,4.26,-3.31,1.48,-37.21,-30.48,0.42,22,0.4,53,0.42,SRAIL,-1.17,False,2026-10-08
+Automation & Electrical Equipment,Alstom & Stadler,coverage,SRAIL,Stadler Rail AG,SRAIL SW,CHF,29.56,30.06,-1.66,-1.92,0.82,24.41,43.5,48.47,0.42,22,0.4,53,0.42,ALO,-1.18,False,2026-10-08
+Automation & Electrical Equipment,Alstom & Stadler,peer,WAB,Wabtec,WAB US,USD,280.8,282.44,-0.58,-2.45,7.5,8.42,4.13,40.77,0.2,21,0.12,49,0.20 / 0.23,ALO / SRAIL,-0.1,False,2026-10-08
+Automation & Electrical Equipment,Alstom & Stadler,peer,GBX,Greenbrier,GBX US,USD,38.63,38.78,-0.39,-3.64,-18.33,-16.66,-21.21,-15.14,0.14,21,0.19,49,0.14 / 0.24,ALO / SRAIL,0.1,False,2026-10-08
+Automation & Electrical Equipment,Legrand,coverage,LR,Legrand SA,LR FP,EUR,138.0,141.15,-2.23,-1.25,-5.58,-2.92,-6.31,-6.09,,,,,,,-1.86,False,2026-10-08
+Automation & Electrical Equipment,Legrand,peer,ETN,Eaton Corp plc,ETN US,USD,424.51,431.33,-1.58,-2.92,4.23,6.24,10.1,12.69,0.68,21,0.6,49,0.68,LR,-1.21,False,2026-10-08
+Automation & Electrical Equipment,Legrand,peer,TT,Trane Technologies,TT US,USD,469.94,467.27,0.57,2.4,-2.03,-0.5,4.55,10.22,0.58,21,0.48,49,0.58,LR,0.94,False,2026-10-08
+Automation & Electrical Equipment,Legrand,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,0.3,21,0.37,49,0.30,LR,0.27,False,2026-10-08
+Automation & Electrical Equipment,Nexans & Prysmian,coverage,NEX,Nexans SA,NEX FP,EUR,127.2,127.4,-0.16,-4.22,-9.98,-2.75,-0.16,-1.4,0.89,22,0.85,53,0.89,PRY,1.98,False,2026-10-08
+Automation & Electrical Equipment,Nexans & Prysmian,coverage,PRY,Prysmian SpA,PRY IM,EUR,122.3,124.3,-1.61,-2.04,-4.82,-8.25,6.35,34.13,0.89,22,0.85,53,0.89,NEX,0.53,False,2026-10-08
+Automation & Electrical Equipment,Nexans & Prysmian,peer,ATKR,Atkore,ATKR US,USD,94.84,94.85,-0.01,0.07,31.28,37.61,43.89,46.9,0.08,21,0.37,49,0.08 / -0.04,NEX / PRY,2.13,False,2026-10-08
+Automation & Electrical Equipment,Nexans & Prysmian,peer,BDC,Belden,BDC US,USD,107.94,109.41,-1.34,-0.31,-11.56,1.98,-12.7,-6.4,0.77,22,0.66,51,0.77 / 0.82,NEX / PRY,0.8,False,2026-10-08
+Automation & Electrical Equipment,Nexans & Prysmian,peer,VISN,Vistance Networks,VISN US,USD,6.02,6.07,-0.82,-2.27,-51.8,-51.41,-67.69,-60.03,0.15,21,0.28,49,0.15 / 0.04,NEX / PRY,1.32,False,2026-10-08
+Automation & Electrical Equipment,Nexans & Prysmian,peer,GLW,Corning,GLW US,USD,152.83,163.25,-6.38,-4.73,-19.94,-16.95,-7.43,75.53,0.72,21,0.6,49,0.72 / 0.78,NEX / PRY,-4.24,True,2026-10-08
+Automation & Electrical Equipment,Rexel,coverage,RXL,Rexel SA,RXL FP,EUR,33.33,34.4,-3.11,-2.54,-12.17,-9.65,-8.73,17.36,,,,,,,-2.38,True,2026-10-08
+Automation & Electrical Equipment,Rexel,peer,FAST,Fastenal,FAST US,USD,50.49,49.83,1.32,0.52,8.6,8.56,4.79,6.18,0.08,21,0.22,49,0.08,RXL,2.05,False,2026-10-08
+Automation & Electrical Equipment,Rexel,peer,WCC,WESCO International,WCC US,USD,355.93,366.12,-2.78,-4.13,-1.18,12.58,21.68,58.72,0.63,22,0.59,51,0.63,RXL,-2.05,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,coverage,SU,Schneider Electric SE,SU FP,EUR,261.1,254.55,2.57,-10.77,-12.85,-1.02,2.01,4.94,,,,,,,3.66,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,peer,ETN,Eaton Corp plc,ETN US,USD,424.51,431.33,-1.58,-2.92,4.23,6.24,10.1,12.69,0.43,21,0.58,49,0.43,SU,-0.49,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,peer,VRT,Vertiv Holdings,VRT US,USD,243.73,246.49,-1.12,-0.97,-16.2,-23.31,-13.27,45.61,0.43,22,0.57,51,0.43,SU,-0.03,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,peer,HON,Honeywell,HON US,USD,206.6,208.11,-0.73,-3.37,-8.75,-6.24,-15.26,-0.4,0.17,21,0.24,49,0.17,SU,0.36,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,0.36,21,0.46,49,0.36,SU,0.99,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,peer,JCI,Johnson Controls,JCI US,USD,154.0,155.93,-1.24,1.47,5.21,9.82,10.79,42.03,0.46,22,0.49,51,0.46,SU,-0.15,False,2026-10-08
+Automation & Electrical Equipment,Schneider Electric,peer,ROK,Rockwell Automation,ROK US,USD,434.14,441.9,-1.76,-1.88,-8.04,-6.36,11.33,24.71,0.34,21,0.5,49,0.34,SU,-0.67,False,2026-10-08
+Automation & Electrical Equipment,Siemens,coverage,SIE,Siemens AG,SIE GY,EUR,264.25,271.2,-2.56,-2.81,-3.03,-0.49,14.15,7.75,,,,,,,-1.93,False,2026-10-08
+Automation & Electrical Equipment,Siemens,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,0.48,21,0.5,49,0.48,SIE,0.53,False,2026-10-08
+Automation & Electrical Equipment,Siemens,peer,HON,Honeywell,HON US,USD,206.6,208.11,-0.73,-3.37,-8.75,-6.24,-15.26,-0.4,0.2,21,0.28,49,0.20,SIE,-0.09,False,2026-10-08
+Automation & Electrical Equipment,Siemens,peer,GE,GE Aerospace,GE US,USD,305.62,303.62,0.66,-2.17,-8.75,-14.16,-0.79,1.01,0.53,22,0.35,51,0.53,SIE,1.29,False,2026-10-08
+Automation & Electrical Equipment,Siemens,peer,JCI,Johnson Controls,JCI US,USD,154.0,155.93,-1.24,1.47,5.21,9.82,10.79,42.03,0.55,22,0.52,51,0.55,SIE,-0.61,False,2026-10-08
+Automation & Electrical Equipment,Siemens,peer,ROK,Rockwell Automation,ROK US,USD,434.14,441.9,-1.76,-1.88,-8.04,-6.36,11.33,24.71,0.45,21,0.53,49,0.45,SIE,-1.12,False,2026-10-08
+Trucks & Elevators,Daimler Truck & Traton,coverage,DTG,Daimler Truck Holding AG,DTG GY,EUR,40.69,40.68,0.02,-1.98,-9.58,-3.99,-9.07,17.23,0.59,22,0.76,53,0.59,8TRA,-1.58,False,2026-10-08
+Trucks & Elevators,Daimler Truck & Traton,coverage,8TRA,TRATON SE,8TRA GY,EUR,32.84,33.26,-1.26,-4.53,-13.26,-3.53,-1.79,22.54,0.59,22,0.76,53,0.59,DTG,-2.87,False,2026-10-08
+Trucks & Elevators,Daimler Truck & Traton,peer,CMI,Cummins,CMI US,USD,520.4,517.32,0.6,0.66,-23.01,-22.24,-12.78,19.26,-0.2,21,0.25,49,-0.20 / 0.13,DTG / 8TRA,-1.01,False,2026-10-08
+Trucks & Elevators,Daimler Truck & Traton,peer,PCAR,PACCAR Inc,PCAR US,USD,109.66,106.86,2.62,-0.25,-11.97,-10.48,-11.7,14.55,0.13,21,0.32,49,0.13 / -0.01,DTG / 8TRA,1.01,False,2026-10-08
+Trucks & Elevators,Paccar,coverage,PCAR,PACCAR Inc,PCAR US,USD,109.66,106.86,2.62,-0.25,-11.97,-10.48,-11.7,14.55,,,,,,,2.81,False,2026-10-08
+Trucks & Elevators,Paccar,peer,CMI,Cummins,CMI US,USD,520.4,517.32,0.6,0.66,-23.01,-22.24,-12.78,19.26,0.39,21,0.58,49,0.39,PCAR,0.79,False,2026-10-08
+Trucks & Elevators,Paccar,peer,OSK,Oshkosh,OSK US,USD,127.35,128.61,-0.98,-2.65,-12.98,-9.0,-18.67,-5.37,0.12,21,0.54,49,0.12,PCAR,-0.79,False,2026-10-08
+Trucks & Elevators,Volvo,coverage,VOLVB,Volvo AB (B),VOLVB SS,SEK,309.5,312.4,-0.93,-2.8,-10.6,-7.25,-6.95,14.84,,,,,,,-1.78,False,2026-10-08
+Trucks & Elevators,Volvo,peer,CMI,Cummins,CMI US,USD,520.4,517.32,0.6,0.66,-23.01,-22.24,-12.78,19.26,0.04,21,0.56,49,0.04,VOLVB,-0.26,False,2026-10-08
+Trucks & Elevators,Volvo,peer,DE,Deere & Co,DE US,USD,652.58,656.87,-0.65,-2.2,-4.14,9.36,7.1,41.63,0.15,22,0.54,51,0.15,VOLVB,-1.51,False,2026-10-08
+Trucks & Elevators,Volvo,peer,PCAR,PACCAR Inc,PCAR US,USD,109.66,106.86,2.62,-0.25,-11.97,-10.48,-11.7,14.55,-0.01,21,0.56,49,-0.01,VOLVB,1.77,False,2026-10-08
+Trucks & Elevators,Kone & Schindler,coverage,KNEBV,KONE Oyj (B),KNEBV FH,EUR,51.92,52.36,-0.84,2.31,5.52,3.85,-4.59,-8.46,0.68,21,0.59,51,0.68,SCHP,-0.5,False,2026-10-08
+Trucks & Elevators,Kone & Schindler,coverage,SCHP,Schindler Holding (PC),SCHP SW,CHF,256.6,259.6,-1.16,0.31,1.18,-2.58,-3.53,-14.07,0.68,21,0.59,51,0.68,KNEBV,-0.82,False,2026-10-08
+Trucks & Elevators,Kone & Schindler,peer,JCI,Johnson Controls,JCI US,USD,154.0,155.93,-1.24,1.47,5.21,9.82,10.79,42.03,0.12,21,0.06,50,0.12 / 0.32,KNEBV / SCHP,-0.9,False,2026-10-08
+Trucks & Elevators,Kone & Schindler,peer,OTIS,Otis Worldwide Corp,OTIS US,USD,66.11,65.74,0.56,2.53,-9.55,-8.27,-16.9,-27.55,0.23,20,0.29,48,0.23 / 0.00,KNEBV / SCHP,0.9,False,2026-10-08
+Trucks & Elevators,Otis,coverage,OTIS,Otis Worldwide Corp,OTIS US,USD,66.11,65.74,0.56,2.53,-9.55,-8.27,-16.9,-27.55,,,,,,,0.43,False,2026-10-08
+Trucks & Elevators,Otis,peer,JCI,Johnson Controls,JCI US,USD,154.0,155.93,-1.24,1.47,5.21,9.82,10.79,42.03,-0.06,21,0.11,49,-0.06,OTIS,-1.37,False,2026-10-08
+Trucks & Elevators,Otis,peer,CARR,Carrier Global,CARR US,USD,55.83,55.0,1.51,1.1,-19.48,-16.35,-4.22,-6.64,0.35,21,0.4,49,0.35,OTIS,1.37,False,2026-10-08
+UK Industrials,Halma,coverage,HLMA,Halma plc,HLMA LN,GBp,3500.0,3478.0,0.63,1.04,-6.67,-3.63,-13.32,-1.91,,,,,,,5.09,False,2026-10-08
+UK Industrials,Halma,peer,COHR,Coherent,COHR US,USD,302.35,334.56,-9.63,-5.28,-6.83,-4.64,7.3,159.15,0.52,21,0.28,49,0.52,HLMA,-5.17,True,2026-10-08
+UK Industrials,Halma,peer,FN,Fabrinet,FN US,USD,487.33,497.99,-2.14,7.95,3.44,1.51,-20.13,27.1,0.53,21,0.28,49,0.53,HLMA,2.32,False,2026-10-08
+UK Industrials,Halma,peer,LITE,Lumentum,LITE US,USD,1048.6,1111.07,-5.62,0.27,30.75,48.3,17.03,542.96,0.54,21,0.17,49,0.54,HLMA,-1.16,True,2026-10-08
+UK Industrials,Halma,peer,AME,AMETEK,AME US,USD,247.52,248.62,-0.44,-0.63,4.1,6.99,7.39,35.12,0.62,22,0.18,51,0.62,HLMA,4.02,False,2026-10-08
+UK Industrials,IMI,coverage,IMI,IMI plc,IMI LN,GBp,3032.0,3052.0,-0.66,-1.11,-2.0,10.58,10.09,31.26,,,,,,,-0.76,False,2026-10-08
+UK Industrials,IMI,peer,WTS,Watts Water,WTS US,USD,347.14,348.26,-0.32,-3.44,-1.48,-0.26,15.27,23.81,0.59,21,0.49,49,0.59,IMI,-0.43,False,2026-10-08
+UK Industrials,IMI,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,0.42,21,0.43,49,0.42,IMI,-0.21,False,2026-10-08
+UK Industrials,IMI,peer,BMI,Badger Meter,BMI US,USD,127.66,124.07,2.89,-0.55,-11.46,-11.62,-17.25,-28.77,-0.2,21,0.28,49,-0.20,IMI,2.79,False,2026-10-08
+UK Industrials,IMI,peer,FLS,Flowserve,FLS US,USD,69.65,70.52,-1.23,-4.67,-9.52,0.88,-15.78,32.87,0.77,22,0.51,51,0.77,IMI,-1.34,False,2026-10-08
+UK Industrials,IMI,peer,CR,Crane Co (Crane NXT line),CR US,USD,202.12,203.55,-0.7,-2.04,-7.74,-5.61,9.85,12.03,0.54,21,0.42,49,0.54,IMI,-0.81,False,2026-10-08
+UK Industrials,Rotork,coverage,ROR,Rotork plc,ROR LN,GBp,491.0,490.2,0.16,0.53,1.45,69.66,45.96,43.82,,,,,,,0.88,False,2026-10-08
+UK Industrials,Rotork,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,-0.47,21,0.23,49,-0.47,ROR,0.62,False,2026-10-08
+UK Industrials,Rotork,peer,ITT,ITT Inc,ITT US,USD,198.7,200.39,-0.84,-1.7,-1.4,7.21,-5.42,10.6,-0.46,22,0.23,51,-0.46,ROR,-0.12,False,2026-10-08
+UK Industrials,Rotork,peer,FLS,Flowserve,FLS US,USD,69.65,70.52,-1.23,-4.67,-9.52,0.88,-15.78,32.87,-0.16,22,0.26,51,-0.16,ROR,-0.51,False,2026-10-08
+UK Industrials,Rotork,peer,CR,Crane Co (Crane NXT line),CR US,USD,202.12,203.55,-0.7,-2.04,-7.74,-5.61,9.85,12.03,-0.21,21,0.07,49,-0.21,ROR,0.02,False,2026-10-08
+UK Industrials,Smiths Group,coverage,SMIN,Smiths Group plc,SMIN LN,GBp,2710.0,2762.0,-1.88,-2.59,4.35,12.03,10.03,11.61,,,,,,,-1.95,False,2026-10-08
+UK Industrials,Smiths Group,peer,LII,Lennox International,LII US,USD,361.54,358.43,0.87,0.3,-6.14,-32.77,-24.38,-34.81,0.49,22,0.34,51,0.49,SMIN,0.8,False,2026-10-08
+UK Industrials,Smiths Group,peer,CARR,Carrier Global,CARR US,USD,55.83,55.0,1.51,1.1,-19.48,-16.35,-4.22,-6.64,0.32,21,0.22,49,0.32,SMIN,1.44,False,2026-10-08
+UK Industrials,Smiths Group,peer,EMR,Emerson Electric,EMR US,USD,159.06,159.22,-0.1,0.31,14.53,16.54,11.5,19.65,0.38,21,0.31,49,0.38,SMIN,-0.17,False,2026-10-08
+UK Industrials,Smiths Group,peer,FLS,Flowserve,FLS US,USD,69.65,70.52,-1.23,-4.67,-9.52,0.88,-15.78,32.87,0.55,22,0.33,51,0.55,SMIN,-1.3,False,2026-10-08
+UK Industrials,Smiths Group,peer,CR,Crane Co (Crane NXT line),CR US,USD,202.12,203.55,-0.7,-2.04,-7.74,-5.61,9.85,12.03,0.56,21,0.33,49,0.56,SMIN,-0.77,False,2026-10-08
+UK Industrials,Spirax Group,coverage,SPX,Spirax Group plc,SPX LN,GBp,7015.0,7140.0,-1.75,-2.23,-1.2,11.35,-3.13,0.79,,,,,,,-1.67,False,2026-10-08
+UK Industrials,Spirax Group,peer,DHR,Danaher,DHR US,USD,217.46,218.49,-0.47,2.69,5.96,13.99,10.84,6.1,0.26,22,0.31,51,0.26,SPX,-0.39,False,2026-10-08
+UK Industrials,Spirax Group,peer,IR,Ingersoll Rand,IR US,USD,78.0,77.24,0.98,3.65,-1.08,1.68,-7.88,-3.69,0.34,21,0.45,49,0.34,SPX,1.06,False,2026-10-08
+UK Industrials,Spirax Group,peer,WTS,Watts Water,WTS US,USD,347.14,348.26,-0.32,-3.44,-1.48,-0.26,15.27,23.81,0.45,21,0.49,49,0.45,SPX,-0.24,False,2026-10-08
+UK Industrials,Spirax Group,peer,IEX,IDEX,IEX US,USD,231.75,232.91,-0.5,0.83,2.7,6.12,17.13,38.86,0.27,22,0.45,51,0.27,SPX,-0.42,False,2026-10-08
+UK Industrials,Weir Group,coverage,WEIR,Weir Group plc,WEIR LN,GBp,2538.0,2560.0,-0.86,-1.4,-10.25,5.4,-16.9,-9.42,,,,,,,0.72,False,2026-10-08
+UK Industrials,Weir Group,peer,ITT,ITT Inc,ITT US,USD,198.7,200.39,-0.84,-1.7,-1.4,7.21,-5.42,10.6,0.25,32,0.11,90,0.25,WEIR,0.74,False,2026-10-08
+UK Industrials,Weir Group,peer,KMT,Kennametal,KMT US,USD,31.71,32.27,-1.74,0.13,-5.62,-4.23,-16.4,47.28,0.14,21,0.22,49,0.14,WEIR,-0.15,False,2026-10-08
+UK Industrials,Weir Group,peer,CAT,Caterpillar,CAT US,USD,796.18,813.83,-2.17,-3.65,-16.4,-16.02,3.19,58.56,0.53,21,0.44,49,0.53,WEIR,-0.59,False,2026-10-08
+Nordic Industrial Machinery,Assa Abloy,coverage,ASSAB,Assa Abloy AB (B),ASSAB SS,SEK,339.9,340.0,-0.03,-3.08,-3.98,2.75,-6.47,2.13,,,,,,,-1.44,False,2026-10-08
+Nordic Industrial Machinery,Assa Abloy,peer,ALLE,Allegion plc,ALLE US,USD,149.99,147.91,1.41,-2.78,-3.88,11.11,3.81,-15.86,0.71,22,0.68,51,0.71,ASSAB,0.0,False,2026-10-08
+Nordic Industrial Machinery,Atlas Copco,coverage,ATCOA,Atlas Copco AB (A),ATCOA SS,SEK,205.7,206.7,-0.48,-0.05,-1.48,11.01,15.72,20.29,,,,,,,0.42,False,2026-10-08
+Nordic Industrial Machinery,Atlas Copco,peer,AMAT,Applied Materials,AMAT US,USD,509.57,520.65,-2.13,-3.73,-15.42,-10.68,32.11,134.27,0.55,21,0.57,49,0.55,ATCOA,-1.23,False,2026-10-08
+Nordic Industrial Machinery,Atlas Copco,peer,EBARA,Ebara Corp,6361 JP,JPY,4718.0,4834.0,-2.4,-0.82,7.3,-18.77,-6.7,24.39,-0.16,18,0.11,47,-0.16,ATCOA,-1.5,False,2026-10-08
+Nordic Industrial Machinery,Atlas Copco,peer,IR,Ingersoll Rand,IR US,USD,78.0,77.24,0.98,3.65,-1.08,1.68,-7.88,-3.69,0.51,21,0.47,49,0.51,ATCOA,1.88,False,2026-10-08
+Nordic Industrial Machinery,Atlas Copco,peer,KLAC,KLA Corp,KLAC US,USD,196.72,196.83,-0.06,-1.8,-15.03,-11.06,17.63,85.13,0.52,21,0.51,49,0.52,ATCOA,0.84,False,2026-10-08
+Nordic Industrial Machinery,Epiroc,coverage,EPIA,Epiroc AB (A),EPIA SS,SEK,258.6,261.4,-1.07,0.04,-3.69,2.25,3.19,20.45,,,,,,,1.1,False,2026-10-08
+Nordic Industrial Machinery,Epiroc,peer,CAT,Caterpillar,CAT US,USD,796.18,813.83,-2.17,-3.65,-16.4,-16.02,3.19,58.56,0.58,21,0.57,49,0.58,EPIA,0.0,False,2026-10-08
+Nordic Industrial Machinery,Metso,coverage,METSO,Metso Oyj,METSO FH,EUR,16.44,16.68,-1.44,-2.11,10.03,7.75,12.17,44.23,,,,,,,1.29,False,2026-10-08
+Nordic Industrial Machinery,Metso,peer,CAT,Caterpillar,CAT US,USD,796.18,813.83,-2.17,-3.65,-16.4,-16.02,3.19,58.56,0.45,20,0.46,48,0.45,METSO,0.56,False,2026-10-08
+Nordic Industrial Machinery,Metso,peer,TEX,Terex,TEX US,USD,52.35,54.13,-3.29,-4.71,-22.41,-18.55,-17.13,-3.41,0.44,20,0.39,48,0.44,METSO,-0.56,True,2026-10-08
+Nordic Industrial Machinery,Sandvik,coverage,SAND,Sandvik AB,SAND SS,SEK,352.4,355.5,-0.87,-1.7,-12.43,-6.92,-10.4,29.85,,,,,,,1.08,False,2026-10-08
+Nordic Industrial Machinery,Sandvik,peer,CAT,Caterpillar,CAT US,USD,796.18,813.83,-2.17,-3.65,-16.4,-16.02,3.19,58.56,0.52,21,0.59,49,0.52,SAND,-0.22,False,2026-10-08
+Nordic Industrial Machinery,Sandvik,peer,KMT,Kennametal,KMT US,USD,31.71,32.27,-1.74,0.13,-5.62,-4.23,-16.4,47.28,0.18,21,0.41,49,0.18,SAND,0.22,False,2026-10-08
+Nordic Industrial Machinery,SKF,coverage,SKFB,SKF AB (B),SKFB SS,SEK,262.7,267.9,-1.94,-1.68,-4.61,5.04,11.27,9.69,,,,,,,0.77,False,2026-10-08
+Nordic Industrial Machinery,SKF,peer,NSK,NSK Ltd,6471 JP,JPY,1074.0,1117.0,-3.85,-2.67,1.27,-6.16,-9.1,40.54,0.24,18,0.36,48,0.24,SKFB,-1.14,True,2026-10-08
+Nordic Industrial Machinery,SKF,peer,NTN,NTN Corp,6472 JP,JPY,375.0,389.8,-3.8,-1.99,1.35,-5.06,8.07,9.62,0.13,18,0.19,48,0.13,SKFB,-1.08,True,2026-10-08
+Nordic Industrial Machinery,SKF,peer,TKR,Timken,TKR US,USD,114.34,114.91,-0.5,-3.91,-16.73,-16.68,7.99,50.73,0.51,21,0.43,49,0.51,SKFB,2.22,False,2026-10-08
+Aerospace & Defence,Rolls-Royce,coverage,RR,Rolls-Royce Holdings plc,RR/ LN,GBp,1367.0,1404.4,-2.66,-7.12,-7.7,-2.32,6.96,18.61,,,,,,,-3.0,False,2026-10-08
+Aerospace & Defence,Rolls-Royce,peer,GE,GE Aerospace,GE US,USD,305.62,303.62,0.66,-2.17,-8.75,-14.16,-0.79,1.01,0.35,22,0.4,51,0.35,RR,0.32,False,2026-10-08
+Aerospace & Defence,Rolls-Royce,peer,RTX,RTX Corp,RTX US,USD,184.32,180.26,2.25,-0.37,-5.93,-5.43,-9.42,9.34,0.08,21,0.19,49,0.08,RR,1.92,False,2026-10-08
+Aerospace & Defence,Rolls-Royce,peer,CMI,Cummins,CMI US,USD,520.4,517.32,0.6,0.66,-23.01,-22.24,-12.78,19.26,0.14,21,0.26,49,0.14,RR,0.26,False,2026-10-08
+Aerospace & Defence,Rolls-Royce,peer,CAT,Caterpillar,CAT US,USD,796.18,813.83,-2.17,-3.65,-16.4,-16.02,3.19,58.56,0.55,21,0.37,49,0.55,RR,-2.5,False,2026-10-08
+Aerospace & Defence,Melrose Industries,coverage,MRO,Melrose Industries plc,MRO LN,GBp,438.3,450.0,-2.6,-5.84,-12.08,-6.84,-20.05,-31.41,,,,,,,-2.84,False,2026-10-08
+Aerospace & Defence,Melrose Industries,peer,HWM,Howmet Aerospace,HWM US,USD,222.56,222.75,-0.09,-2.55,-17.83,-18.05,-10.98,16.13,0.03,21,0.19,49,0.03,MRO,-0.33,False,2026-10-08
+Aerospace & Defence,Melrose Industries,peer,TDG,TransDigm,TDG US,USD,1089.3,1096.21,-0.63,-0.72,-15.65,-15.98,-10.7,-15.29,0.04,21,0.35,49,0.04,MRO,-0.87,False,2026-10-08
+Aerospace & Defence,Melrose Industries,peer,WWD,Woodward,WWD US,USD,323.45,324.25,-0.25,-3.79,-20.41,-19.05,-18.11,28.51,0.21,21,0.2,49,0.21,MRO,-0.49,False,2026-10-08
+Aerospace & Defence,Melrose Industries,peer,MOGA,Moog Inc (A),MOG/A US,USD,362.92,360.39,0.7,-6.99,-10.85,-10.59,15.86,70.15,-0.03,21,-0.12,49,-0.03,MRO,0.46,False,2026-10-08
+Aerospace & Defence,Melrose Industries,peer,HXL,Hexcel,HXL US,USD,85.13,83.9,1.47,-1.86,-14.14,-13.6,2.18,29.79,-0.21,21,0.04,49,-0.21,MRO,1.22,False,2026-10-08
