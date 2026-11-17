@@ -85,11 +85,11 @@ UK Industrials,Weir Group,peer,KMT,Kennametal,KMT US,USD,23.26,23.99,-3.04,0.33,
 UK Industrials,Weir Group,peer,CAT,Caterpillar,CAT US,USD,570.49,600.2,-4.95,-1.15,11.24,20.46,54.21,133.25,0.42,29,0.32,85,0.42,WEIR,-1.7,True,2026-11-16
 Nordic Industrial Machinery,Assa Abloy,coverage,ASSAB,Assa Abloy AB (B),ASSAB SS,SEK,396.5,395.7,0.2,-2.85,-0.39,-8.81,-8.28,9.17,,,,,,,0.73,False,2026-11-16
 Nordic Industrial Machinery,Assa Abloy,peer,ALLE,Allegion plc,ALLE US,USD,190.97,191.98,-0.53,-2.81,5.63,-5.65,-16.02,-9.83,0.65,29,0.45,84,0.65,ASSAB,0.0,False,2026-11-16
-Nordic Industrial Machinery,Atlas Copco,coverage,ATCOA,Atlas Copco AB (A),ATCOA SS,SEK,191.9,192.25,-0.18,-2.95,1.64,5.41,4.19,17.65,,,,,,,3.72,False,2026-11-16
-Nordic Industrial Machinery,Atlas Copco,peer,AMAT,Applied Materials,AMAT US,USD,350.25,370.5,-5.47,-0.09,21.22,50.82,100.05,204.25,0.61,29,0.49,84,0.61,ATCOA,-1.57,True,2026-11-16
-Nordic Industrial Machinery,Atlas Copco,peer,EBARA,Ebara Corp,6361 JP,JPY,3324.0,3417.0,-2.72,1.06,16.37,19.57,38.93,120.67,0.17,30,0.31,80,0.17,ATCOA,1.18,False,2026-11-17
-Nordic Industrial Machinery,Atlas Copco,peer,IR,Ingersoll Rand,IR US,USD,83.43,85.06,-1.92,-2.16,11.88,-7.65,-7.79,-11.09,0.45,29,0.49,84,0.45,ATCOA,1.98,False,2026-11-16
-Nordic Industrial Machinery,Atlas Copco,peer,KLAC,KLA Corp,KLAC US,USD,143.96,152.32,-5.49,-1.71,8.41,33.27,65.37,149.32,0.55,29,0.43,84,0.55,ATCOA,-1.59,True,2026-11-16
+Nordic Industrial Machinery,Atlas Copco,coverage,ATCOA,Atlas Copco AB (A),ATCOA SS,SEK,191.9,192.25,-0.18,-2.95,1.64,5.41,4.19,17.65,,,,,,,3.82,False,2026-11-16
+Nordic Industrial Machinery,Atlas Copco,peer,AMAT,Applied Materials,AMAT US,USD,350.25,370.5,-5.47,-0.09,21.22,50.82,100.05,204.25,0.61,29,0.49,84,0.61,ATCOA,-1.47,True,2026-11-16
+Nordic Industrial Machinery,Atlas Copco,peer,EBARA,Ebara Corp,6361 JP,JPY,3310.0,3417.0,-3.13,1.06,16.37,19.57,38.93,120.67,0.17,30,0.31,80,0.17,ATCOA,0.87,True,2026-11-17
+Nordic Industrial Machinery,Atlas Copco,peer,IR,Ingersoll Rand,IR US,USD,83.43,85.06,-1.92,-2.16,11.88,-7.65,-7.79,-11.09,0.45,29,0.49,84,0.45,ATCOA,2.08,False,2026-11-16
+Nordic Industrial Machinery,Atlas Copco,peer,KLAC,KLA Corp,KLAC US,USD,143.96,152.32,-5.49,-1.71,8.41,33.27,65.37,149.32,0.55,29,0.43,84,0.55,ATCOA,-1.49,True,2026-11-16
 Nordic Industrial Machinery,Epiroc,coverage,EPIA,Epiroc AB (A),EPIA SS,SEK,241.3,244.3,-1.23,-4.55,-4.69,-0.08,14.47,17.59,,,,,,,3.72,False,2026-11-16
 Nordic Industrial Machinery,Epiroc,peer,CAT,Caterpillar,CAT US,USD,570.49,600.2,-4.95,-1.15,11.24,20.46,54.21,133.25,0.57,29,0.53,84,0.57,EPIA,0.0,True,2026-11-16
 Nordic Industrial Machinery,Metso,coverage,METSO,Metso Oyj,METSO FH,EUR,16.61,17.12,-2.98,-3.81,2.43,-7.39,-2.41,30.97,,,,,,,1.6,False,2026-11-16
@@ -98,10 +98,10 @@ Nordic Industrial Machinery,Metso,peer,TEX,Terex,TEX US,USD,54.54,56.94,-4.21,-1
 Nordic Industrial Machinery,Sandvik,coverage,SAND,Sandvik AB,SAND SS,SEK,355.4,362.1,-1.85,-4.25,2.83,-1.99,21.24,69.48,,,,,,,2.15,False,2026-11-16
 Nordic Industrial Machinery,Sandvik,peer,CAT,Caterpillar,CAT US,USD,570.49,600.2,-4.95,-1.15,11.24,20.46,54.21,133.25,0.63,29,0.54,84,0.63,SAND,-0.95,True,2026-11-16
 Nordic Industrial Machinery,Sandvik,peer,KMT,Kennametal,KMT US,USD,23.26,23.99,-3.04,0.33,0.9,-13.51,9.34,35.76,0.54,29,0.55,84,0.54,SAND,0.95,True,2026-11-16
-Nordic Industrial Machinery,SKF,coverage,SKFB,SKF AB (B),SKFB SS,SEK,274.9,280.2,-1.89,-1.63,9.21,9.21,4.93,16.5,,,,,,,0.07,False,2026-11-16
-Nordic Industrial Machinery,SKF,peer,NSK,NSK Ltd,6471 JP,JPY,960.4,975.4,-1.54,-2.2,5.27,-1.15,10.6,68.44,0.43,30,0.46,80,0.43,SKFB,0.43,False,2026-11-17
-Nordic Industrial Machinery,SKF,peer,NTN,NTN Corp,6472 JP,JPY,338.5,345.3,-1.97,-4.57,-5.52,12.62,5.26,62.68,0.25,30,0.36,80,0.25,SKFB,-0.0,False,2026-11-17
-Nordic Industrial Machinery,SKF,peer,TKR,Timken,TKR US,USD,106.31,108.91,-2.39,-1.33,3.72,28.63,50.61,74.76,0.38,29,0.56,84,0.38,SKFB,-0.42,False,2026-11-16
+Nordic Industrial Machinery,SKF,coverage,SKFB,SKF AB (B),SKFB SS,SEK,274.9,280.2,-1.89,-1.63,9.21,9.21,4.93,16.5,,,,,,,0.67,False,2026-11-16
+Nordic Industrial Machinery,SKF,peer,NSK,NSK Ltd,6471 JP,JPY,956.0,975.4,-1.99,-2.2,5.27,-1.15,10.6,68.44,0.43,30,0.46,80,0.43,SKFB,0.57,False,2026-11-17
+Nordic Industrial Machinery,SKF,peer,NTN,NTN Corp,6472 JP,JPY,333.9,345.3,-3.3,-4.57,-5.52,12.62,5.26,62.68,0.25,30,0.36,80,0.25,SKFB,-0.74,True,2026-11-17
+Nordic Industrial Machinery,SKF,peer,TKR,Timken,TKR US,USD,106.31,108.91,-2.39,-1.33,3.72,28.63,50.61,74.76,0.38,29,0.56,84,0.38,SKFB,0.17,False,2026-11-16
 Aerospace & Defence,Rolls-Royce,coverage,RR,Rolls-Royce Holdings plc,RR/ LN,GBp,1337.4,1350.6,-0.98,-5.89,8.21,11.5,8.46,43.26,,,,,,,2.3,False,2026-11-16
 Aerospace & Defence,Rolls-Royce,peer,GE,GE Aerospace,GE US,USD,325.18,331.81,-2.0,-4.83,12.73,16.51,11.72,42.25,0.4,29,0.72,85,0.40,RR,1.28,False,2026-11-16
 Aerospace & Defence,Rolls-Royce,peer,RTX,RTX Corp,RTX US,USD,194.89,198.58,-1.86,-1.67,10.44,-2.79,3.94,33.83,0.21,29,0.46,85,0.21,RR,1.42,False,2026-11-16
